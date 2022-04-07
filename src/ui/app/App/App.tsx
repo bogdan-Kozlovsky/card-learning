@@ -10,6 +10,7 @@ export const App = () => {
     const dispatch = useDispatch()
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
 
+
     useEffect(() => {
         if (!initialized) {
             dispatch(authMeTC())
