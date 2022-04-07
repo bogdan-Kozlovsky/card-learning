@@ -1,18 +1,18 @@
 import React from 'react';
-import Login from "../auth/login/Login";
-import Registration from "../auth/registration/Registration";
-import Profile from "../profile/Profile";
-import PasswordRecovery from "../auth/passwordRecovery/PasswordRecovery";
-import Error404 from "../common/Error404/Error404";
-import NewPassword from "../auth/newPassword/NewPassword";
-import AuthEmailPassword from "../auth/AuthEmailPassword/AuthEmailPassword";
+import {Login} from "../auth/Login/Login";
+import {Registration} from "../auth/Registration/Registration";
+import {Profile} from "../Profile/Profile";
+import {PasswordRecovery} from "../auth/PasswordRecovery/PasswordRecovery";
+import {Error404} from "../common/Error404/Error404";
+import {NewPassword} from "../auth/NewPassword/NewPassword";
+import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import { Navigate, Route, Routes,} from 'react-router-dom'
 
 const RoutesNav = () => {
     return (
-        <div>
+        <div className='container'>
             <Routes>
-                <Route path='/login' element={<Login />} />
+                <Route path='/' element={<Login />} />
                 <Route path='/register' element={<Registration />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route

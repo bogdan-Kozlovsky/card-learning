@@ -1,9 +1,9 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-const Navigate = () => {
+export const NavigateLink = () => {
     const initialDate = [
-        {to: '/login', name: 'Login'},
+        {to: '/', name: 'Login'},
         {to: '/register', name: 'Registration'},
         {to: 'profile', name: 'Profile'},
         {to: 'recovery-password', name: 'RecoveryPassword'},
@@ -23,4 +23,3 @@ const Navigate = () => {
     );
 };
 
-export default Navigate;
