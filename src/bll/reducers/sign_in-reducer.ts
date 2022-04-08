@@ -21,7 +21,7 @@ const initialState: InitialStateType = {
         deviceTokens: null,
         email: null,
         isAdmin: null,
-        name: null,
+        name: '',
         publicCardPacksCount: null,
         rememberMe: null,
         token: null,

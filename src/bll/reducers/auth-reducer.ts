@@ -1,13 +1,14 @@
 import {ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
-import {userDateAC} from "./profile-reducer";
 import {initializedAC} from "./app-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
+    loader: boolean
 }
 
 type ActionType = | ReturnType<typeof authMeAC>
+    | ReturnType<typeof loaderAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 
@@ -18,7 +19,7 @@ const initialState: InitialStateType = {
         deviceTokens: null,
         email: null,
         isAdmin: null,
-        name: null,
+        name: '',
         publicCardPacksCount: null,
         rememberMe: null,
         token: null,
@@ -27,15 +28,20 @@ const initialState: InitialStateType = {
         verified: null,
         __v: null,
         _id: null,
-    }
+    },
+    loader: false
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
 export const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case "AUTH/AUTH_ME": {
-            return {...state,profile:action.data}
+            return {...state, profile: action.data}
         }
+        case "AUTH/LOADER":
+            return {
+                ...state, loader: action.value
+            }
         default: {
             return state
         }
@@ -48,18 +54,22 @@ export const authMeAC = (data: ProfileType,) => {
         type: 'AUTH/AUTH_ME', data,
     } as const
 }
+export const loaderAC = (value: boolean) => ({type: 'AUTH/LOADER', value} as const)
+
 
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 
 export const authMeTC = () => async (dispatch: Dispatch) => {
-    let res = await requestsApi.authMeRequest()
+    dispatch(loaderAC(false))
     try {
-
+        let res = await requestsApi.authMeRequest()
         dispatch(authMeAC(res.data))
         // dispatch(userDateAC(res.data))
         dispatch(initializedAC(true))
     } catch (e) {
         alert('error authMe')
+    } finally {
+        dispatch(loaderAC(true))
     }
 }
 

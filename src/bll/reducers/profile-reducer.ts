@@ -1,10 +1,11 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
-import {ProfileType} from "../../dal/api";
+import {ProfileType, requestsApi} from "../../dal/api";
+import {Dispatch} from "redux";
 
 export type InitialStateType = {
     profile: ProfileType
 }
-type ActionType = | ReturnType<typeof userDateAC>
+type ActionType = | ReturnType<typeof userDateAC> | ReturnType<typeof updateProfileAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState: InitialStateType = {
@@ -14,7 +15,7 @@ const initialState: InitialStateType = {
         deviceTokens: null,
         email: null,
         isAdmin: null,
-        name: null,
+        name: '',
         publicCardPacksCount: null,
         rememberMe: null,
         token: null,
@@ -44,3 +45,17 @@ export const userDateAC = (data: ProfileType) => {
         type: 'PROFILE/USER_DATE', data
     }as const
 }
+export const updateProfileAC = (data: ProfileType) =>
+    ({ type: 'PROFILE/UPDATE_PROFILE', data } as const)
+///////////////////////////////////////////// Thunk ////////////////////////////////////////////
+
+
+export const updateProfileTC =
+    (data: { name: string; avatar: string }) => async (dispatch: Dispatch) => {
+        try {
+            const res = await requestsApi.updateProfile(data)
+            dispatch(updateProfileAC(res.data))
+        } catch (e) {
+            console.log(e)
+        }
+    }
