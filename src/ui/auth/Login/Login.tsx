@@ -2,29 +2,25 @@ import React, {ChangeEvent, useState} from 'react';
 import style from './login.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {requestLoginTC} from "../../../bll/reducers/sign_in-reducer";
 
 export const Login = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const [email, setEmail] = useState<string>('nya-admin@nya.nya')
     const [password, setPassword] = useState<string>('1qazxcvBG')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
+
+    // не удалять, после удаления не работает redirect
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    // не удалять, после удаления не работает redirect
+
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))
     }
 
-    /// bag
-    // if (initialized) {
-    //     return <Navigate to='profile'/>
-    // }
-    // if (initialized) {
-    //     navigate('/profile')
-    // }
 
     const onChangeHandlerEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value);

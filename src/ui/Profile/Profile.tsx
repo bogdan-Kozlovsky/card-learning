@@ -10,14 +10,14 @@ import EditableSpan from '../common/EditableSpan/EditableSpan';
 export const Profile = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    // не удалять, после удаления не работает redirect
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
+    // не удалять, после удаления не работает redirect
 
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
-    const profile = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
-    const {name, avatar, ...props} = profile
-    console.log(avatar)
-    const changeNameProfile = (name: string, avatar: string
-    ) => {
+    const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
+    const changeNameProfile = (name: string, avatar: string) => {
         dispatch(updateProfileTC({name, avatar}))
     }
     if (!initialized) {

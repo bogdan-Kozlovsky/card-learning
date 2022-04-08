@@ -1,15 +1,12 @@
-///////////////////////////////////////////// type ////////////////////////////////////////////
 import {Dispatch} from "redux";
 import {ProfileType, requestsApi} from "../../dal/api";
 import {authMeAC} from "./auth-reducer";
 
+///////////////////////////////////////////// type ////////////////////////////////////////////
 export type InitialStateType = {
     profile: ProfileType
     isLogin: boolean
 }
-// type InitialStateType = {
-//     isLogin: boolean
-// }
 type ActionType = | ReturnType<typeof signInAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
@@ -34,9 +31,6 @@ const initialState: InitialStateType = {
     isLogin: false
 }
 
-// const initialState: InitialStateType = {
-//     isLogin: false,
-// }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
 export const sign_inReducer = (state: InitialStateType = initialState, action: ActionType) => {
