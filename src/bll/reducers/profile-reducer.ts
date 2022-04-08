@@ -1,7 +1,7 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 import {ProfileType} from "../../dal/api";
 
-type InitialStateType = {
+export type InitialStateType = {
     profile: ProfileType
 }
 type ActionType = | ReturnType<typeof userDateAC>
@@ -27,7 +27,7 @@ const initialState: InitialStateType = {
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
-export const sign_inReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case 'PROFILE/USER_DATE': {
             return {...state, ...action.data}

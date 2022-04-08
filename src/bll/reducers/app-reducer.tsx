@@ -1,5 +1,5 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
-type InitialStateType = {
+export type InitialStateType = {
     initialized: boolean
 }
 type ActionType = | ReturnType<typeof initializedAC>

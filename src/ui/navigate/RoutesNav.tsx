@@ -1,12 +1,12 @@
 import React from 'react';
 import {Login} from "../auth/Login/Login";
 import {Registration} from "../auth/Registration/Registration";
-import {Profile} from "../Profile/Profile";
 import {PasswordRecovery} from "../auth/PasswordRecovery/PasswordRecovery";
 import {Error404} from "../common/Error404/Error404";
 import {NewPassword} from "../auth/NewPassword/NewPassword";
 import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import { Navigate, Route, Routes,} from 'react-router-dom'
+import {Profile} from "../profile/Profile";
 
 const RoutesNav = () => {
     return (
