@@ -1,4 +1,8 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
+import {Dispatch} from "redux";
+import {ProfileType, requestsApi} from "../../dal/api";
+import {signInAC} from "./sign_in-reducer";
+
 export type InitialStateType = {
     initialized: boolean
 }
@@ -10,7 +14,7 @@ const initialState: InitialStateType = {
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
-export const appReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const appReducer = (state: InitialStateType = initialState, action: ActionType):InitialStateType => {
     switch (action.type) {
         case "APP/INITIALIZED": {
             return {...state, initialized: action.value}
@@ -28,4 +32,21 @@ export const initializedAC = (value: boolean) => {
     } as const
 }
 
+// export const logoutMeAC = () => {
+//     return {
+//         type: 'LOGOUT/LOGOUT'
+//     } as const
+// }
+//
+// ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
+export const logoutTC = () => (dispatch: Dispatch) => {
+    requestsApi.logoutRequest()
+        .then((res) => {
+            dispatch(signInAC({} as ProfileType, false))
+            dispatch(initializedAC(false))
+        })
+        .catch((err: string) => {
+            alert('error logout')
+        })
+}
 

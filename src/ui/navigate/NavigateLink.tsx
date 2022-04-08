@@ -5,10 +5,10 @@ export const NavigateLink = () => {
     const initialDate = [
         {to: '/', name: 'Login'},
         {to: '/register', name: 'Registration'},
-        {to: 'profile', name: 'Profile'},
-        {to: 'recovery-password', name: 'RecoveryPassword'},
-        {to: 'entering-new-password', name: 'EnteringNewPassword'},
-        {to: 'auth-email-password', name: 'AuthEmailPassword'},
+        {to: '/profile', name: 'Profile'},
+        {to: '/recovery-password', name: 'RecoveryPassword'},
+        {to: '/entering-new-password', name: 'EnteringNewPassword'},
+        {to: '/auth-email-password', name: 'AuthEmailPassword'},
     ]
     return (
         <div>

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react'
 
-import style from '../../profile/profile.module.css'
+// import style from '../../profile/profile.module.css'
 
 type EditableSpanPropsType = {
     titleName: string
@@ -28,10 +28,11 @@ const EditableSpan = ({titleName, changeNameProfile,}: EditableSpanPropsType) =>
             value={title}
         />
     ) : (
-        <span onDoubleClick={onEditMode} className={style.name}>
+        <span onDoubleClick={onEditMode} >
             {title}
         </span>
     )
 }
 
+// className={style.name}
 export default EditableSpan

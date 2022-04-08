@@ -43,13 +43,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 export const userDateAC = (data: ProfileType) => {
     return {
         type: 'PROFILE/USER_DATE', data
-    }as const
+    } as const
 }
 export const updateProfileAC = (data: ProfileType) =>
-    ({ type: 'PROFILE/UPDATE_PROFILE', data } as const)
+    ({type: 'PROFILE/UPDATE_PROFILE', data} as const)
+
+
 ///////////////////////////////////////////// Thunk ////////////////////////////////////////////
-
-
 export const updateProfileTC =
     (data: { name: string; avatar: string }) => async (dispatch: Dispatch) => {
         try {

@@ -14,16 +14,13 @@ export const Login = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false)
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
-    if (isLogin) {
-        return <Navigate to='/profile'/>
-    }
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))
     }
 
     /// bag
     // if (initialized) {
-    //     return <Navigate to='/profile'/>
+    //     return <Navigate to='profile'/>
     // }
     // if (initialized) {
     //     navigate('/profile')
@@ -38,6 +35,11 @@ export const Login = () => {
     const onChangeHandlerChecked = (e: ChangeEvent<HTMLInputElement>) => {
         setRememberMe(e.currentTarget.checked);
     };
+
+    if (isLogin ) {
+        return <Navigate to='/profile'/>
+    }
+
     return (
         <div className="wrapperBox">
             <div className="boxMax">

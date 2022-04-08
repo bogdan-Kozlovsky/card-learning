@@ -5,12 +5,14 @@ import {sign_inReducer} from "./reducers/sign_in-reducer";
 import {appReducer} from "./reducers/app-reducer";
 import {authReducer} from "./reducers/auth-reducer";
 import {profileReducer} from "./reducers/profile-reducer";
+// import {logoutReducer} from "./reducers/logout-reducer";
 
 export const rootReducer = combineReducers({
     signUp: sign_upReducer,
     signIn: sign_inReducer,
     app: appReducer,
     auth: authReducer,
+    // logout: logoutReducer
     // profile: profileReducer
 
 })

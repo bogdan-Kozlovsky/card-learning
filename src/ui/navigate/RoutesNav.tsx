@@ -6,7 +6,7 @@ import {Error404} from "../common/Error404/Error404";
 import {NewPassword} from "../auth/NewPassword/NewPassword";
 import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import { Navigate, Route, Routes,} from 'react-router-dom'
-import {Profile} from "../profile/Profile";
+import {Profile} from "../Profile/Profile";
 
 const RoutesNav = () => {
     return (

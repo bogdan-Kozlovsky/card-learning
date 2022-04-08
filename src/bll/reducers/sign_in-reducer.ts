@@ -1,7 +1,7 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 import {Dispatch} from "redux";
 import {ProfileType, requestsApi} from "../../dal/api";
-import {userDateAC} from "./profile-reducer";
+import {authMeAC} from "./auth-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
@@ -62,7 +62,8 @@ export const requestLoginTC = (data: { email: string, password: string, remember
     requestsApi.loginRequest(data)
         .then((res) => {
             dispatch(signInAC(res.data,true))
-            dispatch(userDateAC(res.data))
+            // dispatch(userDateAC(res.data))
+            dispatch(authMeAC(res.data))
         })
         .catch((err: string) => {
             alert('error login')
