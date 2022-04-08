@@ -7,6 +7,10 @@ type DeviceTokenType = {
     token: string
     tokenDeathTime: number
 }
+export type UpdateProfileType = {
+    avatar: string
+    name: string
+}
 
 export type ProfileType = {
     avatar: string
@@ -14,7 +18,7 @@ export type ProfileType = {
     deviceTokens: Array<DeviceTokenType> | null
     email: string | null
     isAdmin: boolean | null
-    name: string | null
+    name: string
     publicCardPacksCount: number | null
     rememberMe: boolean | null
     token: string | null
@@ -64,5 +68,8 @@ export const requestsApi = {
     },
     logoutRequest() {
         return instance.delete('/auth/me', {})
+    },
+    updateProfile(data: UpdateProfileType) {
+        return instance.put<ProfileType>('auth/me', data)
     }
 }

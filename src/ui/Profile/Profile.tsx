@@ -1,13 +1,24 @@
 import React from 'react';
 import style from './profile.module.css'
 import {Navigate, useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
+import {ProfileType} from "../../dal/api";
+import {updateProfileTC} from "../../bll/reducers/profile-reducer";
+import EditableSpan from '../common/EditableSpan/EditableSpan';
+import {log} from "util";
 
 export const Profile = () => {
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    const profile = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
+    const {name, avatar, ...props} = profile
+    console.log(avatar)
+    const changeNameProfile = (name: string, avatar:string
+    ) => {
+        dispatch(updateProfileTC({name, avatar}))
+    }
     // if (initialized) {
     //     navigate('/profile')
     // }
@@ -21,8 +32,10 @@ export const Profile = () => {
                 <div className={style.leftBox}>
                     <div className={style.avatarBox}>
                         <div>
-                            {/*<img src={avatar} alt="avatar" />*/}
-                            {/*<p className={style.name}>{name}</p>*/}
+                            <div>
+                                <img className = {style.avatar} src={avatar} alt="avatar"/>
+                            </div>
+                            <EditableSpan titleName={name} changeNameProfile={changeNameProfile} />
                             {/*<p className={style.description}>*/}
                             {/*    Front-end developer*/}
                             {/*</p>*/}
