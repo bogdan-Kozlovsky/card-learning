@@ -7,7 +7,8 @@ export type InitialStateType = {
     loader: boolean
 }
 
-type ActionType = | ReturnType<typeof authMeAC>
+type ActionType =
+    | ReturnType<typeof authMeAC>
     | ReturnType<typeof loaderAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
@@ -38,10 +39,11 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case "AUTH/AUTH_ME": {
             return {...state, profile: action.data}
         }
-        case "AUTH/LOADER":
+        case "AUTH/LOADER":{
             return {
                 ...state, loader: action.value
             }
+        }
         default: {
             return state
         }
@@ -63,9 +65,9 @@ export const authMeTC = () => async (dispatch: Dispatch) => {
     dispatch(loaderAC(false))
     try {
         let res = await requestsApi.authMeRequest()
+        dispatch(initializedAC(true))
         dispatch(authMeAC(res.data))
         // dispatch(userDateAC(res.data))
-        dispatch(initializedAC(true))
     } catch (e) {
         alert('error authMe')
     } finally {
