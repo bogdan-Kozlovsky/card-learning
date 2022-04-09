@@ -6,8 +6,12 @@ import {authMeAC} from "./auth-reducer";
 export type InitialStateType = {
     profile: ProfileType
     isLogin: boolean
+    loginError: string
 }
-type ActionType = | ReturnType<typeof signInAC>
+type ActionType =
+    | ReturnType<typeof signInAC>
+    | ReturnType<typeof signInErrorAC>
+
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 
@@ -28,15 +32,19 @@ const initialState: InitialStateType = {
         __v: null,
         _id: null,
     },
-    isLogin: false
+    isLogin: false,
+    loginError: '',
 }
 
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
-export const sign_inReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const sign_inReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "LOGIN/SIGN_IN": {
-            return {...state,profile:action.data, isLogin: action.value}
+            return {...state, profile: action.data, isLogin: action.value}
+        }
+        case "LOGIN_ERROR": {
+            return {...state, loginError: action.error}
         }
         default: {
             return state
@@ -50,16 +58,19 @@ export const signInAC = (data: ProfileType, value: boolean) => {
         type: 'LOGIN/SIGN_IN', data, value
     } as const
 }
+export const signInErrorAC = (error: string) => ({type: 'LOGIN_ERROR', error} as const)
 
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 export const requestLoginTC = (data: { email: string, password: string, rememberMe: boolean }) => (dispatch: Dispatch) => {
     requestsApi.loginRequest(data)
         .then((res) => {
-            dispatch(signInAC(res.data,true))
-            // dispatch(userDateAC(res.data))
+            dispatch(signInAC(res.data, true))
             dispatch(authMeAC(res.data))
         })
-        .catch((err: string) => {
-            alert('error login')
+        .catch(error => {
+            dispatch(signInErrorAC(error.response.data.error))
+            setTimeout(() => {
+                dispatch(signInErrorAC(''))
+            }, 3000)
         })
 }

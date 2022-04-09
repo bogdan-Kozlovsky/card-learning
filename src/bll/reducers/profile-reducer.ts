@@ -28,7 +28,7 @@ const initialState: InitialStateType = {
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
-export const profileReducer = (state: InitialStateType = initialState, action: ActionType) => {
+ const profileReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case 'PROFILE/USER_DATE': {
             return {...state, ...action.data}
@@ -40,12 +40,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 ///////////////////////////////////////////// action creator ////////////////////////////////////////////
-export const userDateAC = (data: ProfileType) => {
+ const userDateAC = (data: ProfileType) => {
     return {
         type: 'PROFILE/USER_DATE', data
     } as const
 }
-export const updateProfileAC = (data: ProfileType) =>
+ const updateProfileAC = (data: ProfileType) =>
     ({type: 'PROFILE/UPDATE_PROFILE', data} as const)
 
 

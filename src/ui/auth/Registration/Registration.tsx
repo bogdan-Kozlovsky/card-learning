@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './registration.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {Navigate} from 'react-router-dom';
+import {Navigate, NavLink} from 'react-router-dom';
 import {AppRootStateType} from "../../../bll/store";
 import {requestRegistrationTC} from "../../../bll/reducers/sign_up-reducer";
 
@@ -50,7 +50,9 @@ export const Registration = () => {
                     />
                 </label>
                 <div className={style.buttons}>
-                    <button className={style.cancel}>Cancel</button>
+                    <NavLink to={'/'} className={style.cancel}>
+                        Cancel
+                    </NavLink>
                     <button
                         onClick={sendRegistrationRequest}
                         className={style.btnRegister}
