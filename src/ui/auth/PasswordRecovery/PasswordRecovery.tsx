@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './passwordRecovery.module.css'
+import {NavLink} from "react-router-dom";
 
 export const PasswordRecovery = () => {
     return (
@@ -25,9 +26,9 @@ export const PasswordRecovery = () => {
                 <a href="#" className="detailedLink">
                     Did you remember your password?
                 </a>
-                <a href="#" className="linkFooter">
+                <NavLink to={'/'} className={style.forgotLink}>
                     Try login in
-                </a>
+                </NavLink>
             </div>
         </div>
     );

@@ -17,6 +17,8 @@ export const Profile = () => {
 
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
+
+
     const changeNameProfile = (name: string, avatar: string) => {
         dispatch(updateProfileTC({name, avatar}))
     }

@@ -14,7 +14,7 @@ const initialState: InitialStateType = {
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
-export const sign_upReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const sign_upReducer = (state: InitialStateType = initialState, action: ActionType):InitialStateType => {
     switch (action.type) {
         case "REGISTRATION/SIGN_UP": {
             return {...state, isRegistration: action.value}

@@ -1,15 +1,18 @@
 import {ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
 import {initializedAC} from "./app-reducer";
+import {signInErrorAC} from "./sign_in-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
     loader: boolean
+    authError: string
 }
 
 type ActionType =
     | ReturnType<typeof authMeAC>
     | ReturnType<typeof loaderAC>
+    | ReturnType<typeof authErrorAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 
@@ -30,19 +33,23 @@ const initialState: InitialStateType = {
         __v: null,
         _id: null,
     },
-    loader: false
+    loader: false,
+    authError: '',
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
-export const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "AUTH/AUTH_ME": {
             return {...state, profile: action.data}
         }
-        case "AUTH/LOADER":{
+        case "AUTH/LOADER": {
             return {
                 ...state, loader: action.value
             }
+        }
+        case "AUTH_ERROR": {
+            return {...state, authError: action.error}
         }
         default: {
             return state
@@ -57,22 +64,26 @@ export const authMeAC = (data: ProfileType,) => {
     } as const
 }
 export const loaderAC = (value: boolean) => ({type: 'AUTH/LOADER', value} as const)
-
+export const authErrorAC = (error: string) => ({type: 'AUTH_ERROR', error} as const)
 
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 
-export const authMeTC = () => async (dispatch: Dispatch) => {
+export const authMeTC = () => (dispatch: Dispatch) => {
     dispatch(loaderAC(false))
-    try {
-        let res = await requestsApi.authMeRequest()
-        dispatch(initializedAC(true))
-        dispatch(authMeAC(res.data))
-        // dispatch(userDateAC(res.data))
-    } catch (e) {
-        alert('error authMe')
-    } finally {
-        dispatch(loaderAC(true))
-    }
+    requestsApi.authMeRequest()
+        .then((res) => {
+            dispatch(initializedAC(true))
+            dispatch(authMeAC(res.data))
+        })
+        .catch(error => {
+            dispatch(authErrorAC(error.response.data.error))
+            setTimeout(() => {
+                dispatch(authErrorAC(''))
+            }, 3000)
+        })
+        .finally(() => {
+            dispatch(loaderAC(true))
+        })
 }
 
 
