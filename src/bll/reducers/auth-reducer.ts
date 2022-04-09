@@ -1,4 +1,4 @@
-import {ProfileType, requestsApi} from "../../dal/api";
+import {ForgotPasswordType, ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
 import {initializedAC} from "./app-reducer";
 import {signInErrorAC} from "./sign_in-reducer";
@@ -84,6 +84,11 @@ export const authMeTC = () => (dispatch: Dispatch) => {
         .finally(() => {
             dispatch(loaderAC(true))
         })
+}
+export const forgotPasswordTC = (data: ForgotPasswordType) => (dispatch: Dispatch) => {
+    requestsApi.forgotPassword(data)
+        .then(() => alert('OK'))
+        .catch(e => alert('e'))
 }
 
 

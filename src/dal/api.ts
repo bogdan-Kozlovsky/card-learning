@@ -47,10 +47,17 @@ type AddedUserType = {
     __v: number
     _id: string
 }
+export type ForgotPasswordType = {
+    email: string, // кому восстанавливать пароль
+    from: string,
+    // можно указать разработчика фронта)
+    message: string // хтмп-письмо, вместо $token$ бэк вставит токен
+}
 
 // instance
 export const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: "https://neko-back.herokuapp.com/2.0",
+        // 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -71,5 +78,8 @@ export const requestsApi = {
     },
     updateProfile(data: UpdateProfileType) {
         return instance.put<ProfileType>('auth/me', data)
+    },
+    forgotPassword(data: ForgotPasswordType) {
+        return instance.post<ProfileType>('/auth/forgot', data)
     }
 }
