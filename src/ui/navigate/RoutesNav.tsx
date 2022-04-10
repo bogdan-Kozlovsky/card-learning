@@ -25,7 +25,7 @@ const RoutesNav = () => {
                     element={<AuthEmailPassword />}
                 />
                 <Route
-                    path='entering-new-password'
+                    path='entering-new-password/:token'
                     element={<NewPassword />}
                 />
                 <Route path='404' element={<Error404 />} />

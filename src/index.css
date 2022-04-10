@@ -77,13 +77,6 @@ ul {
     padding: 15px 3px;
     margin-bottom: 24px;
     background-color: #F9F9FE;
-
-    /*&::placeholder {*/
-    /*     font-weight: 500;*/
-    /*     font-size: 16px;*/
-    /*     line-height: 24px;*/
-    /*     color: #2D2E46;*/
-    /* }*/
 }
 
 .input ::placeholder {
@@ -174,4 +167,14 @@ ul {
 
 .wrapperLinkCenter {
     text-align: center;
+}
+
+.inputPasswordShow{
+    position: relative;
+}
+
+.btnShow{
+    position: absolute;
+    top: 0;
+    right: 0;
 }

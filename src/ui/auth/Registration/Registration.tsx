@@ -10,8 +10,8 @@ export const Registration = () => {
     const registerError = useSelector<AppRootStateType, string>(state => state.signUp.registerError)
 
     const dispatch = useDispatch()
-    const [email, setEmail] = useState<string>('nya-admin@nya.nya');
-    const [password, setPassword] = useState<string>('1qazxcvBG');
+    const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com');
+    const [password, setPassword] = useState<string>('Stupid23Stupid');
 
     if (isRegistration) {
         return <Navigate to='/'/>
