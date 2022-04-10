@@ -4,17 +4,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
 import {Navigate, NavLink} from "react-router-dom";
 import {requestLoginTC} from "../../../bll/reducers/sign_in-reducer";
+import {SuperButton} from "../../common/SuperButton/SuperButton";
+import {SuperInput, SuperInputPassword} from "../../common/SuperInput/SuperInput";
+import openShow from '../../assets/images/openShow.svg'
+import closeShow from '../../assets/images/closeShow.svg'
 
 export const Login = () => {
     const dispatch = useDispatch()
 
-    const [email, setEmail] = useState<string>('nya-admin@nya.nya')
-    const [password, setPassword] = useState<string>('1qazxcvBG')
+    const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
+    const [password, setPassword] = useState<string>('Stupid23Stupid2')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
     const loginError = useSelector<AppRootStateType, string>(state => state.signIn.loginError)
     const authError = useSelector<AppRootStateType, string>(state => state.auth.authError)
-
+    // const [shown, setShown] = useState(false);
 
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))
@@ -45,30 +49,17 @@ export const Login = () => {
 
                 <label className="inputLabel">
                     Email
-                    <input
-                        className='input'
-                        value={email}
-                        onChange={onChangeHandlerEmail}
-                        type="text"
-                    />
+                    <SuperInput className={'input'} value={email} onChange={onChangeHandlerEmail}
+                                type={'text'}/>
                 </label>
                 <label className="inputLabel">
                     Password
-                    <input
-                        className='input'
-                        value={password}
-                        onChange={onChangeHandlerPassword}
-                        type="password"
-                    />
+                    <SuperInputPassword className={'input'} value={password} onChange={onChangeHandlerPassword}/>
                 </label>
-                <label className="inputLabel">
+                <label className="inputLabel inputLabelFlex">
                     Remember Me
-                    <input
-                        className='inputCheckbox'
-                        type="checkbox"
-                        checked={rememberMe}
-                        onChange={onChangeHandlerChecked}
-                    />
+                    <SuperInput type={'checkbox'} onChange={onChangeHandlerChecked} className='inputCheckbox'
+                                checked={rememberMe}/>
                 </label>
 
                 <div className={style.wrapperLink}>
@@ -76,11 +67,7 @@ export const Login = () => {
                         Forgot Password
                     </NavLink>
                 </div>
-
-                <button onClick={isLoginHandler}
-                        className="btnBlue">
-                    Login
-                </button>
+                <SuperButton name={'Login'} onClick={isLoginHandler} className="btnBlue"/>
                 <div className='wrapperLinkCenter'>
                     <NavLink to={'/register'} className={style.forgotLink}>
                         Sign Up

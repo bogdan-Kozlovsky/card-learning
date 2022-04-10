@@ -77,13 +77,6 @@ ul {
     padding: 15px 3px;
     margin-bottom: 24px;
     background-color: #F9F9FE;
-
-    /*&::placeholder {*/
-    /*     font-weight: 500;*/
-    /*     font-size: 16px;*/
-    /*     line-height: 24px;*/
-    /*     color: #2D2E46;*/
-    /* }*/
 }
 
 .input ::placeholder {
@@ -106,6 +99,10 @@ ul {
     line-height: 20px;
     color: #24254A;
     opacity: 0.5;
+}
+
+.inputLabelFlex{
+    display: flex;
 }
 
 .btnBlue {
@@ -174,4 +171,16 @@ ul {
 
 .wrapperLinkCenter {
     text-align: center;
+}
+
+.inputPasswordShow{
+    position: relative;
+}
+
+.btnShow{
+    width: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    right: 10px;
 }

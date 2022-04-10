@@ -7,7 +7,7 @@ export const NavigateLink = () => {
         {to: '/register', name: 'Registration'},
         {to: '/profile', name: 'Profile'},
         {to: '/recovery-password', name: 'RecoveryPassword'},
-        {to: '/entering-new-password', name: 'EnteringNewPassword'},
+        {to: '/entering-new-password/:token', name: 'EnteringNewPassword'},
         {to: '/auth-email-password', name: 'AuthEmailPassword'},
     ]
     return (

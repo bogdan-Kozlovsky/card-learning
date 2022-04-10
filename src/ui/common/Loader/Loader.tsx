@@ -1,16 +1,11 @@
 import loader from './image/preloader.svg'
+import style from './loader.module.css'
 
 export const Loader = () => {
     return (
         <div>
             <img
-                style={{
-                    position: 'fixed',
-                    zIndex: 999,
-                    width: '10%',
-                    top: '50%',
-                    left: '50%',
-                }}
+                className={style.loader}
                 src={loader}
                 alt=''
             />

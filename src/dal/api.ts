@@ -56,8 +56,8 @@ export type ForgotPasswordType = {
 
 // instance
 export const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-        // 'http://localhost:7542/2.0/',
+    baseURL: "https://neko-back.herokuapp.com/2.0/",
+    // 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -65,13 +65,13 @@ export const instance = axios.create({
 export const requestsApi = {
     // api registration
     registrationRequest(data: RegistrationType) {
-        return instance.post<AddedUserType>('/auth/register', data)
+        return instance.post<AddedUserType>('auth/register', data)
     },
     loginRequest(data: { email: string, password: string, rememberMe: boolean }) {
-        return instance.post<ProfileType>('/auth/login', data)
+        return instance.post<ProfileType>('auth/login', data)
     },
     authMeRequest() {
-        return instance.post<ProfileType>('/auth/me', {})
+        return instance.post<ProfileType>('auth/me', {})
     },
     logoutRequest() {
         return instance.delete('/auth/me', {})
@@ -80,6 +80,9 @@ export const requestsApi = {
         return instance.put<ProfileType>('auth/me', data)
     },
     forgotPassword(data: ForgotPasswordType) {
-        return instance.post<ProfileType>('/auth/forgot', data)
+        return instance.post<ProfileType>('auth/forgot', data)
+    },
+    newPassword(data: { password: string, resetPasswordToken: string | undefined }) {
+        return instance.post<{ info: string, error: string }>('auth/set-new-password', data)
     }
 }
