@@ -38,8 +38,8 @@ export const Login = () => {
     return (
         <div className="wrapperBox">
             <div className="boxMax">
-                {loginError && <div>{loginError}</div>}
-                {authError && <div>{authError}</div>}
+                {loginError && <div className='error'>{loginError}</div>}
+                {authError && <div className='error'>{authError}</div>}
                 <h2 className="title">It-incubator</h2>
                 <h3 className="subtitle">Sign In</h3>
 
@@ -81,9 +81,11 @@ export const Login = () => {
                         className="btnBlue">
                     Login
                 </button>
-                <NavLink to={'/register'} className={style.forgotLink}>
-                    Sign Up
-                </NavLink>
+                <div className='wrapperLinkCenter'>
+                    <NavLink to={'/register'} className={style.forgotLink}>
+                        Sign Up
+                    </NavLink>
+                </div>
             </div>
         </div>
     );
@@ -92,9 +94,6 @@ export const Login = () => {
 
 const Error = (error: string) => {
 
-    setTimeout(() => {
-
-    }, 3000)
     return (
         <div>
             {error && <div>{error}</div>}

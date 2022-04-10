@@ -19,9 +19,12 @@
     border: none;
 }
 .cancel{
+    display: block;
     background: #D7D8EF;
     border-radius: 30px;
     width: 124px;
     height: 36px;
     border: none;
+    text-align: center;
+    padding: 5px 0;
 }

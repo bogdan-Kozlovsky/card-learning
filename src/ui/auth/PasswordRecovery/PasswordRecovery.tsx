@@ -1,11 +1,13 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './passwordRecovery.module.css'
 import {Navigate, NavLink} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {forgotPasswordTC} from "../../../bll/reducers/auth-reducer";
+import {AppRootStateType} from "../../../bll/store";
 
 export const PasswordRecovery = () => {
     const [email, setEmail] = useState<string>("nya-admin@nya.nya")
+
     const dispatch = useDispatch()
     const data = {
         email,
@@ -21,9 +23,7 @@ link</a>
     }
     const onClickHandler = () => {
         dispatch(forgotPasswordTC(data))
-       return <Navigate to = '/auth-email-password'/>
     }
-
 
     return (
         <div className="wrapperBox">
@@ -44,13 +44,16 @@ link</a>
                     Enter your email address and we will send you further instructions{' '}
                 </p>
                 <button onClick={onClickHandler} className="btnBlue">Send Instructions</button>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#" className="detailedLink">
-                    Did you remember your password?
-                </a>
-                <NavLink to={'/'} className={style.forgotLink}>
-                    Try login in
-                </NavLink>
+                <div className='wrapperLinkCenter'>
+                    <NavLink to={'/auth-email-password'} className={style.forgotLink}>
+                        Did you remember your password?
+                    </NavLink>
+                </div>
+                <div className='wrapperLinkCenter'>
+                    <NavLink to={'/'} className={style.forgotLink}>
+                        Try login in
+                    </NavLink>
+                </div>
             </div>
         </div>
     );

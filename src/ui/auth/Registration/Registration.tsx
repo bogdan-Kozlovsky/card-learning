@@ -7,6 +7,7 @@ import {requestRegistrationTC} from "../../../bll/reducers/sign_up-reducer";
 
 export const Registration = () => {
     const isRegistration = useSelector<AppRootStateType, boolean>(state => state.signUp.isRegistration)
+    const registerError = useSelector<AppRootStateType, string>(state => state.signUp.registerError)
 
     const dispatch = useDispatch()
     const [email, setEmail] = useState<string>('nya-admin@nya.nya');
@@ -29,6 +30,7 @@ export const Registration = () => {
     return (
         <div className="wrapperBox">
             <div className="boxMax">
+                {registerError && <div className='error'>{registerError}</div>}
                 <h2 className="title">It-incubator</h2>
                 <h3 className="subtitle">Sign Up</h3>
                 <label className="inputLabel">

@@ -1,4 +1,5 @@
 @import '../src/ui/assets/normalize.css';
+
 body {
     background: linear-gradient(#36b6c2, #c391e5);
     color: #2D2E46;
@@ -32,6 +33,7 @@ ul {
     background: #F9F9FE;
     border-radius: 8px;
     padding: 25px 30px;
+    position: relative;
 }
 
 .boxMin {
@@ -76,22 +78,22 @@ ul {
     margin-bottom: 24px;
     background-color: #F9F9FE;
 
-/*&::placeholder {*/
-/*     font-weight: 500;*/
-/*     font-size: 16px;*/
-/*     line-height: 24px;*/
-/*     color: #2D2E46;*/
-/* }*/
+    /*&::placeholder {*/
+    /*     font-weight: 500;*/
+    /*     font-size: 16px;*/
+    /*     line-height: 24px;*/
+    /*     color: #2D2E46;*/
+    /* }*/
 }
 
-.input ::placeholder{
+.input ::placeholder {
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     color: #2D2E46;
 }
 
-.inputCheckbox{
+.inputCheckbox {
     height: 15px;
     width: 30px;
     background-color: #F9F9FE;
@@ -119,14 +121,14 @@ ul {
     margin: 0 auto 39px;
 }
 
-.btn{
+.btn {
     display: block;
     font-weight: 600;
     color: #21268F;
     background: none;
     cursor: pointer;
     border: none;
-    margin: 0 auto ;
+    margin: 0 auto;
 }
 
 .detailedLink {
@@ -135,7 +137,6 @@ ul {
     font-size: 14px;
     line-height: 24px;
     text-align: center;
-//color: #2D2E46;
     opacity: 0.5;
     text-decoration: none;
     margin-bottom: 10px;
@@ -144,8 +145,6 @@ ul {
 .linkFooter {
     display: block;
     font-weight: 600;
-//font-size: 16px;
-//line-height: 24px;
     text-align: center;
     color: #21268F;
     margin-bottom: 10px;
@@ -155,9 +154,24 @@ ul {
 .description {
     font-style: normal;
     font-weight: 400;
-//font-size: 16px;
-//line-height: 24px;
-//color: #2D2E46;
     opacity: 0.5;
     margin-bottom: 90px;
+}
+
+.error {
+    width: 100%;
+    color: red;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #36b6c2;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.wrapperLinkCenter {
+    text-align: center;
 }
