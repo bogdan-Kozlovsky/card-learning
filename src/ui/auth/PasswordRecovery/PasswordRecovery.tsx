@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {forgotPasswordTC} from "../../../bll/reducers/auth-reducer";
 import {AppRootStateType} from "../../../bll/store";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
-import {SuperInputAndLabel} from "../../common/SuperInput/SuperInputAndLabel";
+import {SuperInput} from "../../common/SuperInput/SuperInput";
 
 export const PasswordRecovery = () => {
     const [email, setEmail] = useState<string>("maxcardbogdan@gmail.com")
@@ -42,7 +42,7 @@ link</a>
                 <h3 className="subtitle">Forgot your password?</h3>
                 <label className="inputLabel">
                     Email
-                    <SuperInputAndLabel className={'input'} value={email} onChange={onChangeHandler} type={'text'}/>
+                    <SuperInput className={'input'} value={email} onChange={onChangeHandler} type={'text'}/>
                 </label>
                 <p className="description">
                     Enter your email address and we will send you further instructions{' '}

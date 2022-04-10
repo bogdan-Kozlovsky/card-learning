@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Navigate, NavLink} from 'react-router-dom';
 import {AppRootStateType} from "../../../bll/store";
 import {requestRegistrationTC} from "../../../bll/reducers/sign_up-reducer";
+import {SuperInputPassword} from "../../common/SuperInput/SuperInput";
 
 export const Registration = () => {
     const isRegistration = useSelector<AppRootStateType, boolean>(state => state.signUp.isRegistration)
@@ -44,12 +45,7 @@ export const Registration = () => {
                 </label>
                 <label className="inputLabel">
                     Password
-                    <input
-                        className='input'
-                        value={password}
-                        onChange={onChangeHandlerPassword}
-                        type="password"
-                    />
+                    <SuperInputPassword className={'input'} value={password} onChange={onChangeHandlerPassword}/>
                 </label>
                 <div className={style.buttons}>
                     <NavLink to={'/'} className={style.cancel}>

@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
 import {newPasswordTC} from "../../../bll/reducers/auth-reducer";
 import {Navigate} from "react-router-dom";
-import {SuperInputAndLabel} from "../../common/SuperInput/SuperInputAndLabel";
+import {SuperInput, SuperInputPassword} from "../../common/SuperInput/SuperInput";
 
 export const NewPassword = () => {
     const dispatch = useDispatch()
@@ -30,7 +30,7 @@ export const NewPassword = () => {
                 <h3 className="subtitle">Create new password</h3>
                 <label className="inputLabel">
                     Password
-                    <SuperInputAndLabel className={'input'} value={password} onChange={onChangeHandlerPassword} type={'text'}/>
+                    <SuperInputPassword className={'input'} value={password} onChange={onChangeHandlerPassword}/>
                 </label>
                 <p className="description">
                     {' '}
