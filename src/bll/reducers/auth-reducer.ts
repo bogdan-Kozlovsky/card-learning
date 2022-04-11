@@ -20,7 +20,7 @@ type ActionType =
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 
-const initialState: InitialStateType = {
+export const initialState: InitialStateType = {
     profile: {
         avatar: '',
         created: null,
@@ -46,7 +46,7 @@ const initialState: InitialStateType = {
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
 export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case "AUTH/AUTH_ME": {
+        case "PROFILE/UPDATE_PROFILE": {
             return {...state, profile: action.data}
         }
         case "AUTH/LOADER": {
@@ -72,7 +72,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 ///////////////////////////////////////////// action creator ////////////////////////////////////////////
 export const authMeAC = (data: ProfileType,) => {
     return {
-        type: 'AUTH/AUTH_ME', data,
+        type: "PROFILE/UPDATE_PROFILE", data,
     } as const
 }
 export const loaderAC = (value: boolean) => ({type: 'AUTH/LOADER', value} as const)

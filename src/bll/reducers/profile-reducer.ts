@@ -5,7 +5,9 @@ import {Dispatch} from "redux";
 export type InitialStateType = {
     profile: ProfileType
 }
-type ActionType = | ReturnType<typeof userDateAC> | ReturnType<typeof updateProfileAC>
+type ActionType = | ReturnType<typeof userDateAC>
+    | ReturnType<typeof updateProfileAC>
+    | ReturnType<typeof updateProfileNameAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState: InitialStateType = {
@@ -28,10 +30,25 @@ const initialState: InitialStateType = {
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
- const profileReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case 'PROFILE/USER_DATE': {
             return {...state, ...action.data}
+        }
+        case "PROFILE/UPDATE_PROFILE_NAME":{
+            return {
+                ...state,profile:{
+                    ...state.profile,
+                    name: action.name
+                }
+            }
+        }
+        case "PROFILE/UPDATE_PROFILE":{
+            return {
+                ...state,profile: {
+                    ...action.data
+                }
+            }
         }
         default: {
             return state
@@ -47,15 +64,19 @@ const initialState: InitialStateType = {
 }
  const updateProfileAC = (data: ProfileType) =>
     ({type: 'PROFILE/UPDATE_PROFILE', data} as const)
+export const updateProfileNameAC = (name: string) =>
+    ({type: 'PROFILE/UPDATE_PROFILE_NAME', name} as const)
+
 
 
 ///////////////////////////////////////////// Thunk ////////////////////////////////////////////
-export const updateProfileTC =
-    (data: { name: string; avatar: string }) => async (dispatch: Dispatch) => {
-        try {
-            const res = await requestsApi.updateProfile(data)
-            dispatch(updateProfileAC(res.data))
-        } catch (e) {
-            console.log(e)
-        }
+export const updateProfileTC = (name:string,avatar:any ) =>  (dispatch: Dispatch) => {
+         requestsApi.updateProfile(name,avatar)
+             .then(res => {
+                 console.log(res.data.updatedUser)
+                 dispatch(updateProfileAC(res.data.updatedUser))
+                 dispatch(updateProfileNameAC(name))
+             })
+
+
     }

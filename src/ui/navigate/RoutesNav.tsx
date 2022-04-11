@@ -7,6 +7,7 @@ import {NewPassword} from "../auth/NewPassword/NewPassword";
 import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import { Navigate, Route, Routes,} from 'react-router-dom'
 import {Profile} from "../profile/Profile";
+import UpdateProfile from "../profile/updateProfile/UpdateProfile";
 
 
 const RoutesNav = () => {
@@ -30,6 +31,7 @@ const RoutesNav = () => {
                 />
                 <Route path='404' element={<Error404 />} />
                 <Route path='*' element={<Navigate to='404' />} />
+                <Route path='/update-profile' element={<UpdateProfile />} />
             </Routes>
         </div>
     );

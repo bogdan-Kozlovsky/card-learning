@@ -1,9 +1,21 @@
-import React, {useRef} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import style from './UpdateProfile.module.css'
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {updateProfileNameAC, updateProfileTC} from "../../../bll/reducers/profile-reducer";
 
 const UpdateProfile = () => {
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [title, setTitle] = useState<string>('')
     const inRef = useRef<HTMLInputElement>(null);
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+    const onClickHandler = () =>{
+        dispatch(updateProfileTC(title,''))
+        return navigate('/profile')
+    }
 
     return (
         <div>
@@ -19,8 +31,8 @@ const UpdateProfile = () => {
                         {/*<input className = {style.inputUpload} ref={inRef}/>*/}
                         <button className={style.uploadBtn}>upload image</button>
                         <div className={style.previewIcon}></div>
-                        <input className={style.input} placeholder='name'/>
-                        <button className = {style.successBtn}>Ok</button>
+                        <input onChange={onChangeHandler} className={style.input} placeholder='name' value={title}/>
+                        <button onClick={onClickHandler} className={style.successBtn}>Ok</button>
                     </div>
                 </div>
             </div>

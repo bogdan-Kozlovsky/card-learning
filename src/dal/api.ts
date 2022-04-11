@@ -7,9 +7,11 @@ type DeviceTokenType = {
     token: string
     tokenDeathTime: number
 }
-export type UpdateProfileType = {
-    avatar: string
-    name: string
+
+export type ResponseType = {
+    token: string;
+    tokenDeathTime: number;
+    updatedUser: ProfileType;
 }
 
 export type ProfileType = {
@@ -56,7 +58,8 @@ export type ForgotPasswordType = {
 
 // instance
 export const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0/",
+    baseURL: 'http://localhost:7542/2.0/',
+    // "https://neko-back.herokuapp.com/2.0/",
     // 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
@@ -76,8 +79,8 @@ export const requestsApi = {
     logoutRequest() {
         return instance.delete('/auth/me', {})
     },
-    updateProfile(data: UpdateProfileType) {
-        return instance.put<ProfileType>('auth/me', data)
+    updateProfile(name:string, avatar : any) {
+        return instance.put<ResponseType>('auth/me', {name,avatar})
     },
     forgotPassword(data: ForgotPasswordType) {
         return instance.post<ProfileType>('auth/forgot', data)

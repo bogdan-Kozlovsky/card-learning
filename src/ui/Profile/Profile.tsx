@@ -1,13 +1,15 @@
 import React from 'react';
 import style from './profile.module.css'
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {ProfileType} from "../../dal/api";
 import {updateProfileTC} from "../../bll/reducers/profile-reducer";
 import EditableSpan from '../common/EditableSpan/EditableSpan';
+import {log} from "util";
 
 export const Profile = () => {
+    console.log('Profile')
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -17,11 +19,11 @@ export const Profile = () => {
 
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
+    console.log({name})
 
-
-    const changeNameProfile = (name: string, avatar: string) => {
-        dispatch(updateProfileTC({name, avatar}))
-    }
+    // const changeNameProfile = (name: string, avatar: string) => {
+    //     dispatch(updateProfileTC(name, avatar))
+    // }
     if (!initialized) {
         navigate('/')
     }
@@ -34,12 +36,13 @@ export const Profile = () => {
                             <div>
                                 <img className={style.avatar} src={avatar} alt="avatar"/>
                             </div>
-                            <EditableSpan titleName={name} changeNameProfile={changeNameProfile}/>
-                            {/*<p className={style.description}>*/}
-                            {/*    Front-end developer*/}
-                            {/*</p>*/}
+                            {/*<EditableSpan titleName={name} changeNameProfile={changeNameProfile}/>*/}
+                            <p className={style.description}>
+                                {name}
+                            </p>
                         </div>
                     </div>
+                    <button><NavLink to='/update-profile'>edit</NavLink></button>
                 </div>
                 <div className={style.rightBox}>boom</div>
             </div>
