@@ -4,9 +4,6 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {ProfileType} from "../../dal/api";
-import {updateProfileTC} from "../../bll/reducers/profile-reducer";
-import EditableSpan from '../common/EditableSpan/EditableSpan';
-import {log} from "util";
 
 export const Profile = () => {
     console.log('Profile')

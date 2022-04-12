@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ResponseGetPacksType} from "../bll/reducers/cards-reducer";
 
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 type DeviceTokenType = {
@@ -79,13 +80,19 @@ export const requestsApi = {
     logoutRequest() {
         return instance.delete('/auth/me', {})
     },
-    updateProfile(name:string, avatar : any) {
-        return instance.put<ResponseType>('auth/me', {name,avatar})
+    updateProfile(name: string, avatar: any) {
+        return instance.put<ResponseType>('auth/me', {name, avatar})
     },
     forgotPassword(data: ForgotPasswordType) {
         return instance.post<ProfileType>('auth/forgot', data)
     },
     newPassword(data: { password: string, resetPasswordToken: string | undefined }) {
         return instance.post<{ info: string, error: string }>('auth/set-new-password', data)
+    },
+    // packsAPI
+    getCards(packName: string, min: number, max: number, sortPacks: string, page: number = 1, pageCount: number = 15, myId: string | null) {
+        // getCards() {
+        return instance.get<ResponseGetPacksType>(`cards/pack?pageCount=${pageCount}&page=${page}&packName=${packName}&sortPacks=${sortPacks}&min=${min}&max=${max}&user_id=${myId === null ? '' : myId}`)
+        // return instance.get<ResponseGetPacksType>(`cards/pack`)
     }
 }

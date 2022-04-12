@@ -9,6 +9,7 @@ export const NavigateLink = () => {
         {to: '/recovery-password', name: 'RecoveryPassword'},
         {to: '/entering-new-password/:token', name: 'EnteringNewPassword'},
         {to: '/auth-email-password', name: 'AuthEmailPassword'},
+        {to: '/cards', name: 'Cards'},
     ]
     return (
         <div>
