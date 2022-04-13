@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
-import {cardsTC, PackType} from "../../../bll/reducers/cards-reducer";
+import {cardsTC, PackType} from "../../../bll/reducers/packs-reducer";
 import {Pack} from "./Pack";
 
 const Packs = () => {
@@ -13,7 +13,7 @@ const Packs = () => {
     }, [dispatch])
 
 
-    const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.cards.packs)
+    const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.packs)
     console.log('pack', pack)
     return (
         <div>

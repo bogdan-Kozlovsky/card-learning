@@ -4,22 +4,8 @@ import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
 
 export type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
-type InitialStateType = {
-    error: string | null
-    packs: Array<PackType>
-    searchName: string
-    min: number
-    max: number
-    sortPacks: string
-    page: number
-    packsPerPage: number
-    currentPage: number
-    cardPacksTotalCount: number
-    minCardsCount: number
-    maxCardsCount: number
-    packCardsId: string
-    packUserId: string
-}
+
+export type InitialStateType = typeof initialState
 
 
 export type PackType = {
@@ -41,6 +27,7 @@ export type PackType = {
     _id: string
 }
 
+// получаем
 export type ResponseGetPacksType = {
     cardPacks: Array<PackType>
     cardPacksTotalCount: number
@@ -55,25 +42,35 @@ export type ResponseGetPacksType = {
 type ActionType = | ReturnType<typeof initializedCardsAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
-const initialState: InitialStateType = {
-    error: null,
-    packs: [],
-    searchName: '',
-    min: 0,
-    max: 24,
-    sortPacks: '',
-    page: 1,
-    packsPerPage: 10,
-    currentPage: 1,
-    cardPacksTotalCount: 0,
+const initialState = {
+    packs: [] as PackType[],
+    error: '',
     minCardsCount: 0,
-    maxCardsCount: 24,
-    packCardsId: '',
-    packUserId: '',
+    maxCardsCount: 103,
+    cardPacksTotalCount: 0,
+    params: {
+        packName: '',
+        min: 3,
+        max: 9,
+        sortPacks: '0updated',
+        page: 1,
+        pageCount: 10,
+        user_id: '',
+    } as PacksParamsType,
+}
+
+export type PacksParamsType = {
+    packName: string
+    min: number
+    max: number
+    sortPacks: string
+    page: number
+    pageCount: number
+    user_id: string
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
-export const cardsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "APP/INITIALIZED_CARDS": {
             return {...state, packs: action.packs}
@@ -92,19 +89,9 @@ export const initializedCardsAC = (packs: Array<PackType>) => {
 }
 
 export const cardsTC = (): ThunkType => (dispatch, getState) => {
-    const state = getState()
-    const searchName = state.cards.searchName
-    const min = state.cards.min
-    const max = state.cards.max
-    const sortPacks = state.cards.sortPacks
-    const currentPage = state.cards.page
-    const packsOnPage = state.cards.packsPerPage
-    const myId = state.profile.profile._id
 
-    console.log('state', state)
-
-    requestsApi.getCards(searchName, min, max, sortPacks, currentPage, packsOnPage, myId)
-        //     requestsApi.getCards()
+    const params = getState().packs.params
+    requestsApi.getCards(params)
         .then((res) => {
             console.log("res", res)
             dispatch(initializedCardsAC(res.data.cardPacks))
