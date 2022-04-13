@@ -1,0 +1,75 @@
+.packsBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.packsBoxLeft {
+    background: #ECECF9;
+    max-width: 243px;
+    width: 100%;
+    padding: 33px 24px;
+}
+
+.packsLeftTitle {
+    margin-bottom: 20px;
+    font-weight: 600;
+    line-height: 19px;
+}
+
+.packsButtonsBox {
+    display: flex;
+    border-radius: 2px;
+    width: 200px;
+    margin-bottom: 45px;
+}
+
+.packsBtn {
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    padding: 7px 10px;
+}
+
+.packsBtnActive {
+    background: #9A91C8;
+}
+
+.packsBtnMy {
+    background-color: #ffffff;
+}
+
+/*/// packsBoxRight*/
+
+.packsBoxRight {
+    background-color: #ffffff;
+    max-width: 765px;
+    width: 100%;
+    padding: 25px 45px;
+}
+
+.packsBoxRightTitle {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    margin-bottom: 15px;
+}
+
+.packsBoxSearch {
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.packsInputSearch {
+    display: inline-block;
+    max-width: 461px;
+    width: 100%;
+    padding: 10px 16px;
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 2px;
+}
