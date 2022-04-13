@@ -11,7 +11,7 @@ export type InitialStateType = typeof initialState
 export type PackType = {
     cardsCount: number | null
     created: Date | null
-    deckCover: string | null
+    // deckCover: string | null
     grade: number | null
     more_id: string | null
     name: string | null
@@ -35,11 +35,12 @@ export type ResponseGetPacksType = {
     maxCardsCount: number | null
     page: number | null
     pageCount: number | null
-    sortPacks: string
-    packUserId: string
+    sortPacks: string // ?????
+    packUserId: string // ?????
 }
 
 type ActionType = | ReturnType<typeof initializedCardsAC>
+    | ReturnType<typeof setCurrentPageAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
@@ -73,8 +74,16 @@ export type PacksParamsType = {
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "APP/INITIALIZED_CARDS": {
-            return {...state, packs: action.packs}
+            debugger
+            // return {...state, packs: action.packs., cardPacksTotalCount: action.packs.cardPacksTotalCount}
+            return {...state, packs: action.packs.cardPacks, cardPacksTotalCount: action.packs.cardPacksTotalCount}
         }
+        case "PACKS/SET-CURRENT-PAGE":
+            return {
+                ...state, params: {
+                    ...state.params, page: action.value
+                }
+            }
         default: {
             return state
         }
@@ -82,9 +91,14 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 }
 
 ///////////////////////////////////////////// action creator ////////////////////////////////////////////
-export const initializedCardsAC = (packs: Array<PackType>) => {
+export const initializedCardsAC = (packs: any) => {
     return {
         type: 'APP/INITIALIZED_CARDS', packs
+    } as const
+}
+export const setCurrentPageAC = (value: number) => {
+    return {
+        type: 'PACKS/SET-CURRENT-PAGE', value
     } as const
 }
 
@@ -94,6 +108,6 @@ export const cardsTC = (): ThunkType => (dispatch, getState) => {
     requestsApi.getCards(params)
         .then((res) => {
             console.log("res", res)
-            dispatch(initializedCardsAC(res.data.cardPacks))
+            dispatch(initializedCardsAC(res.data))
         })
 }
