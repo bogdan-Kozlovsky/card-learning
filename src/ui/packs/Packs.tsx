@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import {cardsTC, PackType} from "../../bll/reducers/packs-reducer";
+import {cardsTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
 import {Pack} from "./Pack";
 import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
+import {Paginator} from "../common/Paginator/Paginator";
 
 export const Packs = () => {
     const dispatch = useDispatch()
@@ -13,6 +14,15 @@ export const Packs = () => {
         dispatch(cardsTC())
     }, [dispatch])
 
+    const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
+    const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
+    const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
+
+    const handlePageChange = (e: { selected: number }) => {
+        const selectedPage = e.selected + 1;
+        dispatch(setCurrentPageAC(selectedPage))
+        dispatch(cardsTC())
+    };
 
     const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.packs)
     return (
@@ -38,6 +48,7 @@ export const Packs = () => {
                                   author={e.user_name}/>
                         )
                     })}
+                    <Paginator handlePageChange={handlePageChange} totalPages={totalPages}/>
                 </div>
 
             </div>
