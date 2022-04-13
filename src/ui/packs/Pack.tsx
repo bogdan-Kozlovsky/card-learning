@@ -14,6 +14,7 @@ export const Pack = (props: propsType) => {
         lastUpdated,
         author
     } = props
+
     return (
         <div style={{border: '1px orange solid'}}>
             <p>{name}</p>

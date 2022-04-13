@@ -39,7 +39,7 @@ export type ResponseGetPacksType = {
     packUserId: string
 }
 
-type ActionType = | ReturnType<typeof initializedCardsAC>
+type ActionType = | ReturnType<typeof initializedPacksAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
@@ -82,18 +82,17 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 }
 
 ///////////////////////////////////////////// action creator ////////////////////////////////////////////
-export const initializedCardsAC = (packs: Array<PackType>) => {
+export const initializedPacksAC = (packs: Array<PackType>) => {
     return {
         type: 'APP/INITIALIZED_CARDS', packs
     } as const
 }
 
 export const cardsTC = (): ThunkType => (dispatch, getState) => {
-
     const params = getState().packs.params
     requestsApi.getCards(params)
         .then((res) => {
-            console.log("res", res)
-            dispatch(initializedCardsAC(res.data.cardPacks))
+            console.log(res.data)
+            dispatch(initializedPacksAC(res.data.cardPacks))
         })
 }
