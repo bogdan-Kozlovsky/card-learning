@@ -126,3 +126,13 @@ export const deletePackTC = (idPack:string): ThunkType => (dispatch, getState) =
             dispatch(packsTC())
         })
 }
+export const updatePackNameTC = (idPack:string): ThunkType => (dispatch, getState) => {
+    const newPackName = {
+        _id:idPack,
+        name:'updatePackName',
+    }
+    requestsApi.updatePackNameTC(newPackName)
+        .then((res) => {
+            dispatch(packsTC())
+        })
+}

@@ -61,6 +61,10 @@ type NewCardType = {
     deckCover?: string // не обязателен
     private?: boolean
 }
+type UpadatePackNameType = {
+    _id: string
+    name: string
+}
 // instance
 export const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
@@ -107,5 +111,8 @@ export const requestsApi = {
     },
     deletePack(id: string) {
         return instance.delete<NewCardType>(`cards/pack`, {params: {id}})
+    },
+    updatePackNameTC(newPackName:UpadatePackNameType) {
+        return instance.put(`cards/pack`, {cardsPack:newPackName})
     }
 }
