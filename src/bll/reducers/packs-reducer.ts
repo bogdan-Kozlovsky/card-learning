@@ -74,9 +74,8 @@ export type PacksParamsType = {
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "APP/INITIALIZED_CARDS": {
-            debugger
             // return {...state, packs: action.packs., cardPacksTotalCount: action.packs.cardPacksTotalCount}
-            return {...state, packs: action.packs.cardPacks, cardPacksTotalCount: action.packs.cardPacksTotalCount}
+            return {...state, packs: action.packs.cardPacks.sort((a:any,b:any)=>a.name < b.name), cardPacksTotalCount: action.packs.cardPacksTotalCount}
         }
         case "PACKS/SET-CURRENT-PAGE":
             return {
@@ -102,12 +101,28 @@ export const setCurrentPageAC = (value: number) => {
     } as const
 }
 
-export const cardsTC = (): ThunkType => (dispatch, getState) => {
-
-    const params = getState().packs.params
-    requestsApi.getCards(params)
+export const packsTC = (): ThunkType => (dispatch, getState) => {
+    const page = getState().packs.params.page
+    requestsApi.getPacks(page,7)
         .then((res) => {
-            console.log("res", res)
             dispatch(initializedCardsAC(res.data))
+        })
+}
+
+export const addPacksTC = (): ThunkType => (dispatch, getState) => {
+    const newCard = {
+        name: 'TeamTest',
+        deckCover: 'Hello',
+        private:false
+    }
+    requestsApi.addNewPack(newCard)
+        .then((res) => {
+            dispatch(packsTC())
+        })
+}
+export const deletePackTC = (idPack:string): ThunkType => (dispatch, getState) => {
+    requestsApi.deletePack(idPack)
+        .then((res) => {
+            dispatch(packsTC())
         })
 }

@@ -37,7 +37,7 @@ export const SuperInputPassword = ({
             <input type={shown ? 'text' : 'password'} onChange={onChange}
                    className={className} value={value}/>
             {/*<button onClick={() => setShown(!shown)} className='btnShow'>*/}
-                <img className='btnShow' onClick={() => setShown(!shown)} src={shown ? openShow : closeShow} alt={'open'}/>
+                <img className='btnShow' onClick={() => setShown(!shown)} src={!shown ? openShow : closeShow} alt={'open'}/>
             {/*</button>*/}
         </div>
     );

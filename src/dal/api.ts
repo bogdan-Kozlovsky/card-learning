@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios";
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {PacksParamsType, ResponseGetPacksType} from "../bll/reducers/packs-reducer";
 
 ///////////////////////////////////////////// type ////////////////////////////////////////////
@@ -56,7 +56,11 @@ export type ForgotPasswordType = {
     // можно указать разработчика фронта)
     message: string // хтмп-письмо, вместо $token$ бэк вставит токен
 }
-
+type NewCardType = {
+    name?: string
+    deckCover?: string // не обязателен
+    private?: boolean
+}
 // instance
 export const instance = axios.create({
     baseURL: 'http://localhost:7542/2.0/',
@@ -91,7 +95,17 @@ export const requestsApi = {
     },
 
     // packsAPI
-    getCards(params: PacksParamsType) {
-        return instance.get<any, AxiosResponse<ResponseGetPacksType>, PacksParamsType>(`cards/pack`, {params})
+
+    getPacks(page: number, pageCount: number) {
+        return instance.get(`cards/pack`, {params: {page, pageCount}})
+        //
+        // getCards(params: PacksParamsType) {
+        // return instance.get<any, AxiosResponse<ResponseGetPacksType>, PacksParamsType>(`cards/pack`, {params})
+    },
+    addNewPack(newCard: NewCardType) {
+        return instance.post<NewCardType>(`cards/pack`, {cardsPack: newCard})
+    },
+    deletePack(id: string) {
+        return instance.delete<NewCardType>(`cards/pack`, {params: {id}})
     }
 }

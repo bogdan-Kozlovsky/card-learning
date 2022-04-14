@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import {cardsTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
+import {addPacksTC, packsTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
 import {Pack} from "./Pack";
 import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
@@ -11,7 +11,7 @@ export const Packs = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(cardsTC())
+        dispatch(packsTC())
     }, [dispatch])
 
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
@@ -21,8 +21,10 @@ export const Packs = () => {
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
-        dispatch(cardsTC())
+        dispatch(packsTC())
     };
+
+    const handlerNewCards = () => {dispatch(addPacksTC())}
 
     const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.packs)
     return (
@@ -41,11 +43,13 @@ export const Packs = () => {
                     <div className={style.packsBoxSearch}>
                         {/*<input type="text"/>*/}
                         <SuperInput className={style.packsInputSearch}/>
+                        <button onClick={handlerNewCards}>Add</button>
+                        {/*<button onClick={handlerSortCards}>Sort</button>*/}
                     </div>
                     {pack.map(e => {
                         return (
                             <Pack key={e._id} name={e.name} cards={e.cardsCount} lastUpdated={e.created}
-                                  author={e.user_name}/>
+                                  author={e.user_name} userId={e.user_id} packId={e._id}/>
                         )
                     })}
                     <Paginator handlePageChange={handlePageChange} totalPages={totalPages}/>
