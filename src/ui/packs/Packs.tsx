@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import {addPacksTC, packsTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
+import {addPacksTC, getPacksTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
 import {Pack} from "./Pack";
 import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
@@ -11,7 +11,7 @@ export const Packs = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(packsTC())
+        dispatch(getPacksTC())
     }, [dispatch])
 
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
@@ -21,7 +21,7 @@ export const Packs = () => {
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
-        dispatch(packsTC())
+        dispatch(getPacksTC())
     };
 
     const handlerNewCards = () => {dispatch(addPacksTC())}
@@ -48,7 +48,8 @@ export const Packs = () => {
                     </div>
                     {pack.map(e => {
                         return (
-                            <Pack key={e._id} name={e.name} cards={e.cardsCount} lastUpdated={e.created}
+
+                            <Pack  key={e._id} name={e.name} cards={e.cardsCount} lastUpdated={e.created}
                                   author={e.user_name} userId={e.user_id} packId={e._id}/>
                         )
                     })}

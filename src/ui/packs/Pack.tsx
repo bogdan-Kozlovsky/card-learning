@@ -3,6 +3,7 @@ import deleteIcon from './../assets/images/deleteIcon.svg'
 import updatePackName from './../assets/images/updatePackName.svg'
 import {deletePackTC, updatePackNameTC} from "../../bll/reducers/packs-reducer";
 import {useDispatch} from "react-redux";
+import {NavLink} from "react-router-dom";
 
 type propsType = {
     name: string | null
@@ -33,7 +34,7 @@ export const Pack = (props: propsType) => {
 
     return (
         <div style={{border: '1px orange solid'}}>
-            <p>{name}</p>
+            <NavLink to={`/packs_list_cards/${packId}`}>{name}</NavLink>
             <p>{cards}</p>
             <p>{lastUpdated}</p>
             <p>{author}</p>

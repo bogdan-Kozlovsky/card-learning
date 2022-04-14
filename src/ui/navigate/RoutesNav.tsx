@@ -6,9 +6,10 @@ import {Error404} from "../common/Error404/Error404";
 import {NewPassword} from "../auth/NewPassword/NewPassword";
 import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import {Navigate, Route, Routes,} from 'react-router-dom'
-import {Profile} from "../profile/Profile";
-import UpdateProfile from "../profile/updateProfile/UpdateProfile";
 import {Packs} from "../packs/Packs";
+import UpdateProfile from "../Profile/updateProfile/UpdateProfile";
+import {Profile} from "../Profile/Profile";
+import {Cards} from "../cards/Cards";
 
 
 const RoutesNav = () => {
@@ -18,10 +19,7 @@ const RoutesNav = () => {
                 <Route path='/' element={<Login/>}/>
                 <Route path='/register' element={<Registration/>}/>
                 <Route path='/profile' element={<Profile/>}/>
-                <Route
-                    path='recovery-password'
-                    element={<PasswordRecovery/>}
-                />
+                <Route path='recovery-password' element={<PasswordRecovery/>}/>
                 <Route
                     path='auth-email-password'
                     element={<AuthEmailPassword/>}
@@ -31,8 +29,9 @@ const RoutesNav = () => {
                     element={<NewPassword/>}
                 />
                 <Route path='404' element={<Error404/>}/>
-                <Route path='/Packs_list' element={<Packs/>}/>
                 <Route path='*' element={<Navigate to='404'/>}/>
+                <Route path='/packs_list' element={<Packs/>}/>
+                <Route path='/packs_list_cards/:packId' element={<Cards/>}/>
                 <Route path='/update-profile' element={<UpdateProfile/>}/>
             </Routes>
         </div>

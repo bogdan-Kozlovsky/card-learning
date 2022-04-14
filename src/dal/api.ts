@@ -1,5 +1,4 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {PacksParamsType, ResponseGetPacksType} from "../bll/reducers/packs-reducer";
+import axios from "axios";
 
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 type DeviceTokenType = {
@@ -99,7 +98,6 @@ export const requestsApi = {
     },
 
     // packsAPI
-
     getPacks(page: number, pageCount: number) {
         return instance.get(`cards/pack`, {params: {page, pageCount}})
         //
@@ -112,7 +110,14 @@ export const requestsApi = {
     deletePack(id: string) {
         return instance.delete<NewCardType>(`cards/pack`, {params: {id}})
     },
-    updatePackNameTC(newPackName:UpadatePackNameType) {
-        return instance.put(`cards/pack`, {cardsPack:newPackName})
-    }
+    updatePackNameTC(newPackName: UpadatePackNameType) {
+        return instance.put(`cards/pack`, {cardsPack: newPackName})
+    },
+
+    // cardsAPI
+    getCards(packId: string | undefined) {
+        // getCards() {
+        return instance.get(`cards/card?cardsPack_id=${packId}`,)
+        // return instance.get(`cards/card`,)
+    },
 }
