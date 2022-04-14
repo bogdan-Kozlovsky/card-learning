@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import openShow from '../../assets/images/openShow.svg'
+import closeShow from '../../assets/images/closeShow.svg'
 
 type propsType = {
     placeholder: string
@@ -29,13 +30,14 @@ export const SuperInputPassword = ({
                                        value,
                                    }: Partial<propsType>) => {
     const [shown, setShown] = useState(false);
+
     return (
 
         <div className='inputPasswordShow'>
             <input type={shown ? 'text' : 'password'} onChange={onChange}
                    className={className} value={value}/>
             {/*<button onClick={() => setShown(!shown)} className='btnShow'>*/}
-                <img className='btnShow' onClick={() => setShown(!shown)} src={openShow} alt={'open'}/>
+                <img className='btnShow' onClick={() => setShown(!shown)} src={shown ? openShow : closeShow} alt={'open'}/>
             {/*</button>*/}
         </div>
     );
