@@ -1,6 +1,8 @@
 .packsBox {
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    border-radius: 20px;
 }
 
 .packsBoxLeft {
@@ -46,7 +48,6 @@
 
 .packsBoxRight {
     background-color: #ffffff;
-    max-width: 765px;
     width: 100%;
     padding: 25px 45px;
 }
@@ -72,4 +73,32 @@
     opacity: 0.5;
     border: 1px solid #635D80;
     border-radius: 2px;
+    margin-right: 24px;
+}
+
+.packsBtnSearch {
+    display: inline-block;
+    padding: 9px 55px;
+    background: #21268F;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    color: #ffffff;
+    max-width: 184px;
+    width: 100%;
+}
+
+/*//packsList*/
+
+.packsList{
+    display: flex;
+    padding: 16px 24px;
+    background: #ECECF9;
+}
+
+.packsItem{
+    flex: 1 1 25%;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000;
 }

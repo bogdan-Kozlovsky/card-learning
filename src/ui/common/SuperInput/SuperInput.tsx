@@ -18,9 +18,9 @@ export const SuperInput = ({
                                value,
                            }: Partial<propsType>) => {
     return (
-        <div>
+        <>
             <input type={type} placeholder={placeholder} onChange={onChange} className={className} value={value}/>
-        </div>
+        </>
     );
 };
 

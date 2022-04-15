@@ -251,6 +251,9 @@ legend {
     padding: 0; /* 3 */
     white-space: normal; /* 1 */
 }
+button{
+    cursor: pointer;
+}
 
 /**
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.

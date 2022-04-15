@@ -2,10 +2,11 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {addPacksTC, getPacksTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
-import {Pack} from "./Pack";
+import {Pack} from "./pack/Pack";
 import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
+import {SuperButton} from "../common/SuperButton/SuperButton";
 
 export const Packs = () => {
     const dispatch = useDispatch()
@@ -24,8 +25,11 @@ export const Packs = () => {
         dispatch(getPacksTC())
     };
 
-    const handlerNewPacks = () => {dispatch(addPacksTC())}
+    const handlerNewPacks = () => {
+        dispatch(addPacksTC())
+    }
 
+    const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.packs)
     return (
         <div className='container'>
@@ -41,21 +45,26 @@ export const Packs = () => {
                 <div className={style.packsBoxRight}>
                     <h2 className={style.packsBoxRightTitle}>Packs list</h2>
                     <div className={style.packsBoxSearch}>
-                        {/*<input type="text"/>*/}
-                        <SuperInput className={style.packsInputSearch}/>
-                        <button onClick={handlerNewPacks}>Add</button>
-                        {/*<button onClick={handlerSortCards}>Sort</button>*/}
+                        <SuperInput className={style.packsInputSearch} placeholder={'Search...'}/>
+                        <SuperButton onClick={handlerNewPacks} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
+
+                    <ul className={style.packsList}>
+                        <li className={style.packsItem}>Name</li>
+                        <li className={style.packsItem}>Cards</li>
+                        <li className={style.packsItem}>Last Updated</li>
+                        <li className={style.packsItem}>Actions</li>
+                    </ul>
+
                     {pack.map(e => {
                         return (
-
-                            <Pack  key={e._id} name={e.name} cards={e.cardsCount} lastUpdated={e.created}
-                                  author={e.user_name} userId={e.user_id} packId={e._id}/>
+                            <Pack key={e._id} name={fixLengthText(e.name)} cards={e.cardsCount} lastUpdated={e.created}
+                                  author={fixLengthText(e.user_id)}
+                                  userId={e.user_id} packId={e._id}/>
                         )
                     })}
                     <Paginator handlePageChange={handlePageChange} totalPages={totalPages}/>
                 </div>
-
             </div>
         </div>
 

@@ -1,0 +1,47 @@
+.cardsWrapper{
+    padding: 24px;
+    background: #FEFEFF;
+    border-radius: 8px;
+    min-height: 638px;
+}
+
+.cardsTitle{
+    padding-left: 10px;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+}
+
+.cardsWrapLink{
+    display: flex;
+    align-items: self-end;
+    margin-bottom: 20px;
+}
+
+.cardsInput{
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 6px 20px;
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 5px;
+}
+
+.cardsList{
+    display: flex;
+    padding: 16px 24px;
+    background: #ECECF9;
+}
+
+.cardsItem{
+    flex: 1 1 25%;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000;
+}
+
+.cardsImg{
+    width: 30px;
+}

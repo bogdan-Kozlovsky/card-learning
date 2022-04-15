@@ -1,0 +1,42 @@
+.packBox {
+    padding: 16px 64px 16px 24px;
+    display: flex;
+    width: 100%;
+}
+
+.packItem {
+    flex: 1 1 25%;
+    flex-grow: 0;
+    margin: 5px;
+}
+
+
+.packBox:nth-child(odd) {
+    background: #F8F7FD;
+}
+
+.packName {
+    font-size: 13px;
+    color: #000000;
+}
+
+.boxBtn {
+    position: relative;
+}
+
+.btn {
+    cursor: pointer;
+    width: 30px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateX(-50%);
+}
+
+.btnUpdate{
+    right: -70px;
+}
+
+.btnDelete{
+    right: -25px;
+}
