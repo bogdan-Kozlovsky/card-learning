@@ -24,7 +24,7 @@ export const Packs = () => {
         dispatch(getPacksTC())
     };
 
-    const handlerNewCards = () => {dispatch(addPacksTC())}
+    const handlerNewPacks = () => {dispatch(addPacksTC())}
 
     const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.packs)
     return (
@@ -43,7 +43,7 @@ export const Packs = () => {
                     <div className={style.packsBoxSearch}>
                         {/*<input type="text"/>*/}
                         <SuperInput className={style.packsInputSearch}/>
-                        <button onClick={handlerNewCards}>Add</button>
+                        <button onClick={handlerNewPacks}>Add</button>
                         {/*<button onClick={handlerSortCards}>Sort</button>*/}
                     </div>
                     {pack.map(e => {

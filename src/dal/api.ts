@@ -120,4 +120,16 @@ export const requestsApi = {
         return instance.get(`cards/card?cardsPack_id=${packId}`,)
         // return instance.get(`cards/card`,)
     },
+
+    addNewCards(packId: string | undefined, card: { cardsPack_id: string | undefined, question: string }) {
+        // addNewCards(card: { cardsPack_id: string | undefined, question: string }) {
+        //     return instance.post(`cards/pack?cardsPack_id:${packId}`, card)
+        return instance.post(`cards/card`, {card})
+    },
+    deleteCard(cardId: string | undefined) {
+        return instance.delete(`cards/card?id=${cardId}`)
+    },
+    updateCard(card: { _id: string, question: string }) {
+        return instance.put(`/cards/card`, {card})
+    }
 }

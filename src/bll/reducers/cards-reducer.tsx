@@ -56,12 +56,42 @@ export const initializedCardsAC = (cards: CardsType[]) => {
     } as const
 }
 
+
 // const id = useSelector<AppRootStateType,string>(state => state.packs)
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
     requestsApi.getCards(packId)
         .then((res) => {
-            // console.log(res.data)
             dispatch(initializedCardsAC(res.data.cards))
         })
+}
 
+export const addCardsTC = (packId: string | undefined): ThunkType => (dispatch) => {
+    const card = {
+        cardsPack_id: packId,
+        question: "no question",
+    }
+    requestsApi.addNewCards(packId, card)
+        .then(res => {
+            dispatch(getCardsTC(packId))
+        })
+
+}
+
+export const deleteCardTC = (packId: string | undefined, cardId: string | undefined): ThunkType => (dispatch) => {
+
+    requestsApi.deleteCard(cardId)
+        .then(res => {
+            dispatch(getCardsTC(packId))
+        })
+}
+
+export const updateCardTC = (packId: string | undefined, _id: string): ThunkType => (dispatch) => {
+    const card = {
+        _id: _id,
+        question: "new Card",
+    }
+    requestsApi.updateCard(card)
+        .then(res => {
+            dispatch(getCardsTC(packId))
+        })
 }
