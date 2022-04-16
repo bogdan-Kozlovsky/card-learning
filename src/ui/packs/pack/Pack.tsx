@@ -13,6 +13,7 @@ type propsType = {
     author: any
     userId: string | null
     packId: string
+    ourUserId:string | null
 }
 export const Pack = (props: propsType) => {
     const {
@@ -21,11 +22,11 @@ export const Pack = (props: propsType) => {
         lastUpdated,
         author,
         userId,
-        packId
+        packId,
+        ourUserId
     } = props
 
     const dispatch = useDispatch()
-    const key = "6252a75c0c114900045d8083"
     const handlerDeletePack = () => {
         dispatch(deletePackTC(packId))
     }
@@ -33,6 +34,7 @@ export const Pack = (props: propsType) => {
         dispatch(updatePackNameTC(packId))
     }
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
+
     return (
         <div>
             <ul className={style.packBox}>
@@ -49,7 +51,7 @@ export const Pack = (props: propsType) => {
                     <p>{author}</p>
                 </li>
                 <li>
-                    {key === userId
+                    {ourUserId === userId
                         &&
                         <div className={style.boxBtn}>
                             <img className={`${style.btn} ${style.btnUpdate}`} onClick={handlerDeletePack}

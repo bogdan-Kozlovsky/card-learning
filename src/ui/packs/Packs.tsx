@@ -31,6 +31,8 @@ export const Packs = () => {
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.packs)
+    const ourUserId = useSelector<AppRootStateType, string|null>(state => state.signIn.profile._id)
+
     return (
         <div className='container'>
             <div className={style.packsBox}>
@@ -60,7 +62,7 @@ export const Packs = () => {
                         return (
                             <Pack key={e._id} name={fixLengthText(e.name)} cards={e.cardsCount} lastUpdated={e.created}
                                   author={fixLengthText(e.user_id)}
-                                  userId={e.user_id} packId={e._id}/>
+                                  userId={e.more_id} packId={e._id} ourUserId={ourUserId}/>
                         )
                     })}
                     <Paginator handlePageChange={handlePageChange} totalPages={totalPages}/>

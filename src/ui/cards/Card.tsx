@@ -11,8 +11,8 @@ type propsType = {
     updated: Date
     packId: string | undefined
     _id: string
-    packUserId: string
     more_id: any
+    ourUserId:string |null
 }
 
 export const Card = (props: propsType) => {
@@ -22,12 +22,10 @@ export const Card = (props: propsType) => {
         updated,
         packId,
         _id,
-        packUserId,
         more_id,
+        ourUserId
     } = props
 
-    console.log(packUserId)
-    console.log(more_id)
     const dispatch = useDispatch()
 
     const deleteCardHandler = (_id: string) => {
@@ -43,7 +41,7 @@ export const Card = (props: propsType) => {
             <li>{answer}</li>
             <li>{updated}</li>
             <li>
-                {packUserId === more_id
+                {ourUserId === more_id
                     &&
                     <>
                         <img className={style.cardImg} onClick={() => deleteCardHandler(_id)} src={deleteIcon}

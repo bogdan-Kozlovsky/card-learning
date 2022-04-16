@@ -24,6 +24,7 @@ export const Cards = () => {
     const addCardsHandler = () => {
         dispatch(addCardsTC(packId))
     }
+    const ourUserId = useSelector<AppRootStateType, string|null>(state => state.signIn.profile._id)
     return (
         <div className='container'>
             <div className={style.cardsWrapper}>
@@ -49,7 +50,7 @@ export const Cards = () => {
                             <Card
                                 question={el.question} answer={el.answer}
                                 updated={el.updated} packId={packId}
-                                _id={el._id} packUserId={el.user_id} more_id={el.more_id}/>
+                                _id={el._id} more_id={el.more_id} ourUserId={ourUserId}/>
                         </div>
                     )
                 })}
