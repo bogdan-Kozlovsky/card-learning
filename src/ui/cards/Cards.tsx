@@ -23,7 +23,8 @@ export const Cards = () => {
         dispatch(addCardsTC(packId))
     }
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-    const ourUserId = useSelector<AppRootStateType, string | null>(state => state.signIn.profile._id)
+    // const ourUserId = useSelector<AppRootStateType, string | null>(state => state.signIn.profile._id)
+    const ourUserId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
     return (
         <div className='container'>
             <div className={style.cardsWrapper}>
@@ -42,6 +43,7 @@ export const Cards = () => {
                     <li className={style.cardsItem}>Last Updated</li>
                     <li className={style.cardsItem}>Rating</li>
                 </ul>}
+
                 <button onClick={addCardsHandler}>Add</button>
                 {cards.map(el => {
                     return (

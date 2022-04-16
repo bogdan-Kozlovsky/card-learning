@@ -63,7 +63,6 @@ export const initializedCardsAC = (cards: CardsType[]) => {
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
     requestsApi.getCards(packId)
         .then((res) => {
-            console.log(res.data)
             dispatch(initializedCardsAC(res.data.cards))
         })
 }

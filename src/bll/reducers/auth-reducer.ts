@@ -2,6 +2,7 @@ import {ForgotPasswordType, ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
 import {initializedAC} from "./app-reducer";
 import {signInAC, signInErrorAC} from "./sign_in-reducer";
+import {setIdProfileAC} from "./profile-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
@@ -88,6 +89,7 @@ export const authMeTC = () => (dispatch: Dispatch) => {
         .then((res) => {
             dispatch(initializedAC(true))
             dispatch(authMeAC(res.data))
+            // dispatch(setIdProfileAC(res.data._id))
         })
         .catch(error => {
             dispatch(authErrorAC(error.response.data.error))

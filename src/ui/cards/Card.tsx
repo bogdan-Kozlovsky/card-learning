@@ -28,8 +28,6 @@ export const Card = (props: propsType) => {
         rating,
     } = props
 
-    console.log(ourUserId)
-    console.log(more_id)
 
     const dispatch = useDispatch()
 

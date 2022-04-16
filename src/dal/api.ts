@@ -99,11 +99,9 @@ export const requestsApi = {
     },
 
     // packsAPI
-    getPacks(page: number, pageCount: number) {
-        return instance.get(`cards/pack`, {params: {page, pageCount}})
-        //
-        // getCards(params: PacksParamsType) {
-        // return instance.get<any, AxiosResponse<ResponseGetPacksType>, PacksParamsType>(`cards/pack`, {params})
+    getPacks(page: number, pageCount: number, user_id: string | null, ) {
+        // return instance.get(`cards/pack`, {params: {page, pageCount, user_id,}})
+        return instance.get(`cards/pack`, {params: {page, pageCount, user_id}})
     },
     addNewPack(newCard: NewCardType) {
         return instance.post<NewCardType>(`cards/pack`, {cardsPack: newCard})

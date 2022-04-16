@@ -104,7 +104,8 @@ export const setCurrentPageAC = (value: number) => {
 
 export const getPacksTC = (): ThunkType => (dispatch, getState) => {
     const page = getState().packs.params.page
-    requestsApi.getPacks(page, 7)
+    const user_id = getState().profile.myId
+    requestsApi.getPacks(page, 7, user_id)
         .then((res) => {
             dispatch(initializedPacksAC(res.data))
         })
