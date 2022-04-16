@@ -33,7 +33,6 @@ export const Pack = (props: propsType) => {
         dispatch(updatePackNameTC(packId))
     }
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
-    console.log(lastUpdated)
     return (
         <div>
             <ul className={style.packBox}>

@@ -13,7 +13,7 @@ export const Login = () => {
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
-    const [password, setPassword] = useState<string>('Stupid23Stupid2')
+    const [password, setPassword] = useState<string>('Stupid23Stupid')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
     const loginError = useSelector<AppRootStateType, string>(state => state.signIn.loginError)

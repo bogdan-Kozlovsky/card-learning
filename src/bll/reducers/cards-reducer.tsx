@@ -3,7 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "../store";
 import {Dispatch} from "redux";
 
-type initialStateType = {
+export type initialStateType = {
     cards: CardsType[],
     cardsTotalCount: number
     maxGrade: number
@@ -23,6 +23,7 @@ export type CardsType = {
     created: string
     updated: Date
     _id: string
+    more_id: string
 }
 const initialState = {
     cards: [] as CardsType[],
@@ -61,6 +62,7 @@ export const initializedCardsAC = (cards: CardsType[]) => {
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
     requestsApi.getCards(packId)
         .then((res) => {
+            console.log(res.data)
             dispatch(initializedCardsAC(res.data.cards))
         })
 }
