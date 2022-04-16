@@ -6,7 +6,6 @@ import {AppRootStateType} from "../../bll/store";
 import {ProfileType} from "../../dal/api";
 
 export const Profile = () => {
-    console.log('Profile')
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -16,7 +15,6 @@ export const Profile = () => {
 
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
-    console.log({name})
 
     // const changeNameProfile = (name: string, avatar: string) => {
     //     dispatch(updateProfileTC(name, avatar))

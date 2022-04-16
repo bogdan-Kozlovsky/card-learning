@@ -73,7 +73,6 @@ export const updateProfileNameAC = (name: string) =>
 export const updateProfileTC = (name:string,avatar:any ) =>  (dispatch: Dispatch) => {
          requestsApi.updateProfile(name,avatar)
              .then(res => {
-                 console.log(res.data.updatedUser)
                  dispatch(updateProfileAC(res.data.updatedUser))
                  dispatch(updateProfileNameAC(name))
              })

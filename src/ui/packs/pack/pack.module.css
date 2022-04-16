@@ -20,23 +20,3 @@
     color: #000000;
 }
 
-.boxBtn {
-    position: relative;
-}
-
-.btn {
-    cursor: pointer;
-    width: 30px;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateX(-50%);
-}
-
-.btnUpdate{
-    right: -70px;
-}
-
-.btnDelete{
-    right: -25px;
-}

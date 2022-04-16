@@ -24,6 +24,7 @@ export type CardsType = {
     updated: Date
     _id: string
     more_id: string
+    rating:number
 }
 const initialState = {
     cards: [] as CardsType[],

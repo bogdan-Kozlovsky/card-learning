@@ -13,7 +13,7 @@ type propsType = {
     author: any
     userId: string | null
     packId: string
-    ourUserId:string | null
+    ourUserId: string | null
 }
 export const Pack = (props: propsType) => {
     const {
@@ -53,11 +53,11 @@ export const Pack = (props: propsType) => {
                 <li>
                     {ourUserId === userId
                         &&
-                        <div className={style.boxBtn}>
-                            <img className={`${style.btn} ${style.btnUpdate}`} onClick={handlerDeletePack}
+                        <div className={`boxBtn`}>
+                            <img className={`btn btnUpdate`} onClick={handlerDeletePack}
                                  src={deleteIcon}
                                  alt="deleteIcon"/>
-                            <img className={`${style.btn} ${style.btnDelete}`} onClick={handlerUpdatePackName}
+                            <img className={`btn btnDelete`} onClick={handlerUpdatePackName}
                                  src={updatePackName}
                                  alt="updatePackName"/>
                         </div>

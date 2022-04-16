@@ -15,16 +15,15 @@ export const Cards = () => {
 
     useEffect(() => {
         dispatch(getCardsTC(packId))
-    }, [dispatch])
+    }, [])
 
     const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
-    // const packUserId = useSelector<AppRootStateType, string>(state => state.cards.cards.)
-    // console.log(packUserId)
-    // more_id
+    const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
     const addCardsHandler = () => {
         dispatch(addCardsTC(packId))
     }
-    const ourUserId = useSelector<AppRootStateType, string|null>(state => state.signIn.profile._id)
+    const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
+    const ourUserId = useSelector<AppRootStateType, string | null>(state => state.signIn.profile._id)
     return (
         <div className='container'>
             <div className={style.cardsWrapper}>
@@ -37,20 +36,22 @@ export const Cards = () => {
                 <SuperInput placeholder={'Search...'} type='text' className={style.cardsInput}/>
 
 
-                <ul className={style.cardsList}>
+                {cardsTotalCount && <ul className={style.cardsList}>
                     <li className={style.cardsItem}>Question</li>
                     <li className={style.cardsItem}>Answer</li>
                     <li className={style.cardsItem}>Last Updated</li>
-                    <li className={style.cardsItem}>Grade</li>
-                </ul>
+                    <li className={style.cardsItem}>Rating</li>
+                </ul>}
                 <button onClick={addCardsHandler}>Add</button>
                 {cards.map(el => {
                     return (
                         <div key={el._id}>
                             <Card
-                                question={el.question} answer={el.answer}
+                                question={fixLengthText(el.question)} answer={fixLengthText(el.answer)}
                                 updated={el.updated} packId={packId}
-                                _id={el._id} more_id={el.more_id} ourUserId={ourUserId}/>
+                                _id={el._id} more_id={el.more_id} ourUserId={ourUserId}
+                                rating={el.rating}
+                            />
                         </div>
                     )
                 })}

@@ -1,2 +1,14 @@
+.list{
+    padding: 16px 64px 16px 24px;
+    display: flex;
+}
 
+.item{
+    flex: 1 1 25%;
+    flex-grow: 0;
+    margin: 5px;
+}
 
+.list:nth-child(odd){
+    background: #F8F7FD;
+}

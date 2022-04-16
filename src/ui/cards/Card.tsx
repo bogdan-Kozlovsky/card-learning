@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./cards.module.css";
+import style from "./card.module.css";
 import deleteIcon from "../assets/images/deleteIcon.svg";
 import updatePack from "../assets/images/updatePackName.svg";
 import {deleteCardTC, updateCardTC} from "../../bll/reducers/cards-reducer";
@@ -12,7 +12,8 @@ type propsType = {
     packId: string | undefined
     _id: string
     more_id: any
-    ourUserId:string |null
+    ourUserId: string | null
+    rating: number
 }
 
 export const Card = (props: propsType) => {
@@ -23,8 +24,12 @@ export const Card = (props: propsType) => {
         packId,
         _id,
         more_id,
-        ourUserId
+        ourUserId,
+        rating,
     } = props
+
+    console.log(ourUserId)
+    console.log(more_id)
 
     const dispatch = useDispatch()
 
@@ -35,21 +40,23 @@ export const Card = (props: propsType) => {
     const updateCardHandler = (_id: string) => {
         dispatch(updateCardTC(packId, _id))
     }
+    const time = updated && updated.toString().slice(0, 10)
     return (
-        <ul>
-            <li>{question}</li>
-            <li>{answer}</li>
-            <li>{updated}</li>
+        <ul className={style.list}>
+            <li className={style.item}>{question}</li>
+            <li className={style.item}>{answer}</li>
+            <li className={style.item}>{time}</li>
+            <li className={style.item}>{rating}</li>
             <li>
                 {ourUserId === more_id
                     &&
-                    <>
-                        <img className={style.cardImg} onClick={() => deleteCardHandler(_id)} src={deleteIcon}
+                    <div className={`boxBtn`}>
+                        <img className={`btn btnDelete`} onClick={() => deleteCardHandler(_id)} src={deleteIcon}
                              alt={'deleteIcon'}/>
-                        <img onClick={() => updateCardHandler(_id)} src={updatePack} alt={'updatePack'}/>
-                    </>
+                        <img className={`btnUpdate btn`} onClick={() => updateCardHandler(_id)} src={updatePack}
+                             alt={'updatePack'}/>
+                    </div>
                 }
-
             </li>
         </ul>
     );
