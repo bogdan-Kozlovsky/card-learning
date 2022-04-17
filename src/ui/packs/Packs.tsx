@@ -15,7 +15,12 @@ export const Packs = () => {
     const [activeBtn, setActiveBtn] = useState<string>('all')
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
 
-
+    //search
+    const [value, setValue] = useState('')
+    const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
+    }
+    //sort
     const [sortPacksNum, setSortPacksNum] = useState('1cardsCount')
 
 
@@ -23,7 +28,7 @@ export const Packs = () => {
         dispatch(getPacksTC(sortPacksNum))
     }, [page, myId, sortPacksNum])
 
-
+    //pagination
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
@@ -59,13 +64,6 @@ export const Packs = () => {
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks)
-
-
-    const [value, setValue] = useState('')
-    const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
-    }
-
     return (
         <div className='container'>
             <div className={style.packsBox}>

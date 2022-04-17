@@ -7,6 +7,8 @@ import {Card} from "./card/Card";
 import redirectIcons from '../assets/images/icons/leftCards.svg'
 import style from './cards.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
+import {Paginator} from "../common/Paginator/Paginator";
+import {setCurrentPageAC} from "../../bll/reducers/packs-reducer";
 
 export const Cards = () => {
     const dispatch = useDispatch()
@@ -25,6 +27,17 @@ export const Cards = () => {
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     // const ourUserId = useSelector<AppRootStateType, string | null>(state => state.signIn.profile._id)
     const ourUserId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
+
+
+    //pagination
+    const packPage = useSelector<AppRootStateType, number>(state => state.cards.page)
+    const packTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
+    const totalPages = Math.ceil(packTotalCount / packPage)
+    const handlePageChange = (e: { selected: number }) => {
+        const selectedPage = e.selected + 1;
+        dispatch(setCurrentPageAC(selectedPage))
+        dispatch(getCardsTC(packId))
+    };
     return (
         <div className='container'>
             <div className={style.cardsWrapper}>
@@ -57,6 +70,7 @@ export const Cards = () => {
                         </div>
                     )
                 })}
+                <Paginator totalPages={totalPages} handlePageChange={handlePageChange}/>
             </div>
         </div>
     );

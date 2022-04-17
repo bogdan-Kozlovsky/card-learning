@@ -114,15 +114,13 @@ export const requestsApi = {
     },
 
     // cardsAPI
-    getCards(packId: string | undefined) {
-        // getCards() {
-        return instance.get(`cards/card?cardsPack_id=${packId}`,)
-        // return instance.get(`cards/card`,)
+    // getCards(packId: string | undefined) {
+    getCards(cardsPack_id: string | undefined, pageCount: number, page: number) {
+        // return instance.get(`cards/card?cardsPack_id=${packId}`,)
+        return instance.get(`cards/card`, {params: {cardsPack_id, pageCount, page}})
     },
 
     addNewCards(packId: string | undefined, card: { cardsPack_id: string | undefined, question: string }) {
-        // addNewCards(card: { cardsPack_id: string | undefined, question: string }) {
-        //     return instance.post(`cards/pack?cardsPack_id:${packId}`, card)
         return instance.post(`cards/card`, {card})
     },
     deleteCard(cardId: string | undefined) {

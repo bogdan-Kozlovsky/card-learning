@@ -35,6 +35,7 @@ export const Pack = (props: propsType) => {
     }
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
 
+
     return (
         <div>
             <ul className={style.packBox}>
@@ -65,6 +66,7 @@ export const Pack = (props: propsType) => {
                     }
                 </li>
             </ul>
+
         </div>
     );
 };

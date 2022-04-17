@@ -2,6 +2,7 @@ import {requestsApi} from "../../dal/api";
 import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "../store";
 import {Dispatch} from "redux";
+import {useSelector} from "react-redux";
 
 export type initialStateType = {
     cards: CardsType[],
@@ -24,7 +25,7 @@ export type CardsType = {
     updated: Date
     _id: string
     more_id: string
-    rating:number
+    rating: number
 }
 const initialState = {
     cards: [] as CardsType[],
@@ -61,7 +62,8 @@ export const initializedCardsAC = (cards: CardsType[]) => {
 
 // const id = useSelector<AppRootStateType,string>(state => state.packs)
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
-    requestsApi.getCards(packId)
+    const page = getState().cards.page
+    requestsApi.getCards(packId, 7, page)
         .then((res) => {
             dispatch(initializedCardsAC(res.data.cards))
         })

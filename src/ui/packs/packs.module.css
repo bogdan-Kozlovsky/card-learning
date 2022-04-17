@@ -49,6 +49,7 @@
 .packsBoxRight {
     background-color: #ffffff;
     width: 100%;
+    min-height: 780px;
     padding: 25px 45px;
 }
 
