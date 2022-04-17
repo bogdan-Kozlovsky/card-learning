@@ -1,24 +1,19 @@
 import React from 'react';
 import style from './profile.module.css'
 import {NavLink, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {ProfileType} from "../../dal/api";
 
 export const Profile = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-
+    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
     // не удалять, после удаления не работает redirect
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
     // не удалять, после удаления не работает redirect
 
-    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
-    const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
 
-    // const changeNameProfile = (name: string, avatar: string) => {
-    //     dispatch(updateProfileTC(name, avatar))
-    // }
     if (!initialized) {
         navigate('/')
     }
@@ -31,13 +26,14 @@ export const Profile = () => {
                             <div>
                                 <img className={style.avatar} src={avatar} alt="avatar"/>
                             </div>
-                            {/*<EditableSpan titleName={name} changeNameProfile={changeNameProfile}/>*/}
                             <p className={style.description}>
                                 {name}
                             </p>
                         </div>
                     </div>
-                    <button><NavLink to='/update-profile'>edit</NavLink></button>
+                    <button>
+                        <NavLink to='/update-profile'>edit</NavLink>
+                    </button>
                 </div>
                 <div className={style.rightBox}>boom</div>
             </div>

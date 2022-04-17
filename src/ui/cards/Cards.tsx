@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addCardsTC, CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
 import {AppRootStateType} from "../../bll/store";
 import {NavLink, useParams} from "react-router-dom";
-import {Card} from "./Card";
+import {Card} from "./card/Card";
 import redirectIcons from '../assets/images/icons/leftCards.svg'
 import style from './cards.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
@@ -37,7 +37,7 @@ export const Cards = () => {
                 <SuperInput placeholder={'Search...'} type='text' className={style.cardsInput}/>
 
 
-                {cardsTotalCount && <ul className={style.cardsList}>
+                {cardsTotalCount - 1 && <ul className={style.cardsList}>
                     <li className={style.cardsItem}>Question</li>
                     <li className={style.cardsItem}>Answer</li>
                     <li className={style.cardsItem}>Last Updated</li>

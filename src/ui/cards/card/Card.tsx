@@ -1,8 +1,8 @@
 import React from 'react';
 import style from "./card.module.css";
-import deleteIcon from "../assets/images/deleteIcon.svg";
-import updatePack from "../assets/images/updatePackName.svg";
-import {deleteCardTC, updateCardTC} from "../../bll/reducers/cards-reducer";
+import deleteIcon from "../../assets/images/deleteIcon.svg";
+import updatePack from "../../assets/images/updatePackName.svg";
+import {deleteCardTC, updateCardTC} from "../../../bll/reducers/cards-reducer";
 import {useDispatch} from "react-redux";
 
 type propsType = {

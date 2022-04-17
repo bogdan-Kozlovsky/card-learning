@@ -2,6 +2,8 @@ import {requestsApi} from "../../dal/api";
 import {ThunkAction} from "redux-thunk";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
+import {loaderAC} from "./auth-reducer";
+import {setIdProfileAC} from "./profile-reducer";
 
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
 
@@ -42,10 +44,12 @@ export type ResponseGetPacksType = {
 type ActionType =
     | ReturnType<typeof initializedPacksAC>
     | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof loaderAC>
+    | ReturnType<typeof setIdProfileAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
-    packs: [] as PackType[],
+    cardPacks: [] as PackType[],
     error: '',
     minCardsCount: 0,
     maxCardsCount: 103,
@@ -59,6 +63,7 @@ const initialState = {
         pageCount: 10,
         user_id: '',
     } as PacksParamsType,
+    page: 1
 }
 
 export type PacksParamsType = {
@@ -75,8 +80,8 @@ export type PacksParamsType = {
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "APP/INITIALIZED_PACKS": {
-            // return {...state, packs: action.packs., cardPacksTotalCount: action.packs.cardPacksTotalCount}
-            return {...state, packs: action.packs.cardPacks, cardPacksTotalCount: action.packs.cardPacksTotalCount}
+            // return {...state, packs: action.packs.cardPacks, cardPacksTotalCount: action.packs.cardPacksTotalCount}
+            return {...state, ...action.payload}
         }
         case "PACKS/SET-CURRENT-PAGE":
             return {
@@ -90,10 +95,12 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 
+
 ///////////////////////////////////////////// action creator ////////////////////////////////////////////
 export const initializedPacksAC = (packs: any) => {
     return {
-        type: 'APP/INITIALIZED_PACKS', packs
+        type: 'APP/INITIALIZED_PACKS', payload: packs
+        // type: 'APP/INITIALIZED_PACKS', packs
     } as const
 }
 export const setCurrentPageAC = (value: number) => {
@@ -102,12 +109,17 @@ export const setCurrentPageAC = (value: number) => {
     } as const
 }
 
-export const getPacksTC = (): ThunkType => (dispatch, getState) => {
+export const getPacksTC = (sortPacks?: string): ThunkType => (dispatch, getState) => {
+    // dispatch(loaderAC(false))
     const page = getState().packs.params.page
     const user_id = getState().profile.myId
-    requestsApi.getPacks(page, 7, user_id)
+    requestsApi.getPacks(page, 7, user_id, sortPacks)
         .then((res) => {
             dispatch(initializedPacksAC(res.data))
+            // dispatch(setIdProfileAC(res.data.data._id))
+        })
+        .finally(() => {
+            // dispatch(loaderAC(true))
         })
 }
 

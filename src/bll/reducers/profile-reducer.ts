@@ -29,7 +29,7 @@ const initialState: InitialStateType = {
         __v: null,
         _id: null,
     },
-    myId: null
+    myId: null,
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
@@ -72,7 +72,11 @@ const updateProfileAC = (data: ProfileType) =>
     ({type: 'PROFILE/UPDATE_PROFILE', data} as const)
 export const updateProfileNameAC = (name: string) =>
     ({type: 'PROFILE/UPDATE_PROFILE_NAME', name} as const)
-export const setIdProfileAC = (myId: string | null) => ({type: 'PROFILE-SET_MY_ID', myId} as const)
+export const setIdProfileAC = (myId: string | null) => {
+    return {
+        type: 'PROFILE-SET_MY_ID', myId
+    } as const
+}
 
 
 ///////////////////////////////////////////// Thunk ////////////////////////////////////////////

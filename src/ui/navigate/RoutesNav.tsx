@@ -9,7 +9,7 @@ import {Navigate, Route, Routes,} from 'react-router-dom'
 import {Packs} from "../packs/Packs";
 import {Cards} from "../cards/Cards";
 import UpdateProfile from "../Profile/updateProfile/UpdateProfile";
-import {Profile} from "../Profile/Profile";
+import {Profile} from '../Profile/Profile'
 
 
 const RoutesNav = () => {

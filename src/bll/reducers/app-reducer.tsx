@@ -32,12 +32,6 @@ export const initializedAC = (value: boolean) => {
     } as const
 }
 
-// export const logoutMeAC = () => {
-//     return {
-//         type: 'LOGOUT/LOGOUT'
-//     } as const
-// }
-//
 // ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 export const logoutTC = () => (dispatch: Dispatch) => {
     requestsApi.logoutRequest()

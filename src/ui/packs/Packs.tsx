@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {addPacksTC, getPacksTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
@@ -11,16 +11,23 @@ import {setIdProfileAC} from "../../bll/reducers/profile-reducer";
 
 export const Packs = () => {
     const dispatch = useDispatch()
+    const page = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const [activeBtn, setActiveBtn] = useState<string>('all')
+    const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
+
+
+    const [sortPacksNum, setSortPacksNum] = useState('1cardsCount')
+
 
     useEffect(() => {
-        dispatch(getPacksTC())
-    }, [dispatch])
+        dispatch(getPacksTC(sortPacksNum))
+    }, [page, myId, sortPacksNum])
+
 
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
 
-    const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
@@ -43,21 +50,21 @@ export const Packs = () => {
         dispatch(getPacksTC())
     }
 
-    const a1 = () => {
-        dispatch(getPacksTC())
-    }
 
-    const a0 = () => {
-        dispatch(getPacksTC())
+    const requestForSorting = (num: number) => {
+        const sortPacks = `${num}cardsCount`
+        setSortPacksNum(sortPacks)
     }
-
-    const [activeBtn, setActiveBtn] = useState<string>('all')
 
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-    const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.packs)
+    const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks)
 
 
+    const [value, setValue] = useState('')
+    const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
+    }
 
     return (
         <div className='container'>
@@ -77,15 +84,16 @@ export const Packs = () => {
                 <div className={style.packsBoxRight}>
                     <h2 className={style.packsBoxRightTitle}>Packs list</h2>
                     <div className={style.packsBoxSearch}>
-                        <SuperInput className={style.packsInputSearch} placeholder={'Search...'}/>
+                        <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
+                                    placeholder={'Search...'}/>
                         <SuperButton onClick={handlerNewPacks} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
 
                     <ul className={style.packsList}>
                         <li className={style.packsItem}>Name</li>
                         <li className={style.packsItem}>Cards
-                            <button onClick={a1}>+</button>
-                            <button onClick={a0}>-</button>
+                            <button onClick={() => requestForSorting(0)}>+</button>
+                            <button onClick={() => requestForSorting(1)}>-</button>
                         </li>
                         <li className={style.packsItem}>Last Updated
                         </li>
@@ -93,7 +101,18 @@ export const Packs = () => {
                     </ul>
 
 
-                    {pack.map(e => {
+                    {/*{pack.map(e => {*/}
+                    {/*    return (*/}
+                    {/*        <Pack key={e._id} name={fixLengthText(e.name)} cards={e.cardsCount} lastUpdated={e.created}*/}
+                    {/*              author={fixLengthText(e.user_id)}*/}
+                    {/*              userId={e.more_id} packId={e._id} ourUserId={myId}/>*/}
+                    {/*    )*/}
+                    {/*})}*/}
+
+                    {pack.filter(val => {
+                        // @ts-ignore
+                        return value === "" || val.name.toLowerCase().includes(value.toLowerCase())
+                    }).map(e => {
                         return (
                             <Pack key={e._id} name={fixLengthText(e.name)} cards={e.cardsCount} lastUpdated={e.created}
                                   author={fixLengthText(e.user_id)}
