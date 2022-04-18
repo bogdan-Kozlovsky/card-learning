@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import {addPacksTC, getPacksTC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
+import {addPacksTC, getPacksTC, getUserIdAC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
 import {Pack} from "./pack/Pack";
 import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
@@ -14,6 +14,7 @@ export const Packs = () => {
     const page = useSelector<AppRootStateType, number>(state => state.packs.page)
     const [activeBtn, setActiveBtn] = useState<string>('all')
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
+    const user_id = useSelector<AppRootStateType, null | string>(state => state.packs.params.user_id)
 
     //search
     const [value, setValue] = useState('')
@@ -26,7 +27,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC(sortPacksNum))
-    }, [page, myId, sortPacksNum])
+    }, [page, myId, sortPacksNum,user_id])
 
     //pagination
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
@@ -42,17 +43,17 @@ export const Packs = () => {
     const handlerNewPacks = () => {
         dispatch(addPacksTC())
     }
-
+    console.log(myId,'sdfsdgsdsdsdfsdfds')
     const myPacks = () => {
         setActiveBtn('own')
-        dispatch(setIdProfileAC(myId))
-        dispatch(getPacksTC())
+        dispatch(getUserIdAC(myId))
+
     }
 
     const allPacks = () => {
         setActiveBtn('all')
-        dispatch(setIdProfileAC(null))
-        dispatch(getPacksTC())
+        dispatch(getUserIdAC(null))
+
     }
 
 
@@ -97,15 +98,6 @@ export const Packs = () => {
                         </li>
                         <li className={style.packsItem}>Actions</li>
                     </ul>
-
-
-                    {/*{pack.map(e => {*/}
-                    {/*    return (*/}
-                    {/*        <Pack key={e._id} name={fixLengthText(e.name)} cards={e.cardsCount} lastUpdated={e.created}*/}
-                    {/*              author={fixLengthText(e.user_id)}*/}
-                    {/*              userId={e.more_id} packId={e._id} ourUserId={myId}/>*/}
-                    {/*    )*/}
-                    {/*})}*/}
 
                     {pack.filter(val => {
                         // @ts-ignore

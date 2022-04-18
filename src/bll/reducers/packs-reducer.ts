@@ -46,6 +46,7 @@ type ActionType =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof loaderAC>
     | ReturnType<typeof setIdProfileAC>
+    | ReturnType<typeof getUserIdAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
@@ -73,7 +74,7 @@ export type PacksParamsType = {
     sortPacks: string
     page: number
     pageCount: number
-    user_id: string
+    user_id: string | null
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
@@ -87,6 +88,12 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {
                 ...state, params: {
                     ...state.params, page: action.value
+                }
+            }
+        case "PACKS/SET-USER-ID":
+            return {
+                ...state, params: {
+                    ...state.params, user_id: action.value
                 }
             }
         default: {
@@ -108,13 +115,19 @@ export const setCurrentPageAC = (value: number) => {
         type: 'PACKS/SET-CURRENT-PAGE', value
     } as const
 }
+export const getUserIdAC = (value: string | null) => {
+    return {
+        type: "PACKS/SET-USER-ID", value
+    } as const
+}
 
 export const getPacksTC = (sortPacks?: string): ThunkType => (dispatch, getState) => {
     // dispatch(loaderAC(false))
     const page = getState().packs.params.page
-    const user_id = getState().profile.myId
+    const user_id = getState().packs.params.user_id
     requestsApi.getPacks(page, 7, user_id, sortPacks)
         .then((res) => {
+            console.log(res.data,'dadadadada')
             dispatch(initializedPacksAC(res.data))
             // dispatch(setIdProfileAC(res.data.data._id))
         })
