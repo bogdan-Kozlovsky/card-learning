@@ -1,17 +1,24 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
-import {addPacksTC, getPacksTC, getUserIdAC, PackType, setCurrentPageAC} from "../../bll/reducers/packs-reducer";
+import {
+    addPacksTC,
+    getPacksTC,
+    getUserIdAC,
+    PackType,
+    setCurrentPageAC,
+    setSortPacksAC
+} from "../../bll/reducers/packs-reducer";
 import {Pack} from "./pack/Pack";
 import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperButton} from "../common/SuperButton/SuperButton";
-import {setIdProfileAC} from "../../bll/reducers/profile-reducer";
 
 export const Packs = () => {
     const dispatch = useDispatch()
     const page = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const sortPacksNum = useSelector<AppRootStateType, string>(state => state.packs.params.sortPacks)
     const [activeBtn, setActiveBtn] = useState<string>('all')
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
     const user_id = useSelector<AppRootStateType, null | string>(state => state.packs.params.user_id)
@@ -22,12 +29,12 @@ export const Packs = () => {
         setValue(e.currentTarget.value)
     }
     //sort
-    const [sortPacksNum, setSortPacksNum] = useState('1cardsCount')
+    // const [sortPacksNum, setSortPacksNum] = useState('1cardsCount')
 
 
     useEffect(() => {
-        dispatch(getPacksTC(sortPacksNum))
-    }, [page, myId, sortPacksNum,user_id])
+        dispatch(getPacksTC())
+    }, [page, myId, sortPacksNum, user_id])
 
     //pagination
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
@@ -43,23 +50,22 @@ export const Packs = () => {
     const handlerNewPacks = () => {
         dispatch(addPacksTC())
     }
-    console.log(myId,'sdfsdgsdsdsdfsdfds')
+
     const myPacks = () => {
         setActiveBtn('own')
         dispatch(getUserIdAC(myId))
-
     }
 
     const allPacks = () => {
         setActiveBtn('all')
         dispatch(getUserIdAC(null))
-
     }
 
 
     const requestForSorting = (num: number) => {
         const sortPacks = `${num}cardsCount`
-        setSortPacksNum(sortPacks)
+        // setSortPacksNum(sortPacks)
+        dispatch(setSortPacksAC(sortPacks))
     }
 
 
@@ -99,10 +105,7 @@ export const Packs = () => {
                         <li className={style.packsItem}>Actions</li>
                     </ul>
 
-                    {pack.filter(val => {
-                        // @ts-ignore
-                        return value === "" || val.name.toLowerCase().includes(value.toLowerCase())
-                    }).map(e => {
+                    {pack.map(e => {
                         return (
                             <Pack key={e._id} name={fixLengthText(e.name)} cards={e.cardsCount} lastUpdated={e.created}
                                   author={fixLengthText(e.user_id)}

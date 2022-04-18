@@ -3,7 +3,6 @@ import {ThunkAction} from "redux-thunk";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
 import {loaderAC} from "./auth-reducer";
-import {setIdProfileAC} from "./profile-reducer";
 
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
 
@@ -45,8 +44,8 @@ type ActionType =
     | ReturnType<typeof initializedPacksAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof loaderAC>
-    | ReturnType<typeof setIdProfileAC>
     | ReturnType<typeof getUserIdAC>
+    | ReturnType<typeof setSortPacksAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
@@ -96,6 +95,12 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
                     ...state.params, user_id: action.value
                 }
             }
+        case "PACKS/SORT-PACKS":
+            return {
+                ...state, params: {
+                    ...state.params, sortPacks: action.sortPacks
+                }
+            }
         default: {
             return state
         }
@@ -121,13 +126,19 @@ export const getUserIdAC = (value: string | null) => {
     } as const
 }
 
-export const getPacksTC = (sortPacks?: string): ThunkType => (dispatch, getState) => {
+export const setSortPacksAC = (sortPacks: string) => {
+    return {
+        type: "PACKS/SORT-PACKS", sortPacks
+    } as const
+}
+
+export const getPacksTC = (): ThunkType => (dispatch, getState) => {
     // dispatch(loaderAC(false))
-    const page = getState().packs.params.page
-    const user_id = getState().packs.params.user_id
+    const state = getState().packs
+    const {packName,page,max,min,user_id,pageCount,sortPacks} = state.params
     requestsApi.getPacks(page, 7, user_id, sortPacks)
         .then((res) => {
-            console.log(res.data,'dadadadada')
+            console.log(res.data, 'dadadadada')
             dispatch(initializedPacksAC(res.data))
             // dispatch(setIdProfileAC(res.data.data._id))
         })

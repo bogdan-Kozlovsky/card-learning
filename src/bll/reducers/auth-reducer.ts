@@ -1,7 +1,6 @@
 import {ForgotPasswordType, ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
 import {initializedAC} from "./app-reducer";
-import {setIdProfileAC} from "./profile-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
