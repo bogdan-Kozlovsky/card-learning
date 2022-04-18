@@ -2,15 +2,17 @@
 import {Dispatch} from "redux";
 import {ProfileType, requestsApi} from "../../dal/api";
 import {signInAC} from "./sign_in-reducer";
-
+export type RequestStatusType =  'loading' | 'succeeded'
 export type InitialStateType = {
     initialized: boolean
+    status: RequestStatusType
 }
-type ActionType = | ReturnType<typeof initializedAC>
+type ActionType = | ReturnType<typeof initializedAC>  | ReturnType<typeof getStatusAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState: InitialStateType = {
     initialized: false,
+    status: "loading",
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
@@ -18,6 +20,11 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     switch (action.type) {
         case "APP/INITIALIZED": {
             return {...state, initialized: action.value}
+        }
+        case "APP/GET-STATUS":{
+            return {
+                ...state,status:action.status
+            }
         }
         default: {
             return state
@@ -29,6 +36,11 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 export const initializedAC = (value: boolean) => {
     return {
         type: 'APP/INITIALIZED', value
+    } as const
+}
+export const getStatusAC = (status: RequestStatusType) => {
+    return {
+            type: 'APP/GET-STATUS', status
     } as const
 }
 

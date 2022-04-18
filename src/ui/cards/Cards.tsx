@@ -9,10 +9,13 @@ import style from './cards.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {setCurrentPageAC} from "../../bll/reducers/packs-reducer";
+import {LinearProgress} from "@material-ui/core";
 
 export const Cards = () => {
     const dispatch = useDispatch()
     const {packId} = useParams()
+    const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
+
 
 
     useEffect(() => {
@@ -40,6 +43,7 @@ export const Cards = () => {
     };
     return (
         <div className='container'>
+            {status=== "loading" ? <LinearProgress /> : null}
             <div className={style.cardsWrapper}>
                 <div className={style.cardsWrapLink}>
                     <NavLink to={'/packs_list'}>

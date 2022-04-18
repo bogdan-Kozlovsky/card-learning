@@ -14,6 +14,7 @@ import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperButton} from "../common/SuperButton/SuperButton";
+import {CircularProgress, LinearProgress} from "@material-ui/core";
 
 export const Packs = () => {
     const dispatch = useDispatch()
@@ -23,6 +24,7 @@ export const Packs = () => {
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
     const user_id = useSelector<AppRootStateType, null | string>(state => state.packs.params.user_id)
     const packName = useSelector<AppRootStateType, null | string>(state => state.packs.params.packName)
+    const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
 
     //search
     const [value, setValue] = useState('')
@@ -38,12 +40,13 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [page, myId, sortPacksNum, user_id,packName])
+    }, [page,sortPacksNum,user_id,packName])
 
     //pagination
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
+    const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks)
 
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
@@ -71,11 +74,14 @@ export const Packs = () => {
         dispatch(setSortPacksAC(sortPacks))
     }
 
+    // if (status=== "loading"){
+    //     return <div className={ style.loader2}><CircularProgress/></div>
+    // }
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-    const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks)
     return (
         <div className='container'>
+            {status=== "loading" ? <LinearProgress /> : null}
             <div className={style.packsBox}>
                 <div className={style.packsBoxLeft}>
                     <h3 className={style.packsLeftTitle}>Show packs cards</h3>

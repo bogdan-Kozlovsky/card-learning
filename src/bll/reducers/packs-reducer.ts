@@ -3,6 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
 import {loaderAC} from "./auth-reducer";
+import {getStatusAC} from "./app-reducer";
 
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
 
@@ -144,19 +145,19 @@ export const setSearchAC = (searchValue: string) => {
     } as const
 }
 
-export const getPacksTC = (): ThunkType => (dispatch, getState) => {
-    // dispatch(loaderAC(false))
+export const getPacksTC = (): ThunkType => async (dispatch, getState) => {
+    // @ts-ignore
+    dispatch(getStatusAC('loading'))
     const state = getState().packs
     const {packName, page, max, min, user_id, pageCount, sortPacks} = state.params
-    requestsApi.getPacks(page, 7, user_id, sortPacks,packName)
-        .then((res) => {
+    await requestsApi.getPacks(page, 7, user_id, sortPacks,packName).then((res) => {
             console.log(res.data, 'dadadadada')
             dispatch(initializedPacksAC(res.data))
-            // dispatch(setIdProfileAC(res.data.data._id))
-        })
-        .finally(() => {
-            // dispatch(loaderAC(true))
-        })
+        // @ts-ignore
+        dispatch(getStatusAC('succeeded'))
+
+    })
+
 }
 
 export const addPacksTC = (): ThunkType => (dispatch, getState) => {

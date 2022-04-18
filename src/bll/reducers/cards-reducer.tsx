@@ -3,6 +3,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "../store";
 import {Dispatch} from "redux";
 import {useSelector} from "react-redux";
+import {getStatusAC} from "./app-reducer";
 
 export type initialStateType = {
     cards: CardsType[],
@@ -62,10 +63,15 @@ export const initializedCardsAC = (cards: CardsType[]) => {
 
 // const id = useSelector<AppRootStateType,string>(state => state.packs)
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
+    // @ts-ignore
+    dispatch(getStatusAC('loading'))
     const page = getState().cards.page
     requestsApi.getCards(packId, 7, page)
         .then((res) => {
             dispatch(initializedCardsAC(res.data.cards))
+            // @ts-ignore
+            dispatch(getStatusAC('succeeded'))
+
         })
 }
 
