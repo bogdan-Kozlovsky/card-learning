@@ -6,7 +6,7 @@ import {
     getPacksTC,
     getUserIdAC,
     PackType,
-    setCurrentPageAC,
+    setCurrentPageAC, setSearchAC,
     setSortPacksAC
 } from "../../bll/reducers/packs-reducer";
 import {Pack} from "./pack/Pack";
@@ -17,16 +17,20 @@ import {SuperButton} from "../common/SuperButton/SuperButton";
 
 export const Packs = () => {
     const dispatch = useDispatch()
-    const page = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const page = useSelector<AppRootStateType, number>(state => state.packs.params.page)
     const sortPacksNum = useSelector<AppRootStateType, string>(state => state.packs.params.sortPacks)
     const [activeBtn, setActiveBtn] = useState<string>('all')
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
     const user_id = useSelector<AppRootStateType, null | string>(state => state.packs.params.user_id)
+    const packName = useSelector<AppRootStateType, null | string>(state => state.packs.params.packName)
 
     //search
     const [value, setValue] = useState('')
     const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
+    }
+    const setSearch = () => {
+        dispatch(setSearchAC(value))
     }
     //sort
     // const [sortPacksNum, setSortPacksNum] = useState('1cardsCount')
@@ -34,7 +38,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [page, myId, sortPacksNum, user_id])
+    }, [page, myId, sortPacksNum, user_id,packName])
 
     //pagination
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
@@ -44,7 +48,6 @@ export const Packs = () => {
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
-        dispatch(getPacksTC())
     };
 
     const handlerNewPacks = () => {
@@ -90,7 +93,8 @@ export const Packs = () => {
                     <h2 className={style.packsBoxRightTitle}>Packs list</h2>
                     <div className={style.packsBoxSearch}>
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
-                                    placeholder={'Search...'}/>
+                                    placeholder={'Search...'} />
+                        <button onClick={setSearch}>Search</button>
                         <SuperButton onClick={handlerNewPacks} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
 

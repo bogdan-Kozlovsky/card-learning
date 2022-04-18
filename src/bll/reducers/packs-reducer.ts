@@ -46,6 +46,7 @@ type ActionType =
     | ReturnType<typeof loaderAC>
     | ReturnType<typeof getUserIdAC>
     | ReturnType<typeof setSortPacksAC>
+    | ReturnType<typeof setSearchAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
@@ -101,6 +102,12 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
                     ...state.params, sortPacks: action.sortPacks
                 }
             }
+        case "PACKS/SET-SEARCH":
+            return {
+                ...state, params: {
+                    ...state.params, packName:action.searchValue
+                }
+            }
         default: {
             return state
         }
@@ -131,12 +138,17 @@ export const setSortPacksAC = (sortPacks: string) => {
         type: "PACKS/SORT-PACKS", sortPacks
     } as const
 }
+export const setSearchAC = (searchValue: string) => {
+    return {
+        type: "PACKS/SET-SEARCH", searchValue
+    } as const
+}
 
 export const getPacksTC = (): ThunkType => (dispatch, getState) => {
     // dispatch(loaderAC(false))
     const state = getState().packs
-    const {packName,page,max,min,user_id,pageCount,sortPacks} = state.params
-    requestsApi.getPacks(page, 7, user_id, sortPacks)
+    const {packName, page, max, min, user_id, pageCount, sortPacks} = state.params
+    requestsApi.getPacks(page, 7, user_id, sortPacks,packName)
         .then((res) => {
             console.log(res.data, 'dadadadada')
             dispatch(initializedPacksAC(res.data))
