@@ -1,10 +1,9 @@
 import {ForgotPasswordType, ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
-import {initializedAC} from "./app-reducer";
+import {getStatusAC, initializedAC} from "./app-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
-    loader: boolean
     authError: string
     forgotValue: boolean
     newPasswordValue: boolean
@@ -12,7 +11,6 @@ export type InitialStateType = {
 
 type ActionType =
     | ReturnType<typeof authMeAC>
-    | ReturnType<typeof loaderAC>
     | ReturnType<typeof authErrorAC>
     | ReturnType<typeof forgotValueAC>
     | ReturnType<typeof newPasswordValueAC>
@@ -36,7 +34,6 @@ export const initialState: InitialStateType = {
         __v: null,
         _id: null,
     },
-    loader: false,
     authError: '',
     forgotValue: false,
     newPasswordValue: false
@@ -47,11 +44,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     switch (action.type) {
         case "PROFILE/UPDATE_PROFILE": {
             return {...state, profile: action.data}
-        }
-        case "AUTH/LOADER": {
-            return {
-                ...state, loader: action.value
-            }
         }
         case "AUTH_ERROR": {
             return {...state, authError: action.error}
@@ -74,7 +66,6 @@ export const authMeAC = (data: ProfileType,) => {
         type: "PROFILE/UPDATE_PROFILE", data,
     } as const
 }
-export const loaderAC = (value: boolean) => ({type: 'AUTH/LOADER', value} as const)
 export const authErrorAC = (error: string) => ({type: 'AUTH_ERROR', error} as const)
 export const forgotValueAC = (value: boolean) => ({type: 'FORGOT_VALUE', value} as const)
 export const newPasswordValueAC = (value: boolean) => ({type: 'NEW_PASSWORD_VALUE', value} as const)
@@ -82,7 +73,8 @@ export const newPasswordValueAC = (value: boolean) => ({type: 'NEW_PASSWORD_VALU
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 
 export const authMeTC = () => (dispatch: Dispatch) => {
-    dispatch(loaderAC(false))
+    // dispatch(loaderAC(false))
+    dispatch(getStatusAC('loading'))
     requestsApi.authMeRequest()
         .then((res) => {
             dispatch(initializedAC(true))
@@ -95,34 +87,32 @@ export const authMeTC = () => (dispatch: Dispatch) => {
             }, 3000)
         })
         .finally(() => {
-            dispatch(loaderAC(true))
+            dispatch(getStatusAC('succeeded'))
+            // dispatch(loaderAC(true))
         })
 }
 export const forgotPasswordTC = (data: ForgotPasswordType) => (dispatch: Dispatch) => {
-    dispatch(loaderAC(false))
+    dispatch(getStatusAC('loading'))
     requestsApi.forgotPassword(data)
         .then(res => {
             dispatch(forgotValueAC(true))
-            // setTimeout(() => {
-            //     dispatch(forgotValueAC(false))
-            // }, 5000)
         })
         .catch(e => alert('e'))
         .finally(() => {
-            dispatch(loaderAC(true))
+            dispatch(getStatusAC('succeeded'))
         })
 }
 
 
 export const newPasswordTC = (data: { password: string, resetPasswordToken: string | undefined }) => (dispatch: Dispatch) => {
-    dispatch(loaderAC(false))
+    dispatch(getStatusAC('loading'))
     requestsApi.newPassword(data)
         .then(res => {
             dispatch(newPasswordValueAC(true))
         })
         .catch(e => alert('e'))
         .finally(() => {
-            dispatch(loaderAC(true))
+            dispatch(getStatusAC('succeeded'))
         })
 }
 

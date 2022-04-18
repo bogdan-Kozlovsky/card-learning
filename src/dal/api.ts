@@ -99,9 +99,8 @@ export const requestsApi = {
     },
 
     // packsAPI
-    getPacks(page: number, pageCount: number, user_id: string | null, sortPacks: string = '1cardsCount', packName: string) {
-        // return instance.get(`cards/pack`, {params: {page, pageCount, user_id,}})
-        return instance.get(`cards/pack`, {params: {page, pageCount, user_id, sortPacks, packName}})
+    getPacks(page: number, pageCount: number, user_id: string | null, sortPacks: string = '1cardsCount', packName: string, min: number, max: number) {
+        return instance.get(`cards/pack`, {params: {page, pageCount, user_id, sortPacks, packName, min, max}})
     },
     addNewPack(newCard: NewCardType) {
         return instance.post<NewCardType>(`cards/pack`, {cardsPack: newCard})

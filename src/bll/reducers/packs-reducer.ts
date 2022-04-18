@@ -2,7 +2,6 @@ import {requestsApi} from "../../dal/api";
 import {ThunkAction} from "redux-thunk";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
-import {loaderAC} from "./auth-reducer";
 import {getStatusAC} from "./app-reducer";
 
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
@@ -44,10 +43,11 @@ export type ResponseGetPacksType = {
 type ActionType =
     | ReturnType<typeof initializedPacksAC>
     | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof loaderAC>
     | ReturnType<typeof getUserIdAC>
     | ReturnType<typeof setSortPacksAC>
     | ReturnType<typeof setSearchAC>
+    | ReturnType<typeof getStatusAC>
+    | ReturnType<typeof doubleRangeAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
@@ -65,7 +65,7 @@ const initialState = {
         pageCount: 10,
         user_id: '',
     } as PacksParamsType,
-    page: 1
+    page: 1,
 }
 
 export type PacksParamsType = {
@@ -82,7 +82,6 @@ export type PacksParamsType = {
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "APP/INITIALIZED_PACKS": {
-            // return {...state, packs: action.packs.cardPacks, cardPacksTotalCount: action.packs.cardPacksTotalCount}
             return {...state, ...action.payload}
         }
         case "PACKS/SET-CURRENT-PAGE":
@@ -106,7 +105,13 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
         case "PACKS/SET-SEARCH":
             return {
                 ...state, params: {
-                    ...state.params, packName:action.searchValue
+                    ...state.params, packName: action.searchValue
+                }
+            }
+        case "PACKS/DOUBLE-RANGE":
+            return {
+                ...state, params: {
+                    ...state.params, min: action.min, max: action.max,
                 }
             }
         default: {
@@ -120,7 +125,6 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 export const initializedPacksAC = (packs: any) => {
     return {
         type: 'APP/INITIALIZED_PACKS', payload: packs
-        // type: 'APP/INITIALIZED_PACKS', packs
     } as const
 }
 export const setCurrentPageAC = (value: number) => {
@@ -145,15 +149,19 @@ export const setSearchAC = (searchValue: string) => {
     } as const
 }
 
+export const doubleRangeAC = (min: number, max: number,) => {
+    return {
+        type: "PACKS/DOUBLE-RANGE", min, max
+    } as const
+}
+
 export const getPacksTC = (): ThunkType => async (dispatch, getState) => {
-    // @ts-ignore
     dispatch(getStatusAC('loading'))
     const state = getState().packs
     const {packName, page, max, min, user_id, pageCount, sortPacks} = state.params
-    await requestsApi.getPacks(page, 7, user_id, sortPacks,packName).then((res) => {
-            console.log(res.data, 'dadadadada')
-            dispatch(initializedPacksAC(res.data))
-        // @ts-ignore
+    await requestsApi.getPacks(page, 7, user_id, sortPacks, packName, min, max).then((res) => {
+        console.log(res.data, 'dadadadada')
+        dispatch(initializedPacksAC(res.data))
         dispatch(getStatusAC('succeeded'))
 
     })

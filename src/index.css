@@ -21,6 +21,7 @@ ul {
 }
 
 .container {
+    position: relative;
     max-width: 1140px;
     width: 100%;
     padding: 0 15px;
@@ -101,7 +102,7 @@ ul {
     opacity: 0.5;
 }
 
-.inputLabelFlex{
+.inputLabelFlex {
     display: flex;
 }
 
@@ -173,11 +174,11 @@ ul {
     text-align: center;
 }
 
-.inputPasswordShow{
+.inputPasswordShow {
     position: relative;
 }
 
-.btnShow{
+.btnShow {
     width: 25px;
     cursor: pointer;
     position: absolute;
@@ -200,10 +201,10 @@ ul {
     transform: translateX(-50%);
 }
 
-.btnUpdate{
+.btnUpdate {
     right: -70px;
 }
 
-.btnDelete{
+.btnDelete {
     right: -25px;
 }

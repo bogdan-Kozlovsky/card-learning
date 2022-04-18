@@ -3,10 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {
     addPacksTC,
+    doubleRangeAC,
     getPacksTC,
     getUserIdAC,
+    PacksParamsType,
     PackType,
-    setCurrentPageAC, setSearchAC,
+    setCurrentPageAC,
+    setSearchAC,
     setSortPacksAC
 } from "../../bll/reducers/packs-reducer";
 import {Pack} from "./pack/Pack";
@@ -14,17 +17,38 @@ import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperButton} from "../common/SuperButton/SuperButton";
-import {CircularProgress, LinearProgress} from "@material-ui/core";
+import Slider from "@material-ui/core/Slider";
+
+
+function useDebounce<T>(value: T, delay?: number): T {
+    const [debouncedValue, setDebouncedValue] = useState<T>(value)
+
+    useEffect(() => {
+        const timer = setTimeout(() => setDebouncedValue(value), delay || 500)
+
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [value, delay])
+
+    return debouncedValue
+}
+
 
 export const Packs = () => {
     const dispatch = useDispatch()
-    const page = useSelector<AppRootStateType, number>(state => state.packs.params.page)
-    const sortPacksNum = useSelector<AppRootStateType, string>(state => state.packs.params.sortPacks)
-    const [activeBtn, setActiveBtn] = useState<string>('all')
+    const {
+        page,
+        sortPacks,
+        user_id,
+        packName, min, max
+    } = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
-    const user_id = useSelector<AppRootStateType, null | string>(state => state.packs.params.user_id)
-    const packName = useSelector<AppRootStateType, null | string>(state => state.packs.params.packName)
-    const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
+    const [activeBtn, setActiveBtn] = useState<string>('all')
+    //const [doubleRange, setDoubleRange] = useState<number[]>([0, 10])
+
+    const debounceMin = useDebounce(min, 700)
+    const debounceMax = useDebounce(max, 700)
 
     //search
     const [value, setValue] = useState('')
@@ -34,13 +58,11 @@ export const Packs = () => {
     const setSearch = () => {
         dispatch(setSearchAC(value))
     }
-    //sort
-    // const [sortPacksNum, setSortPacksNum] = useState('1cardsCount')
 
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [page,sortPacksNum,user_id,packName])
+    }, [page, sortPacks, user_id, packName, debounceMin, debounceMax])
 
     //pagination
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
@@ -57,41 +79,58 @@ export const Packs = () => {
         dispatch(addPacksTC())
     }
 
+    // sorting between own and shared Packs
     const myPacks = () => {
         setActiveBtn('own')
         dispatch(getUserIdAC(myId))
     }
-
     const allPacks = () => {
         setActiveBtn('all')
         dispatch(getUserIdAC(null))
     }
 
-
+    //sort
     const requestForSorting = (num: number) => {
         const sortPacks = `${num}cardsCount`
-        // setSortPacksNum(sortPacks)
         dispatch(setSortPacksAC(sortPacks))
     }
 
-    // if (status=== "loading"){
-    //     return <div className={ style.loader2}><CircularProgress/></div>
-    // }
+
+    const onChangeRange = (value: number | [number, number]) => {
+        if (Array.isArray(value)) {
+            dispatch(doubleRangeAC(value[0], value[1]))
+        }
+    }
+    const onChangeHandler = (event: ChangeEvent<{}>, value: (number[] | number)) => {
+        onChangeRange && onChangeRange(value as number)
+    }
+
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
-            {status=== "loading" ? <LinearProgress /> : null}
             <div className={style.packsBox}>
                 <div className={style.packsBoxLeft}>
                     <h3 className={style.packsLeftTitle}>Show packs cards</h3>
-                    <div className={style.packsButtonsBox}>
-                        <button onClick={myPacks}
-                                className={`${style.packsBtn} ${activeBtn === 'own' ? style.packsBtnActive : style.packsBtn}`}>My
-                        </button>
-                        <button onClick={allPacks}
-                                className={`${style.packsBtn} ${activeBtn === 'all' ? style.packsBtnActive : style.packsBtn}`}>All
-                        </button>
+                    <div>
+                        <div className={style.packsButtonsBox}>
+                            <button onClick={myPacks}
+                                    className={`${style.packsBtn} ${activeBtn === 'own' ? style.packsBtnActive : style.packsBtn}`}>My
+                            </button>
+                            <button onClick={allPacks}
+                                    className={`${style.packsBtn} ${activeBtn === 'all' ? style.packsBtnActive : style.packsBtn}`}>All
+                            </button>
+                        </div>
+                        <p>{min}</p>
+                        <p>{max}</p>
+                        <Slider
+                            getAriaLabel={() => 'Temperature range'}
+                            value={[min, max]}
+                            onChange={onChangeHandler}
+                            valueLabelDisplay="auto"
+                            min={0}
+                            max={100}
+                        />
                     </div>
                 </div>
 
@@ -99,7 +138,7 @@ export const Packs = () => {
                     <h2 className={style.packsBoxRightTitle}>Packs list</h2>
                     <div className={style.packsBoxSearch}>
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
-                                    placeholder={'Search...'} />
+                                    placeholder={'Search...'}/>
                         <button onClick={setSearch}>Search</button>
                         <SuperButton onClick={handlerNewPacks} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
@@ -122,6 +161,7 @@ export const Packs = () => {
                                   userId={e.more_id} packId={e._id} ourUserId={myId}/>
                         )
                     })}
+
                     <Paginator handlePageChange={handlePageChange} totalPages={totalPages}/>
                 </div>
             </div>

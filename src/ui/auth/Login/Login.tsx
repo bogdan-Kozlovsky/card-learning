@@ -6,8 +6,6 @@ import {Navigate, NavLink} from "react-router-dom";
 import {requestLoginTC} from "../../../bll/reducers/sign_in-reducer";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {SuperInput, SuperInputPassword} from "../../common/SuperInput/SuperInput";
-import openShow from '../../assets/images/openShow.svg'
-import closeShow from '../../assets/images/closeShow.svg'
 
 export const Login = () => {
     const dispatch = useDispatch()
@@ -18,7 +16,6 @@ export const Login = () => {
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
     const loginError = useSelector<AppRootStateType, string>(state => state.signIn.loginError)
     const authError = useSelector<AppRootStateType, string>(state => state.auth.authError)
-    // const [shown, setShown] = useState(false);
 
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))

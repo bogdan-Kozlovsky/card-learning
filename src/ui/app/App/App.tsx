@@ -5,14 +5,13 @@ import {AppRootStateType} from "../../../bll/store";
 import {useDispatch, useSelector} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
 import {logoutTC} from "../../../bll/reducers/app-reducer";
-import {Loader} from "../../common/Loader/Loader";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 export const App = () => {
     const dispatch = useDispatch()
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
-    const loader = useSelector<AppRootStateType, boolean>(state => state.auth.loader)
-
+    const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
     useEffect(() => {
         if (!initialized) {
             dispatch(authMeTC())
@@ -24,15 +23,14 @@ export const App = () => {
         dispatch(logoutTC())
     }
 
-    if (!loader) {
-        return <Loader />
-    }
-
     return (
         <div className="App">
+            {status === "loading" &&
+                <div style={{position: 'absolute', left: '0', right: '0', zIndex: '999'}}><LinearProgress/></div>}
+            {/*<LinearProgress/>*/}
             <Header/>
             <RoutesNav/>
-            <SuperButton name={'Logout'} onClick={logout} />
+            <SuperButton name={'Logout'} onClick={logout}/>
         </div>
     );
 }
