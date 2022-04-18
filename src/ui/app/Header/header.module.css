@@ -1,0 +1,9 @@
+.headerBox {
+    margin-bottom: 24px;
+    background: #EBE0E9;
+    padding: 15px 0 10px;
+}
+
+.wrapperHeader {
+    display: flex;
+}

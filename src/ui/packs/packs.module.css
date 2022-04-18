@@ -1,0 +1,112 @@
+.packsBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+}
+
+.packsBoxLeft {
+    background: #ECECF9;
+    max-width: 243px;
+    width: 100%;
+    padding: 33px 24px;
+}
+
+.packsLeftTitle {
+    margin-bottom: 20px;
+    font-weight: 600;
+    line-height: 19px;
+}
+
+.packsButtonsBox {
+    display: flex;
+    border-radius: 2px;
+    width: 200px;
+    margin-bottom: 45px;
+}
+
+.packsBtn {
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    padding: 7px 10px;
+}
+
+.packsBtnActive {
+    background: #9A91C8;
+}
+
+.packsBtnMy {
+    background-color: #ffffff;
+}
+
+/*/// packsBoxRight*/
+
+.packsBoxRight {
+    background-color: #ffffff;
+    width: 100%;
+    min-height: 780px;
+    padding: 25px 45px;
+}
+
+.packsBoxRightTitle {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    margin-bottom: 15px;
+}
+
+.packsBoxSearch {
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.packsInputSearch {
+    display: inline-block;
+    max-width: 461px;
+    width: 100%;
+    padding: 10px 16px;
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 2px;
+    margin-right: 24px;
+}
+
+.packsBtnSearch {
+    display: inline-block;
+    padding: 9px 55px;
+    background: #21268F;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    color: #ffffff;
+    max-width: 184px;
+    width: 100%;
+}
+
+/*//packsList*/
+
+.packsList{
+    display: flex;
+    padding: 16px 24px;
+    background: #ECECF9;
+}
+
+.packsItem{
+    flex: 1 1 25%;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000;
+}
+.loader2 {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
