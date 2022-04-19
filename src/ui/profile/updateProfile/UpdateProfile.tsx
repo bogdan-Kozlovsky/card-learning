@@ -6,17 +6,26 @@ import {updateProfileTC} from "../../../bll/reducers/profile-reducer";
 import {AppRootStateType} from "../../../bll/store";
 import {ProfileType} from "../../../dal/api";
 
-const UpdateProfile = () => {
+type UpdateProfilePropsTYpe = {
+    closeModal: () => void
+    overlay: boolean
+    setOverlay: any
+}
+
+const UpdateProfile = (props: UpdateProfilePropsTYpe) => {
+    const {closeModal, overlay, setOverlay} = props
     const dispatch = useDispatch()
+
+
     const navigate = useNavigate()
     const [title, setTitle] = useState<string>('')
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
-    const onClickHandler = () =>{
-        dispatch(updateProfileTC(title,''))
-        return navigate('/profile')
+    const onClickHandler = () => {
+        dispatch(updateProfileTC(title, ''))
+        closeModal()
     }
 
     const {name} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
@@ -27,7 +36,7 @@ const UpdateProfile = () => {
                 <div className={style.modal}>
                     <div className={style.closeBtnWrapper}>
                         <button className={style.btnClose}>
-                            <span className={style.closeIcon}>&times;</span>
+                            <span onClick={closeModal} className={style.closeIcon}>&times;</span>
                         </button>
                     </div>
                     <h3 className={style.title}>Change name or avatar</h3>

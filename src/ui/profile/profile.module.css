@@ -55,3 +55,13 @@
 .rigthBox{
     background: #FEFEFF;
 }
+
+/*Modal*/
+.overlay_shown {
+    opacity: 1;
+}
+
+.overlay_hidden {
+    display: none;
+    opacity: 0;
+}

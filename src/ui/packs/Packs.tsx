@@ -59,8 +59,9 @@ export const Packs = () => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
     };
-    console.log(cardPacksTotalCount)
     //add Packs
+
+
     const handlerNewPacks = () => {
         dispatch(addPacksTC())
     }
@@ -108,6 +109,7 @@ export const Packs = () => {
                                     className={`${style.packsBtn} ${activeBtn === 'all' ? style.packsBtnActive : style.packsBtn}`}>All
                             </button>
                         </div>
+
                         <div className={style.sliderDescriptionBox}>
                             <p className={style.sliderDescription}>{min}</p>
                             <p className={style.sliderDescription}>{max}</p>
@@ -130,7 +132,7 @@ export const Packs = () => {
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
                                     placeholder={'Search...'}/>
                         <button onClick={setSearch}>Search</button>
-                        <SuperButton onClick={handlerNewPacks} name={'Add'} className={style.packsBtnSearch}/>
+                        <SuperButton  name={'Add'} className={style.packsBtnSearch}/>
                     </div>
 
                     <ul className={style.packsList}>
