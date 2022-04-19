@@ -19,10 +19,13 @@ import {Paginator} from "../common/Paginator/Paginator";
 import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
 import useDebounce from "../common/hook/hook";
+import SuperModal from "../common/SuperModal/SuperModal";
 
 
 export const Packs = () => {
     const dispatch = useDispatch()
+    const [overlay, setOverlay] = useState(false);
+    const [title, setTitle] = useState<string>('')
     const {
         page,
         sortPacks,
@@ -63,7 +66,8 @@ export const Packs = () => {
 
 
     const handlerNewPacks = () => {
-        dispatch(addPacksTC())
+        dispatch(addPacksTC(title))
+        closeModal()
     }
 
     // sorting between own and shared Packs
@@ -81,7 +85,19 @@ export const Packs = () => {
         const sortPacks = `${num}cardsCount`
         dispatch(setSortPacksAC(sortPacks))
     }
+    //add show modal
+    const showModal = () => {
+        setOverlay(true)
+    }
 
+    const closeModal = () => {
+        setOverlay(false)
+    }
+
+    // get new name pack
+    const getNewNamePack = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
 
     // double Range
     const onChangeRange = (value: number | [number, number]) => {
@@ -92,14 +108,16 @@ export const Packs = () => {
     const onChangeHandler = (event: ChangeEvent<{}>, value: (number[] | number)) => {
         onChangeRange && onChangeRange(value as number)
     }
-
-
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
             <div className={style.packsBox}>
                 <div className={style.packsBoxLeft}>
                     <h3 className={style.packsLeftTitle}>Show packs cards</h3>
+                    <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
+                        <SuperModal closeModal={closeModal} onClickSuperCallback={handlerNewPacks}
+                                    getNewTitle={getNewNamePack} valueTitle={title}/>
+                    </div>
                     <div>
                         <div className={style.packsButtonsBox}>
                             <button onClick={myPacks}
@@ -132,7 +150,7 @@ export const Packs = () => {
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
                                     placeholder={'Search...'}/>
                         <button onClick={setSearch}>Search</button>
-                        <SuperButton  name={'Add'} className={style.packsBtnSearch}/>
+                        <SuperButton onClick={showModal} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
 
                     <ul className={style.packsList}>

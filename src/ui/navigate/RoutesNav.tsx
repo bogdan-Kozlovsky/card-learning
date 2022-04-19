@@ -9,7 +9,7 @@ import {Navigate, Route, Routes,} from 'react-router-dom'
 import {Packs} from "../packs/Packs";
 import {Cards} from "../cards/Cards";
 import {Profile} from "../profile/Profile";
-import UpdateProfile from "../profile/updateProfile/UpdateProfile";
+import SuperModal from "../common/SuperModal/SuperModal";
 
 
 const RoutesNav = () => {
@@ -32,7 +32,7 @@ const RoutesNav = () => {
                 <Route path='*' element={<Navigate to='404'/>}/>
                 <Route path='/packs_list' element={<Packs/>}/>
                 <Route path='/packs_list_cards/:packId' element={<Cards/>}/>
-                {/*<Route path='/update-profile' element={<UpdateProfile/>}/>*/}
+                {/*<Route path='/update-profile' element={<SuperModal/>}/>*/}
             </Routes>
         </div>
     );

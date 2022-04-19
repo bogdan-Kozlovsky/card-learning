@@ -168,13 +168,8 @@ export const getPacksTC = (): ThunkType => async (dispatch, getState) => {
 
 }
 
-export const addPacksTC = (): ThunkType => (dispatch, getState) => {
-    const newCard = {
-        name: 'TeamTest',
-        deckCover: 'Hello',
-        private: false
-    }
-    requestsApi.addNewPack(newCard)
+export const addPacksTC = (name: string): ThunkType => (dispatch, getState) => {
+    requestsApi.addNewPack(name)
         .then((res) => {
             dispatch(getPacksTC())
         })

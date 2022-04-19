@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import style from './UpdateProfile.module.css'
+import style from './SuperModal.module.css'
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {updateProfileTC} from "../../../bll/reducers/profile-reducer";
@@ -8,25 +8,15 @@ import {ProfileType} from "../../../dal/api";
 
 type UpdateProfilePropsTYpe = {
     closeModal: () => void
-    overlay: boolean
-    setOverlay: any
+    onClickSuperCallback: () => void
+    getNewTitle:(e: ChangeEvent<HTMLInputElement>) => void
+    valueTitle: string
 }
 
-const UpdateProfile = (props: UpdateProfilePropsTYpe) => {
-    const {closeModal, overlay, setOverlay} = props
-    const dispatch = useDispatch()
+const SuperModal = (props: UpdateProfilePropsTYpe) => {
+    const {closeModal,onClickSuperCallback,getNewTitle,valueTitle} = props
 
 
-    const navigate = useNavigate()
-    const [title, setTitle] = useState<string>('')
-
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-    const onClickHandler = () => {
-        dispatch(updateProfileTC(title, ''))
-        closeModal()
-    }
 
     const {name} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
 
@@ -43,8 +33,8 @@ const UpdateProfile = (props: UpdateProfilePropsTYpe) => {
                     <div className={style.formWrapper}>
                         <button className={style.uploadBtn}>upload image</button>
                         {/*<div className={style.previewIcon}></div>*/}
-                        <input onChange={onChangeHandler} className={style.input} placeholder={name} value={title}/>
-                        <button onClick={onClickHandler} className={style.successBtn}>Ok</button>
+                        <input onChange={getNewTitle} className={style.input} placeholder={name} value={valueTitle}/>
+                        <button onClick={onClickSuperCallback} className={style.successBtn}>Ok</button>
                     </div>
                 </div>
             </div>
@@ -52,4 +42,4 @@ const UpdateProfile = (props: UpdateProfilePropsTYpe) => {
     );
 };
 
-export default UpdateProfile;
+export default SuperModal;
