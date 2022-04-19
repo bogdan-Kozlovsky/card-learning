@@ -18,21 +18,7 @@ import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
-
-
-function useDebounce<T>(value: T, delay?: number): T {
-    const [debouncedValue, setDebouncedValue] = useState<T>(value)
-
-    useEffect(() => {
-        const timer = setTimeout(() => setDebouncedValue(value), delay || 500)
-
-        return () => {
-            clearTimeout(timer)
-        }
-    }, [value, delay])
-
-    return debouncedValue
-}
+import useDebounce from "../common/hook/hook";
 
 
 export const Packs = () => {
@@ -65,16 +51,16 @@ export const Packs = () => {
     }, [page, sortPacks, user_id, packName, debounceMin, debounceMax])
 
     //pagination
-    const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.params.pageCount)
+    const {pageCount} = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
-    const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
+    const totalPages = Math.ceil(cardPacksTotalCount / pageCount)
     const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks)
-
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
     };
-
+    console.log(cardPacksTotalCount)
+    //add Packs
     const handlerNewPacks = () => {
         dispatch(addPacksTC())
     }
@@ -96,6 +82,7 @@ export const Packs = () => {
     }
 
 
+    // double Range
     const onChangeRange = (value: number | [number, number]) => {
         if (Array.isArray(value)) {
             dispatch(doubleRangeAC(value[0], value[1]))
@@ -121,8 +108,11 @@ export const Packs = () => {
                                     className={`${style.packsBtn} ${activeBtn === 'all' ? style.packsBtnActive : style.packsBtn}`}>All
                             </button>
                         </div>
-                        <p>{min}</p>
-                        <p>{max}</p>
+                        <div className={style.sliderDescriptionBox}>
+                            <p className={style.sliderDescription}>{min}</p>
+                            <p className={style.sliderDescription}>{max}</p>
+                        </div>
+
                         <Slider
                             getAriaLabel={() => 'Temperature range'}
                             value={[min, max]}

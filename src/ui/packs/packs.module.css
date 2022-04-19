@@ -110,3 +110,19 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.sliderDescription{
+    width: 30px;
+    background: #090080;
+    border-radius: 50%;
+    color: #f0f8f8;
+    text-align: center;
+    padding: 3px;
+}
+
+.sliderDescriptionBox{
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    justify-content: space-between;
+}

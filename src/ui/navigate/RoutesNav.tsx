@@ -8,8 +8,8 @@ import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import {Navigate, Route, Routes,} from 'react-router-dom'
 import {Packs} from "../packs/Packs";
 import {Cards} from "../cards/Cards";
-import {Profile} from "../Profile/Profile";
-import UpdateProfile from "../Profile/updateProfile/UpdateProfile";
+import {Profile} from "../profile/Profile";
+import UpdateProfile from "../profile/updateProfile/UpdateProfile";
 
 
 const RoutesNav = () => {

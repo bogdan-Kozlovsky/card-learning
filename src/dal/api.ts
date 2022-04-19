@@ -113,9 +113,7 @@ export const requestsApi = {
     },
 
     // cardsAPI
-    // getCards(packId: string | undefined) {
     getCards(cardsPack_id: string | undefined, pageCount: number, page: number) {
-        // return instance.get(`cards/card?cardsPack_id=${packId}`,)
         return instance.get(`cards/card`, {params: {cardsPack_id, pageCount, page}})
     },
 

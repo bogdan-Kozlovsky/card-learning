@@ -6,7 +6,7 @@ import {getStatusAC} from "./app-reducer";
 
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
 
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
 
 export type PackType = {
@@ -59,10 +59,10 @@ const initialState = {
     params: {
         packName: '',
         min: 3,
-        max: 9,
+        max: 15,
         sortPacks: '0updated',
         page: 1,
-        pageCount: 10,
+        pageCount: 7,
         user_id: '',
     } as PacksParamsType,
     page: 1,
@@ -159,7 +159,7 @@ export const getPacksTC = (): ThunkType => async (dispatch, getState) => {
     dispatch(getStatusAC('loading'))
     const state = getState().packs
     const {packName, page, max, min, user_id, pageCount, sortPacks} = state.params
-    await requestsApi.getPacks(page, 7, user_id, sortPacks, packName, min, max).then((res) => {
+    await requestsApi.getPacks(page, pageCount, user_id, sortPacks, packName, min, max).then((res) => {
         console.log(res.data, 'dadadadada')
         dispatch(initializedPacksAC(res.data))
         dispatch(getStatusAC('succeeded'))

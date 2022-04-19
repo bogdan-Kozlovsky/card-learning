@@ -1,6 +1,12 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addCardsTC, CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
+import {
+    addCardsTC,
+    CardsParamsType,
+    CardsType,
+    getCardsTC,
+    setCardsCurrentPageAC
+} from "../../bll/reducers/cards-reducer";
 import {AppRootStateType} from "../../bll/store";
 import {NavLink, useParams} from "react-router-dom";
 import {Card} from "./card/Card";
@@ -8,7 +14,6 @@ import redirectIcons from '../assets/images/icons/leftCards.svg'
 import style from './cards.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
-import {setCurrentPageAC} from "../../bll/reducers/packs-reducer";
 
 export const Cards = () => {
     const dispatch = useDispatch()
@@ -31,14 +36,16 @@ export const Cards = () => {
 
 
     //pagination
-    const packPage = useSelector<AppRootStateType, number>(state => state.cards.page)
-    const packTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
-    const totalPages = Math.ceil(packTotalCount / packPage)
+    const {pageCount} = useSelector<AppRootStateType, CardsParamsType>(state => state.cards.params)
+    const cardsTotalCountNum = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
+    const totalPages = Math.ceil(cardsTotalCountNum / pageCount)
     const handlePageChange = (e: { selected: number }) => {
+        debugger
         const selectedPage = e.selected + 1;
-        dispatch(setCurrentPageAC(selectedPage))
+        dispatch(setCardsCurrentPageAC(selectedPage))
         dispatch(getCardsTC(packId))
     };
+
     return (
         <div className='container'>
             <div className={style.cardsWrapper}>
