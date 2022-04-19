@@ -46,3 +46,13 @@
     width: 30px;
 }
 
+
+/*Modal*/
+.overlay_shown {
+    opacity: 1;
+}
+
+.overlay_hidden {
+    display: none;
+    opacity: 0;
+}

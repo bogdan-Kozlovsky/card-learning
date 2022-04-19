@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     addCardsTC,
@@ -14,6 +14,7 @@ import redirectIcons from '../assets/images/icons/leftCards.svg'
 import style from './cards.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
+import SuperModal from "../common/SuperModal/SuperModal";
 
 export const Cards = () => {
     const dispatch = useDispatch()
@@ -27,9 +28,7 @@ export const Cards = () => {
 
     const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
     const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
-    const addCardsHandler = () => {
-        dispatch(addCardsTC(packId))
-    }
+
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     // const ourUserId = useSelector<AppRootStateType, string | null>(state => state.signIn.profile._id)
     const ourUserId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
@@ -40,11 +39,32 @@ export const Cards = () => {
     const cardsTotalCountNum = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
     const totalPages = Math.ceil(cardsTotalCountNum / pageCount)
     const handlePageChange = (e: { selected: number }) => {
-        debugger
         const selectedPage = e.selected + 1;
         dispatch(setCardsCurrentPageAC(selectedPage))
         dispatch(getCardsTC(packId))
     };
+
+
+    //add show modal
+    const [overlay, setOverlay] = useState(false);
+    const [title, setTitle] = useState<string>('')
+
+    const showModal = () => {
+        setOverlay(true)
+    }
+
+    const closeModal = () => {
+        setOverlay(false)
+    }
+
+    // get new name pack
+    const getNewNameCard = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+    const handlerNewCard = () => {
+        dispatch(addCardsTC(packId, title))
+        closeModal()
+    }
 
     return (
         <div className='container'>
@@ -65,7 +85,12 @@ export const Cards = () => {
                     <li className={style.cardsItem}>Rating</li>
                 </ul>}
 
-                <button onClick={addCardsHandler}>Add</button>
+                <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
+                    <SuperModal closeModal={closeModal} onClickSuperCallback={handlerNewCard}
+                                getNewTitle={getNewNameCard} valueTitle={title}/>
+                </div>
+
+                <button onClick={showModal}>Add</button>
                 {cards.map(el => {
                     return (
                         <div key={el._id}>

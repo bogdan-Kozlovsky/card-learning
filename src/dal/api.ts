@@ -117,8 +117,8 @@ export const requestsApi = {
         return instance.get(`cards/card`, {params: {cardsPack_id, pageCount, page}})
     },
 
-    addNewCards(packId: string | undefined, card: { cardsPack_id: string | undefined, question: string }) {
-        return instance.post(`cards/card`, {card})
+    addNewCards(packId: string | undefined, name: string) {
+        return instance.post(`cards/card`, {card: {cardsPack_id: packId, question: name}})
     },
     deleteCard(cardId: string | undefined) {
         return instance.delete(`cards/card?id=${cardId}`)

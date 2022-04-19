@@ -111,12 +111,9 @@ export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, 
         })
 }
 
-export const addCardsTC = (packId: string | undefined): ThunkType => (dispatch) => {
-    const card = {
-        cardsPack_id: packId,
-        question: "no question",
-    }
-    requestsApi.addNewCards(packId, card)
+export const addCardsTC = (packId: string | undefined, title: string): ThunkType => (dispatch) => {
+
+    requestsApi.addNewCards(packId, title)
         .then(res => {
             dispatch(getCardsTC(packId))
         })
