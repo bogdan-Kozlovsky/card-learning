@@ -1,48 +1,20 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './profile.module.css'
-import {NavLink, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../bll/store";
-import {ProfileType} from "../../dal/api";
 import SuperModal from "../common/SuperModal/SuperModal";
-import {updateProfileTC} from "../../bll/reducers/profile-reducer";
 
-export const Profile = () => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const [overlay, setOverlay] = useState(false);
-    const [title, setTitle] = useState<string>('')
+type ProfilePropsType = {
+    overlay: boolean
+    closeModal: () => void
+    getNewNameProfile: (e: ChangeEvent<HTMLInputElement>) => void
+    updateProfile: () => void
+    title: string
+    name: string
+    avatar: string
+    showModal: () => void
+}
 
-
-    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
-    const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
-    // не удалять, после удаления не работает redirect
-    const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
-    // не удалять, после удаления не работает redirect
-
-
-    if (!initialized) {
-        navigate('/')
-    }
-
-    //add show modal
-    const showModal = () => {
-        setOverlay(true)
-    }
-
-    const closeModal = () => {
-        setOverlay(false)
-    }
-    //update profile name
-    const updateProfile = () => {
-        dispatch(updateProfileTC(title, ''))
-        closeModal()
-    }
-
-    // get new name profile
-    const getNewNameProfile = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
+export const Profile = (props: ProfilePropsType) => {
+    const {overlay, closeModal, getNewNameProfile, updateProfile, title, name, avatar, showModal} = props
 
     return (
         <div className="container">
@@ -52,7 +24,8 @@ export const Profile = () => {
                     <div className={style.avatarBox}>
                         <div>
                             <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
-                                <SuperModal closeModal={closeModal} onClickSuperCallback={updateProfile} getNewTitle={getNewNameProfile} valueTitle={title}/>
+                                <SuperModal closeModal={closeModal} onClickSuperCallback={updateProfile}
+                                            getNewTitle={getNewNameProfile} valueTitle={title}/>
                             </div>
                             <div>
                                 <img className={style.avatar} src={avatar} alt="avatar"/>

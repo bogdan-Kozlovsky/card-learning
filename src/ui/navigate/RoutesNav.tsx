@@ -8,8 +8,7 @@ import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import {Navigate, Route, Routes,} from 'react-router-dom'
 import {Packs} from "../packs/Packs";
 import {Cards} from "../cards/Cards";
-import {Profile} from "../profile/Profile";
-import SuperModal from "../common/SuperModal/SuperModal";
+import { ProfileContainer } from '../profile/ProfileContainer';
 
 
 const RoutesNav = () => {
@@ -18,7 +17,7 @@ const RoutesNav = () => {
             <Routes>
                 <Route path='/' element={<Login/>}/>
                 <Route path='/register' element={<Registration/>}/>
-                <Route path='/profile' element={<Profile/>}/>
+                <Route path='/profile' element={<ProfileContainer/>}/>
                 <Route path='recovery-password' element={<PasswordRecovery/>}/>
                 <Route
                     path='auth-email-password'
