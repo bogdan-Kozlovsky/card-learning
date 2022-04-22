@@ -34,7 +34,6 @@ export const Packs = () => {
     } = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
     const [activeBtn, setActiveBtn] = useState<string>('all')
-    //const [doubleRange, setDoubleRange] = useState<number[]>([0, 10])
 
     const debounceMin = useDebounce(min, 700)
     const debounceMax = useDebounce(max, 700)
@@ -44,14 +43,16 @@ export const Packs = () => {
     const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
-    const setSearch = () => {
-        dispatch(setSearchAC(value))
-    }
+    const setSearch = useDebounce(value, 800)
 
 
     useEffect(() => {
         dispatch(getPacksTC())
     }, [page, sortPacks, user_id, packName, debounceMin, debounceMax])
+
+    useEffect(() => {
+        dispatch(setSearchAC(value))
+    },[setSearch])
 
     //pagination
     const {pageCount} = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
@@ -63,8 +64,6 @@ export const Packs = () => {
         dispatch(setCurrentPageAC(selectedPage))
     };
     //add Packs
-
-
     const handlerNewPacks = () => {
         dispatch(addPacksTC(title))
         closeModal()
@@ -149,7 +148,6 @@ export const Packs = () => {
                     <div className={style.packsBoxSearch}>
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
                                     placeholder={'Search...'}/>
-                        <button onClick={setSearch}>Search</button>
                         <SuperButton onClick={showModal} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
 

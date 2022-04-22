@@ -73,7 +73,6 @@ export const newPasswordValueAC = (value: boolean) => ({type: 'NEW_PASSWORD_VALU
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 
 export const authMeTC = () => (dispatch: Dispatch) => {
-    // dispatch(loaderAC(false))
     dispatch(getStatusAC('loading'))
     requestsApi.authMeRequest()
         .then((res) => {
@@ -88,7 +87,6 @@ export const authMeTC = () => (dispatch: Dispatch) => {
         })
         .finally(() => {
             dispatch(getStatusAC('succeeded'))
-            // dispatch(loaderAC(true))
         })
 }
 export const forgotPasswordTC = (data: ForgotPasswordType) => (dispatch: Dispatch) => {

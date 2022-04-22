@@ -12,11 +12,15 @@ export const App = () => {
     const dispatch = useDispatch()
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
+
+
     useEffect(() => {
         if (!initialized) {
             dispatch(authMeTC())
         }
     }, [])
+
+    console.log(initialized)
 
 
     const logout = () => {
@@ -27,7 +31,6 @@ export const App = () => {
         <div className="App">
             {status === "loading" &&
                 <div style={{position: 'absolute', left: '0', right: '0', zIndex: '999'}}><LinearProgress/></div>}
-            {/*<LinearProgress/>*/}
             <Header/>
             <RoutesNav/>
             <SuperButton name={'Logout'} onClick={logout}/>

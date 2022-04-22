@@ -1,24 +1,28 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
+import style from './navigate.module.css'
+import profileIcon from '../assets/images/icons/profileIcons.svg'
+import packIcon from '../assets/images/icons/cardsIcons.svg'
 
 export const NavigateLink = () => {
-    const initialDate = [
-        {to: '/', name: 'Login'},
-        {to: '/register', name: 'Registration'},
-        {to: '/profile', name: 'Profile'},
-        {to: '/recovery-password', name: 'RecoveryPassword'},
-        {to: '/entering-new-password/:token', name: 'EnteringNewPassword'},
-        {to: '/auth-email-password', name: 'AuthEmailPassword'},
-        {to: '/packs_list', name: 'Packs list'},
-    ]
     return (
         <div>
             <ul style={{display: 'flex'}}>
-                {initialDate.map((el) => (
-                    <li style={{margin: '0 10px'}} key={`${el.to}${el.name}`}>
-                        <NavLink to={el.to}>{el.name}</NavLink>
-                    </li>
-                ))}
+                <li className={style.itemLink}>
+                    <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
+                             to={'/'}>Login</NavLink>
+                </li>
+                <li className={style.itemLink}>
+                    <img className={style.decor} src={profileIcon} alt="profileIcon"/>
+                    <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
+                             to={'/profile'}>Profile</NavLink>
+                </li>
+
+                <li className={style.itemLink}>
+                    <img className={style.decor} src={packIcon} alt="packIcon"/>
+                    <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
+                             to={'/packs_list'}>Packs list</NavLink>
+                </li>
             </ul>
         </div>
     );

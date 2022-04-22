@@ -58,7 +58,7 @@ const initialState = {
     cardPacksTotalCount: 0,
     params: {
         packName: '',
-        min: 3,
+        min: 0,
         max: 15,
         sortPacks: '0updated',
         page: 1,
