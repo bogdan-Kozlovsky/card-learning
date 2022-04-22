@@ -20,6 +20,7 @@ import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
 import useDebounce from "../common/hook/hook";
 import SuperModal from "../common/SuperModal/SuperModal";
+import {CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
 
 
 export const Packs = () => {
@@ -52,7 +53,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(setSearchAC(value))
-    },[setSearch])
+    }, [setSearch])
 
     //pagination
     const {pageCount} = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
@@ -108,6 +109,10 @@ export const Packs = () => {
         onChangeRange && onChangeRange(value as number)
     }
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
+
+
+
+
     return (
         <div className='container'>
             <div className={style.packsBox}>
@@ -164,7 +169,8 @@ export const Packs = () => {
 
                     {pack.map(e => {
                         return (
-                            <Pack key={e._id} name={fixLengthText(e.name)} cards={e.cardsCount} lastUpdated={e.created}
+                            <Pack key={e._id} name={fixLengthText(e.name)} cardsCount={e.cardsCount}
+                                  lastUpdated={e.created}
                                   author={fixLengthText(e.user_id)}
                                   userId={e.more_id} packId={e._id} ourUserId={myId}/>
                         )

@@ -2,13 +2,15 @@ import React from 'react';
 import deleteIcon from '../../assets/images/deleteIcon.svg'
 import updatePackName from '../../assets/images/updatePackName.svg'
 import {deletePackTC, updatePackNameTC} from "../../../bll/reducers/packs-reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 import style from './pack.module.css'
+import {AppRootStateType} from "../../../bll/store";
+import {CardsType, getCardsTC} from "../../../bll/reducers/cards-reducer";
 
 type propsType = {
     name: string | null
-    cards: number | null
+    cardsCount: number | null
     lastUpdated: Date | null
     author: any
     userId: string | null
@@ -18,13 +20,31 @@ type propsType = {
 export const Pack = (props: propsType) => {
     const {
         name,
-        cards,
+        cardsCount,
         lastUpdated,
         author,
         userId,
         packId,
-        ourUserId
+        ourUserId,
     } = props
+
+
+    const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
+
+    const getCard = (cards: CardsType[]) => {
+        const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
+        const rand = Math.random() * sum;
+        const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
+                const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
+                return {sum: newSum, id: newSum < rand ? i : acc.id}
+            }
+            , {sum: 0, id: -1});
+        console.log(cards[res.id + 1])
+        return cards[res.id + 1];
+    }
+    // const a = () => {
+    //     dispatch(getCardsTC(getCard(cards).cardsPack_id))
+    // }
 
     const dispatch = useDispatch()
     const handlerDeletePack = () => {
@@ -35,7 +55,6 @@ export const Pack = (props: propsType) => {
     }
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
 
-
     return (
         <div>
             <ul className={style.packBox}>
@@ -43,7 +62,7 @@ export const Pack = (props: propsType) => {
                     <NavLink to={`/packs_list_cards/${packId}`} className={style.packName}>{name}</NavLink>
                 </li>
                 <li className={style.packItem}>
-                    <p>{cards}</p>
+                    <p>{cardsCount}</p>
                 </li>
                 <li className={style.packItem}>
                     <p>{time}</p>
@@ -64,6 +83,8 @@ export const Pack = (props: propsType) => {
                         </div>
 
                     }
+                    {/*{cardsCount && <NavLink onClick={a} to={`/packs_list/link`}>Learn</NavLink>}*/}
+                    {/*{cardsCount && <button onClick={a}>Learn</button>}*/}
                 </li>
             </ul>
 

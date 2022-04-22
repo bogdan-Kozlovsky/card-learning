@@ -3,6 +3,8 @@
 }
 
 .decor{
+    width: 30px;
+    object-fit: cover;
     position: absolute;
     top: 10px;
     left: 5px;
