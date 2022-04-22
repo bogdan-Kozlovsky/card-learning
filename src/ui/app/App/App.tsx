@@ -5,7 +5,6 @@ import {AppRootStateType} from "../../../bll/store";
 import {useDispatch, useSelector} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import {NavLink} from "react-router-dom";
 
 export const App = () => {
     const dispatch = useDispatch()

@@ -57,7 +57,7 @@ export const Cards = () => {
     }
 
     // get new name pack
-    const getNewNameCard = (e: ChangeEvent<HTMLInputElement>) => {
+    const getNewNameCardChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
     const handlerNewCard = () => {
@@ -82,8 +82,6 @@ export const Cards = () => {
     // }
 
 
-
-
     return (
         <div className='container'>
             <div className={style.cardsWrapper}>
@@ -104,8 +102,11 @@ export const Cards = () => {
                 </ul>}
 
                 <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
-                    <SuperModal closeModal={closeModal} onClickSuperCallback={handlerNewCard}
-                                getNewTitle={getNewNameCard} valueTitle={title}/>
+                    <SuperModal closeModal={closeModal} valueTitle={title} titleName={'Add new card'}>
+                        <input onChange={getNewNameCardChange} className='inputModal' placeholder={title}
+                               value={title}/>
+                        <button onClick={handlerNewCard} className='successBtn'>Save</button>
+                    </SuperModal>
                 </div>
 
                 <button onClick={showModal}>Add</button>

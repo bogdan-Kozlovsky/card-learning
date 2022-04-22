@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import deleteIcon from '../../assets/images/deleteIcon.svg'
 import updatePackName from '../../assets/images/updatePackName.svg'
 import {deletePackTC, updatePackNameTC} from "../../../bll/reducers/packs-reducer";
@@ -6,7 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 import style from './pack.module.css'
 import {AppRootStateType} from "../../../bll/store";
-import {CardsType, getCardsTC} from "../../../bll/reducers/cards-reducer";
+import {CardsType} from "../../../bll/reducers/cards-reducer";
+import {SuperModal} from "../../common/SuperModal/SuperModal";
 
 type propsType = {
     name: string | null
@@ -47,16 +48,33 @@ export const Pack = (props: propsType) => {
     // }
 
     const dispatch = useDispatch()
+
     const handlerDeletePack = () => {
         dispatch(deletePackTC(packId))
     }
     const handlerUpdatePackName = () => {
         dispatch(updatePackNameTC(packId))
     }
+
+    const [overlay, setOverlay] = useState(false);
+
+    //add show modal
+    const showModal = () => {
+        setOverlay(true)
+    }
+
+    const closeModal = () => {
+        setOverlay(false)
+    }
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
 
     return (
         <div>
+            <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
+                <SuperModal closeModal={closeModal} onClickSuperCallback={handlerDeletePack} titleName={'Delete Pack'}>
+                    <button onClick={handlerDeletePack} className='successBtn'>Ok</button>
+                </SuperModal>
+            </div>
             <ul className={style.packBox}>
                 <li className={style.packItem}>
                     <NavLink to={`/packs_list_cards/${packId}`} className={style.packName}>{name}</NavLink>
@@ -74,7 +92,7 @@ export const Pack = (props: propsType) => {
                     {ourUserId === userId
                         &&
                         <div className={`boxBtn`}>
-                            <img className={`btn btnUpdate`} onClick={handlerDeletePack}
+                            <img className={`btn btnUpdate`} onClick={showModal}
                                  src={deleteIcon}
                                  alt="deleteIcon"/>
                             <img className={`btn btnDelete`} onClick={handlerUpdatePackName}

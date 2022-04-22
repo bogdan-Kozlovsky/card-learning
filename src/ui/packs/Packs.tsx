@@ -95,7 +95,7 @@ export const Packs = () => {
     }
 
     // get new name pack
-    const getNewNamePack = (e: ChangeEvent<HTMLInputElement>) => {
+    const getNewNamePackChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
@@ -114,9 +114,12 @@ export const Packs = () => {
             <div className={style.packsBox}>
                 <div className={style.packsBoxLeft}>
                     <h3 className={style.packsLeftTitle}>Show packs cards</h3>
-                    <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
-                        <SuperModal closeModal={closeModal} onClickSuperCallback={handlerNewPacks}
-                                    getNewTitle={getNewNamePack} valueTitle={title}/>
+                    <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
+                        <SuperModal closeModal={closeModal} valueTitle={title} titleName={'Add new pack'}>
+                            <input onChange={getNewNamePackChange} className='inputModal' placeholder={packName}
+                                   value={title}/>
+                            <button onClick={handlerNewPacks} className='successBtn'>Save</button>
+                        </SuperModal>
                     </div>
                     <div>
                         <div className={style.packsButtonsBox}>

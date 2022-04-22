@@ -230,3 +230,36 @@ ul {
     border: none;
     background: transparent;
 }
+
+/*Modal*/
+.overlay_shown {
+    opacity: 1;
+}
+
+.overlay_hidden {
+    display: none;
+    opacity: 0;
+}
+
+.successBtn {
+    display: block;
+    cursor: pointer;
+    padding: 9px 108px;
+    border-radius: 30px;
+    background: #21268F;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    margin: 0 auto 39px;
+}
+
+.inputModal {
+    border: none;
+    height: 30px;
+    border-bottom: 1px solid #24254A;
+    width: 100%;
+    padding: 15px 3px;
+    margin-bottom: 24px;
+    background-color: #F9F9FE;
+}
