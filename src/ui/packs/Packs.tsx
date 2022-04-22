@@ -109,10 +109,6 @@ export const Packs = () => {
         onChangeRange && onChangeRange(value as number)
     }
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-
-
-
-
     return (
         <div className='container'>
             <div className={style.packsBox}>
