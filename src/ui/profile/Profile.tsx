@@ -1,6 +1,6 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import style from './profile.module.css'
-import SuperModal from "../common/SuperModal/SuperModal";
+import {SuperModal} from "../common/SuperModal/SuperModal";
 
 type ProfilePropsType = {
     overlay: boolean

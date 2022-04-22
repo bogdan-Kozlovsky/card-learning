@@ -1,14 +1,22 @@
-.itemLink{
+.navigateList {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.itemLink {
     position: relative;
 }
 
-.decor{
+.decor {
+    width: 30px;
+    object-fit: cover;
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 5px;
 }
 
-.link{
+.link {
     height: 60px;
     width: 173px;
     display: flex;
@@ -20,7 +28,7 @@
     border-bottom: 3px solid transparent;
 }
 
-.linkActive{
+.linkActive {
     background: #DCCCDB;
     color: #2D2E46;
     opacity: 1;

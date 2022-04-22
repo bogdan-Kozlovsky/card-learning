@@ -100,10 +100,10 @@ export const setCardsCurrentPageAC = (value: number) => {
 
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
     dispatch(getStatusAC('loading'))
+    debugger
     const {page, pageCount} = getState().cards.params
     requestsApi.getCards(packId, pageCount, page)
         .then((res) => {
-            console.log(res.data)
             dispatch(initializedCardsAC(res.data))
         })
         .finally(() => {

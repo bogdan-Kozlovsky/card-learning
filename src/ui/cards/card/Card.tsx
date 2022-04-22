@@ -2,7 +2,7 @@ import React from 'react';
 import style from "./card.module.css";
 import deleteIcon from "../../assets/images/deleteIcon.svg";
 import updatePack from "../../assets/images/updatePackName.svg";
-import {deleteCardTC, updateCardTC} from "../../../bll/reducers/cards-reducer";
+import {CardsType, deleteCardTC, updateCardTC} from "../../../bll/reducers/cards-reducer";
 import {useDispatch} from "react-redux";
 
 type propsType = {
@@ -39,6 +39,9 @@ export const Card = (props: propsType) => {
         dispatch(updateCardTC(packId, _id))
     }
     const time = updated && updated.toString().slice(0, 10)
+
+
+
     return (
         <ul className={style.list}>
             <li className={style.item}>{question}</li>

@@ -9,6 +9,8 @@ import {Navigate, Route, Routes,} from 'react-router-dom'
 import {Packs} from "../packs/Packs";
 import {Cards} from "../cards/Cards";
 import { ProfileContainer } from '../profile/ProfileContainer';
+import {Learn} from "../learn/Learn";
+import {LearnAnswer} from "../learn/LearnAnswer";
 
 
 const RoutesNav = () => {
@@ -30,6 +32,8 @@ const RoutesNav = () => {
                 <Route path='404' element={<Error404/>}/>
                 <Route path='*' element={<Navigate to='404'/>}/>
                 <Route path='/packs_list' element={<Packs/>}/>
+                <Route path='/packs_list/link' element={<Learn/>}/>
+                <Route path='/packs_list/link/answer' element={<LearnAnswer/>}/>
                 <Route path='/packs_list_cards/:packId' element={<Cards/>}/>
             </Routes>
         </div>

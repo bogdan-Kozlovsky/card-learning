@@ -4,9 +4,8 @@ import RoutesNav from "../../navigate/RoutesNav";
 import {AppRootStateType} from "../../../bll/store";
 import {useDispatch, useSelector} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
-import {logoutTC} from "../../../bll/reducers/app-reducer";
-import {SuperButton} from "../../common/SuperButton/SuperButton";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import {NavLink} from "react-router-dom";
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -20,20 +19,13 @@ export const App = () => {
         }
     }, [])
 
-    console.log(initialized)
-
-
-    const logout = () => {
-        dispatch(logoutTC())
-    }
-
     return (
         <div className="App">
             {status === "loading" &&
                 <div style={{position: 'absolute', left: '0', right: '0', zIndex: '999'}}><LinearProgress/></div>}
             <Header/>
             <RoutesNav/>
-            <SuperButton name={'Logout'} onClick={logout}/>
+
         </div>
     );
 }

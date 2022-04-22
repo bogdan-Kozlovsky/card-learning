@@ -160,7 +160,6 @@ export const getPacksTC = (): ThunkType => async (dispatch, getState) => {
     const state = getState().packs
     const {packName, page, max, min, user_id, pageCount, sortPacks} = state.params
     await requestsApi.getPacks(page, pageCount, user_id, sortPacks, packName, min, max).then((res) => {
-        console.log(res.data, 'dadadadada')
         dispatch(initializedPacksAC(res.data))
         dispatch(getStatusAC('succeeded'))
 

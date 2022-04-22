@@ -11,7 +11,7 @@ type UpdateProfilePropsTYpe = {
     valueTitle: string
 }
 
-const SuperModal = (props: UpdateProfilePropsTYpe) => {
+export const SuperModal = (props: UpdateProfilePropsTYpe) => {
     const {closeModal, onClickSuperCallback, getNewTitle, valueTitle} = props
 
 
@@ -36,4 +36,3 @@ const SuperModal = (props: UpdateProfilePropsTYpe) => {
     );
 };
 
-export default SuperModal;

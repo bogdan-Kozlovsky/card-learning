@@ -5,5 +5,6 @@
 }
 
 .wrapperHeader {
+    justify-content: space-between;
     display: flex;
 }
