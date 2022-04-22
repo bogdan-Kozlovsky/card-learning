@@ -15,6 +15,7 @@ type propsType = {
     userId: string | null
     packId: string
     ourUserId: string | null
+    getLearnCard: (learnId: string) => void
 }
 export const Pack = (props: propsType) => {
     const {
@@ -25,6 +26,7 @@ export const Pack = (props: propsType) => {
         userId,
         packId,
         ourUserId,
+        getLearnCard
     } = props
 
     const dispatch = useDispatch()
@@ -111,7 +113,8 @@ export const Pack = (props: propsType) => {
 
                     }
                     {/*{cardsCount && <NavLink onClick={a} to={`/packs_list/link`}>Learn</NavLink>}*/}
-                    {/*{cardsCount && <button onClick={a}>Learn</button>}*/}
+                    {cardsCount && <button onClick={() => getLearnCard(packId)}>Learn</button>
+                    }
                 </li>
             </ul>
 

@@ -20,12 +20,16 @@ import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
 import useDebounce from "../common/hook/hook";
 import {SuperModal} from "../common/SuperModal/SuperModal";
+import {CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
+import {useNavigate} from "react-router-dom";
 
 
 export const Packs = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [overlay, setOverlay] = useState(false);
     const [title, setTitle] = useState<string>('')
+
     const {
         page,
         sortPacks,
@@ -108,6 +112,16 @@ export const Packs = () => {
     const onChangeHandler = (event: ChangeEvent<{}>, value: (number[] | number)) => {
         onChangeRange && onChangeRange(value as number)
     }
+
+    // learn Card
+
+    const getLearnCard = (learnId:string) => {
+        dispatch(getCardsTC(learnId))
+        navigate('/packs_list/link')
+    }
+
+
+
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
@@ -145,6 +159,7 @@ export const Packs = () => {
                             max={100}
                         />
                     </div>
+
                 </div>
 
                 <div className={style.packsBoxRight}>
@@ -171,7 +186,7 @@ export const Packs = () => {
                             <Pack key={e._id} name={fixLengthText(e.name)} cardsCount={e.cardsCount}
                                   lastUpdated={e.created}
                                   author={fixLengthText(e.user_id)}
-                                  userId={e.more_id} packId={e._id} ourUserId={myId}/>
+                                  userId={e.more_id} packId={e._id} ourUserId={myId} getLearnCard={getLearnCard}/>
                         )
                     })}
 

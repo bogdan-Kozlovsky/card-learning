@@ -110,7 +110,6 @@ export const Cards = () => {
                 </div>
 
                 <button onClick={showModal}>Add</button>
-                {/*<button onClick={() => getCard(cards)}>+dssssssssssssss</button>*/}
                 {cards.map(el => {
                     return (
                         <div key={el._id}>
