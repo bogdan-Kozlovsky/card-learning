@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import deleteIcon from '../../assets/images/deleteIcon.svg'
 import updatePackName from '../../assets/images/updatePackName.svg'
 import {deletePackTC, updatePackNameTC} from "../../../bll/reducers/packs-reducer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {NavLink} from "react-router-dom";
 import style from './pack.module.css'
-import {AppRootStateType} from "../../../bll/store";
-import {CardsType} from "../../../bll/reducers/cards-reducer";
 import {SuperModal} from "../../common/SuperModal/SuperModal";
 
 type propsType = {
-    name: string | null
+    name: string
     cardsCount: number | null
     lastUpdated: Date | null
     author: any
@@ -29,50 +27,61 @@ export const Pack = (props: propsType) => {
         ourUserId,
     } = props
 
-
-    const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
-
-    const getCard = (cards: CardsType[]) => {
-        const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
-        const rand = Math.random() * sum;
-        const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
-                const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
-                return {sum: newSum, id: newSum < rand ? i : acc.id}
-            }
-            , {sum: 0, id: -1});
-        console.log(cards[res.id + 1])
-        return cards[res.id + 1];
-    }
-    // const a = () => {
-    //     dispatch(getCardsTC(getCard(cards).cardsPack_id))
-    // }
-
     const dispatch = useDispatch()
-
     const handlerDeletePack = () => {
         dispatch(deletePackTC(packId))
     }
+
+
+    //update pack
+    const [updateName, setUpdateName] = useState<string>(name)
+    const [overlayUpdate, setOverlayUpdate] = useState(false);
+
+    const updateNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUpdateName(e.currentTarget.value)
+    }
     const handlerUpdatePackName = () => {
-        dispatch(updatePackNameTC(packId))
+        dispatch(updatePackNameTC(packId, updateName))
+        setOverlayUpdate(false)
+    }
+    //open show modal
+    const showModalUpdate = () => {
+        setOverlayUpdate(true)
+    }
+    //close show modal
+    const closeModalUpdate = () => {
+        setOverlayUpdate(false)
     }
 
-    const [overlay, setOverlay] = useState(false);
-
-    //add show modal
-    const showModal = () => {
-        setOverlay(true)
+    /*delete pack*/
+    const [overlayDelete, setOverlayDelete] = useState(false);
+    //open show modal
+    const showModalDelete = () => {
+        setOverlayDelete(true)
+    }
+    //close show modal
+    const closeModalDelete = () => {
+        setOverlayDelete(false)
     }
 
-    const closeModal = () => {
-        setOverlay(false)
-    }
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
 
     return (
         <div>
-            <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
-                <SuperModal closeModal={closeModal} onClickSuperCallback={handlerDeletePack} titleName={'Delete Pack'}>
+            {/*delete pack*/}
+            <div className={overlayDelete ? `overlay_shown` : `overlay_hidden`}>
+                <SuperModal closeModal={closeModalDelete} onClickSuperCallback={handlerDeletePack}
+                            titleName={'Delete Pack'}>
                     <button onClick={handlerDeletePack} className='successBtn'>Ok</button>
+                </SuperModal>
+            </div>
+
+            {/*update pack*/}
+            <div className={overlayUpdate ? `overlay_shown` : `overlay_hidden`}>
+                <SuperModal closeModal={closeModalUpdate} titleName={'Update pack'}>
+                    <input onChange={updateNameChange} className='inputModal' placeholder={updateName}
+                           value={updateName}/>
+                    <button onClick={handlerUpdatePackName} className='successBtn'>Save</button>
                 </SuperModal>
             </div>
             <ul className={style.packBox}>
@@ -92,10 +101,10 @@ export const Pack = (props: propsType) => {
                     {ourUserId === userId
                         &&
                         <div className={`boxBtn`}>
-                            <img className={`btn btnUpdate`} onClick={showModal}
+                            <img className={`btn btnUpdate`} onClick={showModalDelete}
                                  src={deleteIcon}
                                  alt="deleteIcon"/>
-                            <img className={`btn btnDelete`} onClick={handlerUpdatePackName}
+                            <img className={`btn btnDelete`} onClick={showModalUpdate}
                                  src={updatePackName}
                                  alt="updatePackName"/>
                         </div>

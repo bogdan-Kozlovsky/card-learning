@@ -15,7 +15,7 @@ export type PackType = {
     // deckCover: string | null
     grade: number | null
     more_id: string | null
-    name: string | null
+    name: string
     path: string | null
     private: boolean
     rating: number | null
@@ -179,10 +179,10 @@ export const deletePackTC = (idPack: string): ThunkType => (dispatch, getState) 
             dispatch(getPacksTC())
         })
 }
-export const updatePackNameTC = (idPack: string): ThunkType => (dispatch, getState) => {
+export const updatePackNameTC = (idPack: string, name: string | null): ThunkType => (dispatch, getState) => {
     const newPackName = {
         _id: idPack,
-        name: 'updatePackName',
+        name: name,
     }
     requestsApi.updatePackNameTC(newPackName)
         .then((res) => {

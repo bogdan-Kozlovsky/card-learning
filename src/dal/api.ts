@@ -62,7 +62,7 @@ type NewCardType = {
 }
 type UpadatePackNameType = {
     _id: string
-    name: string
+    name: string | null
 }
 // instance
 export const instance = axios.create({
