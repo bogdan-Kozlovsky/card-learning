@@ -1,17 +1,15 @@
 import {ForgotPasswordType, ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
-import {getStatusAC, initializedAC} from "./app-reducer";
+import {getStatusAC, initializedAC, setAppErrorAC} from "./app-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
-    authError: string
     forgotValue: boolean
     newPasswordValue: boolean
 }
 
 type ActionType =
     | ReturnType<typeof authMeAC>
-    | ReturnType<typeof authErrorAC>
     | ReturnType<typeof forgotValueAC>
     | ReturnType<typeof newPasswordValueAC>
 
@@ -34,7 +32,6 @@ export const initialState: InitialStateType = {
         __v: null,
         _id: null,
     },
-    authError: '',
     forgotValue: false,
     newPasswordValue: false
 }
@@ -44,9 +41,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     switch (action.type) {
         case "PROFILE/UPDATE_PROFILE": {
             return {...state, profile: action.data}
-        }
-        case "AUTH_ERROR": {
-            return {...state, authError: action.error}
         }
         case "FORGOT_VALUE": {
             return {...state, forgotValue: action.value}
@@ -66,7 +60,6 @@ export const authMeAC = (data: ProfileType,) => {
         type: "PROFILE/UPDATE_PROFILE", data,
     } as const
 }
-export const authErrorAC = (error: string) => ({type: 'AUTH_ERROR', error} as const)
 export const forgotValueAC = (value: boolean) => ({type: 'FORGOT_VALUE', value} as const)
 export const newPasswordValueAC = (value: boolean) => ({type: 'NEW_PASSWORD_VALUE', value} as const)
 
@@ -80,10 +73,7 @@ export const authMeTC = () => (dispatch: Dispatch) => {
             dispatch(authMeAC(res.data))
         })
         .catch(error => {
-            dispatch(authErrorAC(error.response.data.error))
-            setTimeout(() => {
-                dispatch(authErrorAC(''))
-            }, 3000)
+            dispatch(setAppErrorAC(error.response.data.error))
         })
         .finally(() => {
             dispatch(getStatusAC('succeeded'))
@@ -95,7 +85,9 @@ export const forgotPasswordTC = (data: ForgotPasswordType) => (dispatch: Dispatc
         .then(res => {
             dispatch(forgotValueAC(true))
         })
-        .catch(e => alert('e'))
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
         .finally(() => {
             dispatch(getStatusAC('succeeded'))
         })
@@ -108,7 +100,9 @@ export const newPasswordTC = (data: { password: string, resetPasswordToken: stri
         .then(res => {
             dispatch(newPasswordValueAC(true))
         })
-        .catch(e => alert('e'))
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
         .finally(() => {
             dispatch(getStatusAC('succeeded'))
         })

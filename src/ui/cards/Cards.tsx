@@ -15,6 +15,7 @@ import style from './cards.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperModal} from "../common/SuperModal/SuperModal";
+import {ErrorSnackbar} from "../error/Error";
 
 export const Cards = () => {
     const dispatch = useDispatch()
@@ -84,6 +85,7 @@ export const Cards = () => {
 
     return (
         <div className='container'>
+            <ErrorSnackbar/>
             <div className={style.cardsWrapper}>
                 <div className={style.cardsWrapLink}>
                     <NavLink to={'/packs_list'}>

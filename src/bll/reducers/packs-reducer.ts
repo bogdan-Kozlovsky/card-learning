@@ -2,7 +2,7 @@ import {requestsApi} from "../../dal/api";
 import {ThunkAction} from "redux-thunk";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
-import {getStatusAC} from "./app-reducer";
+import {getStatusAC, setAppErrorAC} from "./app-reducer";
 
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
 
@@ -48,6 +48,7 @@ type ActionType =
     | ReturnType<typeof setSearchAC>
     | ReturnType<typeof getStatusAC>
     | ReturnType<typeof doubleRangeAC>
+    | ReturnType<typeof setAppErrorAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState = {
@@ -155,16 +156,18 @@ export const doubleRangeAC = (min: number, max: number,) => {
     } as const
 }
 
-export const getPacksTC = (): ThunkType => async (dispatch, getState) => {
+export const getPacksTC = (): ThunkType => (dispatch, getState) => {
     dispatch(getStatusAC('loading'))
     const state = getState().packs
     const {packName, page, max, min, user_id, pageCount, sortPacks} = state.params
-    await requestsApi.getPacks(page, pageCount, user_id, sortPacks, packName, min, max).then((res) => {
-        dispatch(initializedPacksAC(res.data))
-        dispatch(getStatusAC('succeeded'))
-
-    })
-
+    requestsApi.getPacks(page, pageCount, user_id, sortPacks, packName, min, max)
+        .then((res) => {
+            dispatch(initializedPacksAC(res.data))
+            dispatch(getStatusAC('succeeded'))
+        })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
 }
 
 export const addPacksTC = (name: string): ThunkType => (dispatch, getState) => {
@@ -172,11 +175,17 @@ export const addPacksTC = (name: string): ThunkType => (dispatch, getState) => {
         .then((res) => {
             dispatch(getPacksTC())
         })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
 }
 export const deletePackTC = (idPack: string): ThunkType => (dispatch, getState) => {
     requestsApi.deletePack(idPack)
         .then((res) => {
             dispatch(getPacksTC())
+        })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
         })
 }
 export const updatePackNameTC = (idPack: string, name: string | null): ThunkType => (dispatch, getState) => {
@@ -187,5 +196,8 @@ export const updatePackNameTC = (idPack: string, name: string | null): ThunkType
     requestsApi.updatePackNameTC(newPackName)
         .then((res) => {
             dispatch(getPacksTC())
+        })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
         })
 }

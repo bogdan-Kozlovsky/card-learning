@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
 import {newPasswordTC} from "../../../bll/reducers/auth-reducer";
-import {Navigate} from "react-router-dom";
-import {SuperInput, SuperInputPassword} from "../../common/SuperInput/SuperInput";
+import {SuperInputPassword} from "../../common/SuperInput/SuperInput";
+import {ErrorSnackbar} from "../../error/Error";
 
 export const NewPassword = () => {
     const dispatch = useDispatch()
@@ -25,6 +25,7 @@ export const NewPassword = () => {
     }
     return (
         <div className="wrapperBox">
+            <ErrorSnackbar/>
             <div className="boxMin">
                 <h2 className="title">It-incubator</h2>
                 <h3 className="subtitle">Create new password</h3>

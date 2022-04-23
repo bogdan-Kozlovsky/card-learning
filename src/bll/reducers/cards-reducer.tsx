@@ -2,7 +2,7 @@ import {requestsApi} from "../../dal/api";
 import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "../store";
 import {Dispatch} from "redux";
-import {getStatusAC} from "./app-reducer";
+import {getStatusAC, setAppErrorAC} from "./app-reducer";
 
 // export type initialStateType = {
 //     cards: CardsType[],
@@ -65,6 +65,7 @@ type ActionType =
     | ReturnType<typeof initializedCardsAC>
     | ReturnType<typeof getStatusAC>
     | ReturnType<typeof setCardsCurrentPageAC>
+    | ReturnType<typeof setAppErrorAC>
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
@@ -91,7 +92,6 @@ export const initializedCardsAC = (cards: CardsType[]) => {
 }
 
 export const setCardsCurrentPageAC = (value: number) => {
-    debugger
     return {
         type: 'CARDS/SET-CARDS-CURRENT-PAGE', value
     } as const
@@ -105,6 +105,9 @@ export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, 
         .then((res) => {
             dispatch(initializedCardsAC(res.data))
         })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
         .finally(() => {
             dispatch(getStatusAC('succeeded'))
         })
@@ -116,6 +119,9 @@ export const addCardsTC = (packId: string | undefined, title: string): ThunkType
         .then(res => {
             dispatch(getCardsTC(packId))
         })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
 
 }
 
@@ -124,6 +130,9 @@ export const deleteCardTC = (packId: string | undefined, cardId: string | undefi
     requestsApi.deleteCard(cardId)
         .then(res => {
             dispatch(getCardsTC(packId))
+        })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
         })
 }
 
@@ -135,5 +144,8 @@ export const updateCardTC = (packId: string | undefined, _id: string): ThunkType
     requestsApi.updateCard(card)
         .then(res => {
             dispatch(getCardsTC(packId))
+        })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
         })
 }

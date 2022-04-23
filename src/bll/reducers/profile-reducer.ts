@@ -1,6 +1,7 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 import {ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
+import {setAppErrorAC} from "./app-reducer";
 
 export type InitialStateType = {
     profile: ProfileType
@@ -85,6 +86,9 @@ export const updateProfileTC = (name: string, avatar: any) => (dispatch: Dispatc
         .then(res => {
             dispatch(updateProfileAC(res.data.updatedUser))
             dispatch(updateProfileNameAC(name))
+        })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.response.data.error))
         })
 
 

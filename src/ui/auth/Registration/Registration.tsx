@@ -5,10 +5,10 @@ import {Navigate, NavLink} from 'react-router-dom';
 import {AppRootStateType} from "../../../bll/store";
 import {requestRegistrationTC} from "../../../bll/reducers/sign_up-reducer";
 import {SuperInputPassword} from "../../common/SuperInput/SuperInput";
+import {ErrorSnackbar} from "../../error/Error";
 
 export const Registration = () => {
     const isRegistration = useSelector<AppRootStateType, boolean>(state => state.signUp.isRegistration)
-    const registerError = useSelector<AppRootStateType, string>(state => state.signUp.registerError)
 
     const dispatch = useDispatch()
     const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com');
@@ -30,8 +30,8 @@ export const Registration = () => {
 
     return (
         <div className="wrapperBox">
+            <ErrorSnackbar/>
             <div className="boxMax">
-                {registerError && <div className='error'>{registerError}</div>}
                 <h2 className="title">It-incubator</h2>
                 <h3 className="subtitle">Sign Up</h3>
                 <label className="inputLabel">

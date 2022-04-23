@@ -5,6 +5,7 @@ import {AppRootStateType} from "../../../bll/store";
 import {useDispatch, useSelector} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import {ErrorSnackbar} from "../../error/Error";
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -23,6 +24,7 @@ export const App = () => {
             {status === "loading" &&
                 <div style={{position: 'absolute', left: '0', right: '0', zIndex: '999'}}><LinearProgress/></div>}
             <Header/>
+            <ErrorSnackbar/>
             <RoutesNav/>
 
         </div>

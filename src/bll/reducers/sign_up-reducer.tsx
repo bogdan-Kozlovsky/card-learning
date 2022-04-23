@@ -1,6 +1,7 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 import {Dispatch} from "redux";
 import {requestsApi} from "../../dal/api";
+import {setAppErrorAC} from "./app-reducer";
 
 type InitialStateType = {
     isRegistration: boolean
@@ -8,7 +9,6 @@ type InitialStateType = {
 }
 type ActionType =
     | ReturnType<typeof signUpAC>
-    | ReturnType<typeof registrationErrorAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState: InitialStateType = {
@@ -22,9 +22,6 @@ export const sign_upReducer = (state: InitialStateType = initialState, action: A
         case "REGISTRATION/SIGN_UP": {
             return {...state, isRegistration: action.value}
         }
-        case "REGISTRATION_ERROR": {
-            return {...state, registerError: action.error}
-        }
         default: {
             return state
         }
@@ -37,7 +34,6 @@ export const signUpAC = (value: boolean) => {
         type: 'REGISTRATION/SIGN_UP', value
     } as const
 }
-export const registrationErrorAC = (error: string) => ({type: 'REGISTRATION_ERROR', error} as const)
 
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 
@@ -47,9 +43,6 @@ export const requestRegistrationTC = (data: { email: string, password: string })
             dispatch(signUpAC(true))
         })
         .catch(error => {
-            dispatch(registrationErrorAC(error.response.data.error))
-            setTimeout(() => {
-                dispatch(registrationErrorAC(''))
-            }, 3000)
+            dispatch(setAppErrorAC(error.response.data.error))
         })
 }

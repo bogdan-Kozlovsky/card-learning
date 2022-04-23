@@ -6,6 +6,7 @@ import {forgotPasswordTC} from "../../../bll/reducers/auth-reducer";
 import {AppRootStateType} from "../../../bll/store";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {SuperInput} from "../../common/SuperInput/SuperInput";
+import {ErrorSnackbar} from "../../error/Error";
 
 export const PasswordRecovery = () => {
     const [email, setEmail] = useState<string>("maxcardbogdan@gmail.com")
@@ -31,12 +32,10 @@ link</a>
         return <Navigate to={'/auth-email-password'}/>
     }
 
-    // useEffect(() => {
-    //
-    // },[])
 
     return (
         <div className="wrapperBox">
+            <ErrorSnackbar/>
             <div className="boxMax">
                 <h2 className="title">It-incubator</h2>
                 <h3 className="subtitle">Forgot your password?</h3>

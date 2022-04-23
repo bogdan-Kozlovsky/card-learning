@@ -22,6 +22,7 @@ import useDebounce from "../common/hook/hook";
 import {SuperModal} from "../common/SuperModal/SuperModal";
 import {CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
 import {useNavigate} from "react-router-dom";
+import {ErrorSnackbar} from "../error/Error";
 
 
 export const Packs = () => {
@@ -125,6 +126,7 @@ export const Packs = () => {
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
+            <ErrorSnackbar/>
             <div className={style.packsBox}>
                 <div className={style.packsBoxLeft}>
                     <h3 className={style.packsLeftTitle}>Show packs cards</h3>
