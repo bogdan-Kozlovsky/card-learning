@@ -6,11 +6,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {ErrorSnackbar} from "../../error/Error";
+import {useNavigate} from "react-router-dom";
 
 export const App = () => {
     const dispatch = useDispatch()
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -18,6 +20,15 @@ export const App = () => {
             dispatch(authMeTC())
         }
     }, [])
+
+    useEffect(() => {
+        if (initialized) {
+            navigate('/packs_list')
+        }
+        if (!initialized) {
+            navigate('/')
+        }
+    }, [initialized])
 
     return (
         <div className="App">

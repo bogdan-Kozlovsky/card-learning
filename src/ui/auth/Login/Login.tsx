@@ -14,7 +14,7 @@ export const Login = () => {
     const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
     const [password, setPassword] = useState<string>('Stupid23Stupid')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
-    const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
+    // const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.loginValue)
 
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))
@@ -31,9 +31,9 @@ export const Login = () => {
         setRememberMe(e.currentTarget.checked);
     };
 
-    if (isLogin) {
-        return <Navigate to='/profile'/>
-    }
+    // if (isLogin) {
+    //     return <Navigate to='/profile'/>
+    // }
 
     return (
         <div className="wrapperBox">
@@ -54,7 +54,7 @@ export const Login = () => {
                 <label className="inputLabel inputLabelFlex">
                     Remember Me
                     <SuperInput type={'checkbox'} onChange={onChangeHandlerChecked} className='inputCheckbox'
-                                checked={rememberMe}/>
+                                checked={rememberMe} />
                 </label>
 
                 <div className={style.wrapperLink}>

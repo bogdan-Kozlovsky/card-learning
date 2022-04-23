@@ -14,9 +14,9 @@ export const ProfileContainer = () => {
     const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
     const [title, setTitle] = useState<string>(name)
 
-    if (!initialized) {
-        navigate('/')
-    }
+    // if (!initialized) {
+    //     navigate('/')
+    // }
 
     //add show modal
     const showModal = () => {

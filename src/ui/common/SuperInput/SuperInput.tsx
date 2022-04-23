@@ -8,18 +8,20 @@ type propsType = {
     onChange: (e: ChangeEvent<HTMLInputElement>) => void
     className: string
     value: string
-    checked: boolean
+    checked?: boolean
+    children?: JSX.Element | JSX.Element[];
 }
 export const SuperInput = ({
                                placeholder,
                                type,
                                onChange,
+                               checked,
                                className,
                                value,
                            }: Partial<propsType>) => {
     return (
         <>
-            <input type={type} placeholder={placeholder} onChange={onChange} className={className} value={value}/>
+            <input checked={checked} type={type} placeholder={placeholder} onChange={onChange} className={className} value={value}/>
         </>
     );
 };
@@ -35,7 +37,7 @@ export const SuperInputPassword = ({
 
         <div className='inputPasswordShow'>
             <input type={shown ? 'text' : 'password'} onChange={onChange}
-                   className={className} value={value}/>
+                   className={className} value={value} />
             {/*<button onClick={() => setShown(!shown)} className='btnShow'>*/}
                 <img className='btnShow' onClick={() => setShown(!shown)} src={!shown ? openShow : closeShow} alt={'open'}/>
             {/*</button>*/}
