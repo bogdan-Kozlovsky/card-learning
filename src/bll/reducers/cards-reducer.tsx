@@ -103,6 +103,7 @@ export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, 
     const {page, pageCount} = getState().cards.params
     requestsApi.getCards(packId, pageCount, page)
         .then((res) => {
+            console.log(res.data)
             dispatch(initializedCardsAC(res.data))
         })
         .catch(error => {

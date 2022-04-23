@@ -116,9 +116,9 @@ export const Packs = () => {
     }
 
     // learn Card
-    const getLearnCard = (learnId: string) => {
-        dispatch(getCardsTC(learnId))
-        navigate('/packs_list/link')
+
+    const getLearnCard = (learnId:string) => {
+        navigate(`/packs_list/link/${learnId}`)
     }
 
 

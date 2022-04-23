@@ -32,7 +32,7 @@ const RoutesNav = () => {
                 <Route path='404' element={<Error404/>}/>
                 <Route path='*' element={<Navigate to='404'/>}/>
                 <Route path='/packs_list' element={<Packs/>}/>
-                <Route path='/packs_list/link' element={<Learn/>}/>
+                <Route path='/packs_list/link/:learnId' element={<Learn/>}/>
                 <Route path='/packs_list/link/answer' element={<LearnAnswer/>}/>
                 <Route path='/packs_list_cards/:packId' element={<Cards/>}/>
             </Routes>
