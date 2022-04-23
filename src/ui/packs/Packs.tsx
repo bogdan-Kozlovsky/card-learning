@@ -28,8 +28,8 @@ export const Packs = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [overlay, setOverlay] = useState(false);
+    const [value, setValue] = useState('')
     const [title, setTitle] = useState<string>('')
-
     const {
         page,
         sortPacks,
@@ -37,13 +37,12 @@ export const Packs = () => {
         packName, min, max
     } = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
     const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
+
     const [activeBtn, setActiveBtn] = useState<string>('all')
-
     const debounceMin = useDebounce(min, 700)
-    const debounceMax = useDebounce(max, 700)
 
+    const debounceMax = useDebounce(max, 700)
     //search
-    const [value, setValue] = useState('')
     const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
@@ -116,8 +115,7 @@ export const Packs = () => {
     // learn Card
 
     const getLearnCard = (learnId:string) => {
-        dispatch(getCardsTC(learnId))
-        navigate('/packs_list/link')
+        navigate(`/packs_list/link/${learnId}`)
     }
 
 
