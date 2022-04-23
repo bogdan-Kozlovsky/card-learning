@@ -69,6 +69,7 @@ export const authMeTC = () => (dispatch: Dispatch) => {
     dispatch(getStatusAC('loading'))
     requestsApi.authMeRequest()
         .then((res) => {
+            // dispatch(initializedAC('profile'))
             dispatch(initializedAC(true))
             dispatch(authMeAC(res.data))
         })

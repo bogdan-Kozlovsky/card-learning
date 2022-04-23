@@ -1,5 +1,4 @@
 import React from 'react';
-import {Login} from "../auth/Login/Login";
 import {Registration} from "../auth/Registration/Registration";
 import {PasswordRecovery} from "../auth/PasswordRecovery/PasswordRecovery";
 import {Error404} from "../common/Error404/Error404";
@@ -8,9 +7,11 @@ import {AuthEmailPassword} from "../auth/AuthEmailPassword/AuthEmailPassword";
 import {Navigate, Route, Routes,} from 'react-router-dom'
 import {Packs} from "../packs/Packs";
 import {Cards} from "../cards/Cards";
-import { ProfileContainer } from '../profile/ProfileContainer';
 import {Learn} from "../learn/Learn";
 import {LearnAnswer} from "../learn/LearnAnswer";
+import Login from "../auth/Login/Login";
+import ProfileContainer from "../profile/ProfileContainer";
+import {LoginNavigate} from "../auth/Login/LoginNavigate";
 
 
 const RoutesNav = () => {
@@ -19,7 +20,7 @@ const RoutesNav = () => {
             <Routes>
                 <Route path='/' element={<Login/>}/>
                 <Route path='/register' element={<Registration/>}/>
-                <Route path='/profile' element={<ProfileContainer/>}/>
+                <Route path='/profile' element={<LoginNavigate><ProfileContainer/></LoginNavigate>}/>
                 <Route path='recovery-password' element={<PasswordRecovery/>}/>
                 <Route
                     path='auth-email-password'
@@ -31,10 +32,10 @@ const RoutesNav = () => {
                 />
                 <Route path='404' element={<Error404/>}/>
                 <Route path='*' element={<Navigate to='404'/>}/>
-                <Route path='/packs_list' element={<Packs/>}/>
+                <Route path='/packs_list' element={<LoginNavigate><Packs/></LoginNavigate>}/>
                 <Route path='/packs_list/link' element={<Learn/>}/>
                 <Route path='/packs_list/link/answer' element={<LearnAnswer/>}/>
-                <Route path='/packs_list_cards/:packId' element={<Cards/>}/>
+                <Route path='/packs_list_cards/:packId' element={<LoginNavigate><Cards/></LoginNavigate>}/>
             </Routes>
         </div>
     );

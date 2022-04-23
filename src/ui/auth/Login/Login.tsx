@@ -8,14 +8,13 @@ import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {SuperInput, SuperInputPassword} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
 
-export const Login = () => {
+ const Login = () => {
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
     const [password, setPassword] = useState<string>('Stupid23Stupid')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
-    // const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.loginValue)
-
+    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))
     }
@@ -31,9 +30,9 @@ export const Login = () => {
         setRememberMe(e.currentTarget.checked);
     };
 
-    // if (isLogin) {
-    //     return <Navigate to='/profile'/>
-    // }
+    if (initialized) {
+        return <Navigate to='/profile'/>
+    }
 
     return (
         <div className="wrapperBox">
@@ -72,3 +71,7 @@ export const Login = () => {
         </div>
     );
 };
+
+// export default withAuthRedirect(<Login/>)
+export default Login
+

@@ -12,23 +12,13 @@ export const App = () => {
     const dispatch = useDispatch()
     const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
-    const navigate = useNavigate()
 
 
     useEffect(() => {
-        if (!initialized) {
+        // if (!initialized) {
             dispatch(authMeTC())
-        }
+        // }
     }, [])
-
-    useEffect(() => {
-        if (initialized) {
-            navigate('/packs_list')
-        }
-        if (!initialized) {
-            navigate('/')
-        }
-    }, [initialized])
 
     return (
         <div className="App">

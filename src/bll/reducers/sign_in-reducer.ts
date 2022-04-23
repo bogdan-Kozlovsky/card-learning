@@ -6,6 +6,7 @@ import {initializedAC, setAppErrorAC} from "./app-reducer";
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 export type InitialStateType = {
     profile: ProfileType
+    isLogin: boolean
 }
 type ActionType =
     | ReturnType<typeof signInAC>
@@ -30,6 +31,7 @@ const initialState: InitialStateType = {
         __v: null,
         _id: null,
     },
+    isLogin: false,
 }
 
 
@@ -46,7 +48,7 @@ export const sign_inReducer = (state: InitialStateType = initialState, action: A
 }
 
 ///////////////////////////////////////////// action creator ////////////////////////////////////////////
-export const signInAC = (data: ProfileType, ) => {
+export const signInAC = (data: ProfileType,) => {
     return {
         type: 'LOGIN/SIGN_IN', data,
     } as const
@@ -56,7 +58,7 @@ export const signInAC = (data: ProfileType, ) => {
 export const requestLoginTC = (data: { email: string, password: string, rememberMe: boolean }) => (dispatch: Dispatch) => {
     requestsApi.loginRequest(data)
         .then((res) => {
-            dispatch(signInAC(res.data, ))
+            dispatch(signInAC(res.data,))
             dispatch(authMeAC(res.data))
             dispatch(initializedAC(true))
         })

@@ -1,9 +1,9 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 import {Dispatch} from "redux";
-import {ProfileType, requestsApi} from "../../dal/api";
-import {signInAC} from "./sign_in-reducer";
+import {requestsApi} from "../../dal/api";
 
 export type RequestStatusType = 'loading' | 'succeeded'
+// export type InitialStatusType = 'close' | 'login' | 'profile'
 export type InitialStateType = {
     initialized: boolean
     status: RequestStatusType
@@ -16,6 +16,7 @@ type ActionType =
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
 const initialState: InitialStateType = {
+    // initialized: 'close',
     initialized: false,
     status: "loading",
     error: null,
@@ -41,6 +42,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 
 ///////////////////////////////////////////// action creator ////////////////////////////////////////////
+// export const initializedAC = (value: InitialStatusType) => {
 export const initializedAC = (value: boolean) => {
     return {
         type: 'APP/INITIALIZED', value
@@ -61,7 +63,7 @@ export const setAppErrorAC = (error: string | null) => {
 export const logoutTC = () => (dispatch: Dispatch) => {
     requestsApi.logoutRequest()
         .then((res) => {
-            dispatch(signInAC({} as ProfileType))
+            // dispatch(signInAC({} as ProfileType, false))
             dispatch(initializedAC(false))
         })
         .catch((error: any) => {

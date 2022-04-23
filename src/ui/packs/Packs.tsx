@@ -31,7 +31,7 @@ export const Packs = () => {
     const navigate = useNavigate()
     const [overlay, setOverlay] = useState(false);
     const [title, setTitle] = useState<string>('')
-    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    // const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const {
         page,
         sortPacks,
@@ -59,6 +59,9 @@ export const Packs = () => {
     useEffect(() => {
         dispatch(setSearchAC(value))
     }, [setSearch])
+
+
+
 
     //pagination
     const {pageCount} = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
@@ -131,6 +134,11 @@ export const Packs = () => {
 
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
+
+
+    // if (!initialized) {
+    //     navigate('/')
+    // }
     return (
         <div className='container'>
             <ErrorSnackbar/>
