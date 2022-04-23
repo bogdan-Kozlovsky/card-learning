@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import style from './navigate.module.css'
-import profileIcon from '../assets/images/icons/profileIcons.svg'
-import packIcon from '../assets/images/icons/cardsIcons.svg'
+import profile from '../assets/images/icons/profile.svg'
+import packIcon from '../assets/images/icons/cards.svg'
 import loginIcon from '../assets/images/icons/login.svg'
 
 export const NavigateLink = () => {
@@ -15,7 +15,7 @@ export const NavigateLink = () => {
                              to={'/'}>Login</NavLink>
                 </li>
                 <li className={style.itemLink}>
-                    <img className={style.decor} src={profileIcon} alt="profileIcon"/>
+                    <img className={style.decor} src={profile} alt="profileIcon"/>
                     <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
                              to={'/profile'}>Profile</NavLink>
                 </li>

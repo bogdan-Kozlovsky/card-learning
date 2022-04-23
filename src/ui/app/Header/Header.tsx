@@ -2,7 +2,6 @@ import React from 'react';
 import style from './header.module.css'
 import logo from '../../assets/images/logo.svg'
 import {NavigateLink} from "../../navigate/NavigateLink";
-import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {logoutTC} from "../../../bll/reducers/app-reducer";
 import {useDispatch} from "react-redux";
 import logoutIcon from '../../assets/images/icons/logout.svg'
