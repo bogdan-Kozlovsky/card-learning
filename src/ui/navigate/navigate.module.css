@@ -5,6 +5,7 @@
 }
 
 .itemLink {
+    margin: 0 30px;
     position: relative;
 }
 
@@ -33,5 +34,11 @@
     color: #2D2E46;
     opacity: 1;
     border-bottom: 3px solid #21268F;
+}
+
+.itemWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 

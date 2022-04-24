@@ -18,12 +18,12 @@ const Header = () => {
                 <div className={style.wrapperHeader}>
                     <img src={logo} alt="logo"/>
                     <NavigateLink/>
-                    <button onClick={logout} className={'logoutBtn'}>
-                        <img style={{width:'30px'}} src={logoutIcon} alt=""/>
-                        logout
-                    </button>
+                    {/*<button onClick={logout} className={'logoutBtn'}>*/}
+                    {/*    <img style={{width:'30px'}} src={logoutIcon} alt=""/>*/}
+                    {/*    logout*/}
+                    {/*</button>*/}
 
-                    <NavLink to={'/packs_list/link'}>Link</NavLink>
+                    {/*<NavLink to={'/packs_list/link'}>Link</NavLink>*/}
                 </div>
             </div>
         </div>

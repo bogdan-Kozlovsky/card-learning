@@ -109,7 +109,7 @@ ul {
 .btnBlue {
     display: block;
     cursor: pointer;
-    padding: 9px 108px;
+    /*padding: 9px 108px;*/
     border-radius: 30px;
     background: #21268F;
     box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);

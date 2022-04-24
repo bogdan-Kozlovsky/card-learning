@@ -1,11 +1,10 @@
-import React, {ChangeEvent, ComponentType, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {ProfileType} from "../../dal/api";
 import {updateProfileTC} from "../../bll/reducers/profile-reducer";
 import {Profile} from "./Profile";
-import {Navigate} from "react-router-dom";
 
 // const withAuthGuard = (Component) => {
 //     const WrappedComponent = (props) => {
@@ -41,12 +40,10 @@ import {Navigate} from "react-router-dom";
 
 // export const withAuthGuard( ProfileContainer = () => {
 const ProfileContainer = () => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [overlay, setOverlay] = useState(false);
     const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
     const [title, setTitle] = useState<string>(name)
-    // const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
 
     //add show modal
 

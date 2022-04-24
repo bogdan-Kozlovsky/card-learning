@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {ErrorSnackbar} from "../../error/Error";
-import {useNavigate} from "react-router-dom";
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -15,9 +14,7 @@ export const App = () => {
 
 
     useEffect(() => {
-        // if (!initialized) {
             dispatch(authMeTC())
-        // }
     }, [])
 
     return (

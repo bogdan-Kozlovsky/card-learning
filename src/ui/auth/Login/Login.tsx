@@ -61,7 +61,7 @@ import {ErrorSnackbar} from "../../error/Error";
                         Forgot Password
                     </NavLink>
                 </div>
-                <SuperButton name={'Login'} onClick={isLoginHandler} className="btnBlue"/>
+                <SuperButton name={'Login'} onClick={isLoginHandler} className={`${style.btn} btnBlue`}/>
                 <div className='wrapperLinkCenter'>
                     <NavLink to={'/register'} className={style.forgotLink}>
                         Sign Up
@@ -72,6 +72,5 @@ import {ErrorSnackbar} from "../../error/Error";
     );
 };
 
-// export default withAuthRedirect(<Login/>)
 export default Login
 

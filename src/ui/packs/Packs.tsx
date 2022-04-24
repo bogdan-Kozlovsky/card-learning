@@ -23,7 +23,6 @@ import {SuperModal} from "../common/SuperModal/SuperModal";
 import {getCardsTC} from "../../bll/reducers/cards-reducer";
 import {useNavigate} from "react-router-dom";
 import {ErrorSnackbar} from "../error/Error";
-import {ProfileType} from "../../dal/api";
 
 
 export const Packs = () => {
@@ -31,7 +30,7 @@ export const Packs = () => {
     const navigate = useNavigate()
     const [overlay, setOverlay] = useState(false);
     const [title, setTitle] = useState<string>('')
-    // const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
     const {
         page,
         sortPacks,
@@ -125,20 +124,7 @@ export const Packs = () => {
     }
 
 
-    // useEffect(() => {
-    //     console.log('effect packs')
-    // if (!initialized) {
-    //     navigate('/')
-    // }
-    // }, [initialized])
-
-
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-
-
-    // if (!initialized) {
-    //     navigate('/')
-    // }
     return (
         <div className='container'>
             <ErrorSnackbar/>

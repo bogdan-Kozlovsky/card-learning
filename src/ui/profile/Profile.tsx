@@ -24,7 +24,7 @@ export const Profile = (props: ProfilePropsType) => {
                     <div className={style.avatarBox}>
                         <div>
                             <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
-                                <SuperModal closeModal={closeModal} titleName={'Add new pack'}>
+                                <SuperModal closeModal={closeModal} titleName={'update pack'}>
                                     <input onChange={getNewNameProfile} className='inputModal' placeholder={name}
                                            value={title}/>
                                     <button onClick={updateProfile} className='successBtn'>Save</button>
@@ -38,7 +38,7 @@ export const Profile = (props: ProfilePropsType) => {
                             </p>
                         </div>
                     </div>
-                    <button onClick={showModal}>edit</button>
+                    <button className={`${style.btn} btnBlue`} onClick={showModal}>edit</button>
                 </div>
                 <div className={style.rightBox}>boom</div>
             </div>
