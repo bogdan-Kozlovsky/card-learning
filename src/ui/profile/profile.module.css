@@ -20,7 +20,7 @@
     border-radius: 10px;
 }
 
-.avatarBox{
+.avatarBox {
     height: 216px;
     background: #D9D9F1;
     display: flex;
@@ -30,13 +30,16 @@
     border-radius: 5px;
 }
 
-.avatar{
+.avatar {
     width: 96px;
     height: 96px;
-    border-radius: 50%  ;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+    margin: 0 auto 20px auto;
 }
 
-.name{
+.name {
     font-weight: 600;
     font-size: 18px;
     line-height: 27px;
@@ -44,14 +47,14 @@
     margin-bottom: 4px;
 }
 
-.description{
-    font-size: 14px;
+.description {
+    font-size: 20px;
     line-height: 17px;
-    color: #2D2E46;
-    opacity: 0.5;
+    font-weight: 500;
+    color: #000;
 }
 
-.rigthBox{
+.rigthBox {
     background: #FEFEFF;
 }
 
@@ -65,7 +68,7 @@
     opacity: 0;
 }
 
-.btn{
+.btn {
     margin-top: 10px;
     padding: 9px 78px
 }

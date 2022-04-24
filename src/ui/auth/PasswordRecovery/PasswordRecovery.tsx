@@ -1,16 +1,18 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './passwordRecovery.module.css'
 import {Navigate, NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {forgotPasswordTC} from "../../../bll/reducers/auth-reducer";
-import {AppRootStateType} from "../../../bll/store";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {SuperInput} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
+import {selectAuthForgotValue} from "../../../bll/selectors";
+import {useAppSelector} from "../../common/hook/hook";
 
 export const PasswordRecovery = () => {
+    const forgotValue = useAppSelector(selectAuthForgotValue)
+
     const [email, setEmail] = useState<string>("maxcardbogdan@gmail.com")
-    const forgotValue = useSelector<AppRootStateType, boolean>(state => state.auth.forgotValue)
     const dispatch = useDispatch()
     const data = {
         email,

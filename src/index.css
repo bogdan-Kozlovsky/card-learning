@@ -176,20 +176,20 @@ ul {
 /*btn*/
 
 .boxBtn {
-    position: relative;
+    /*position: relative;*/
 }
 
 .btn {
     cursor: pointer;
-    width: 30px;
+    width: 27px;
     position: absolute;
     right: 10px;
     top: 50%;
-    transform: translateX(-50%);
+    transform: translateY(-50%);
 }
 
 .btnUpdate {
-    right: -70px;
+    right: 40px;
 }
 
 .grayBtn{
@@ -204,7 +204,7 @@ ul {
 }
 
 .btnDelete {
-    right: -25px;
+    right: 0px;
 }
 
 .logoutBtn{

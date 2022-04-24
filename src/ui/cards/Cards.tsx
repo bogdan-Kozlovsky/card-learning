@@ -1,12 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {
-    addCardsTC,
-    CardsParamsType,
-    CardsType,
-    getCardsTC,
-    setCardsCurrentPageAC
-} from "../../bll/reducers/cards-reducer";
+import {addCardsTC, CardsParamsType, getCardsTC, setCardsCurrentPageAC} from "../../bll/reducers/cards-reducer";
 import {AppRootStateType} from "../../bll/store";
 import {NavLink, useParams} from "react-router-dom";
 import {Card} from "./card/Card";
@@ -16,8 +10,21 @@ import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperModal} from "../common/SuperModal/SuperModal";
 import {ErrorSnackbar} from "../error/Error";
+import {
+    selectCardsCards, selectCardsCardsCardsTotalCount,
+    selectCardsCardsParamsPageCount,
+    selectCardsCardsTotalCount,
+    selectProfileProfileId
+} from "../../bll/selectors";
+import {useAppSelector} from "../common/hook/hook";
 
 export const Cards = () => {
+    const cards = useAppSelector(selectCardsCards)
+    const cardsTotalCount = useAppSelector(selectCardsCardsTotalCount)
+    const ourUserId = useAppSelector(selectProfileProfileId)
+    const {pageCount} = useAppSelector(selectCardsCardsParamsPageCount)
+    const cardsTotalCountNum = useAppSelector(selectCardsCardsCardsTotalCount)
+
     const dispatch = useDispatch()
     const {packId} = useParams()
 
@@ -25,18 +32,8 @@ export const Cards = () => {
     useEffect(() => {
         dispatch(getCardsTC(packId))
     }, [])
-
-    const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
-    const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
-
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-    // const ourUserId = useSelector<AppRootStateType, string | null>(state => state.signIn.profile._id)
-    const ourUserId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
-
-
     //pagination
-    const {pageCount} = useSelector<AppRootStateType, CardsParamsType>(state => state.cards.params)
-    const cardsTotalCountNum = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
     const totalPages = Math.ceil(cardsTotalCountNum / pageCount)
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;

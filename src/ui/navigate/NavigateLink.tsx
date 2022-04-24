@@ -4,18 +4,19 @@ import style from './navigate.module.css'
 import profile from '../assets/images/icons/profile.svg'
 import packIcon from '../assets/images/icons/cards.svg'
 import loginIcon from '../assets/images/icons/login.svg'
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../bll/store";
+import {useDispatch} from "react-redux";
 import logoutIcon from "../assets/images/icons/logout.svg";
 import {logoutTC} from "../../bll/reducers/app-reducer";
+import {useAppSelector} from "../common/hook/hook";
+import {selectSignInisLogin} from "../../bll/selectors";
 
 export const NavigateLink = () => {
-    const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.isLogin)
+    const isLogin = useAppSelector(selectSignInisLogin)
+
     const dispatch = useDispatch()
     const logout = () => {
         dispatch(logoutTC())
     }
-    console.log(isLogin)
     return (
         <>
             <ul className={style.navigateList}>

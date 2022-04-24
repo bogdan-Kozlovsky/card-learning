@@ -44,6 +44,7 @@ const ProfileContainer = () => {
     const [overlay, setOverlay] = useState(false);
     const {name, avatar, ...props} = useSelector<AppRootStateType, ProfileType>(state => state.auth.profile)
     const [title, setTitle] = useState<string>(name)
+    const [avatarValue, setAvatar] = useState<string>(avatar)
 
     //add show modal
 
@@ -51,34 +52,34 @@ const ProfileContainer = () => {
         setOverlay(true)
     }
     const closeModal = () => {
-
         setOverlay(false)
     }
     //update profile name
     const updateProfile = () => {
-        dispatch(updateProfileTC(title, ''))
+        dispatch(updateProfileTC(title, avatarValue))
         closeModal()
     }
-    // get new name profile
 
-    const getNewNameProfile = (e: ChangeEvent<HTMLInputElement>) => {
+    // get new name profile
+    const getNewNameProfileName = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
-
-    // if (!initialized) {
-    //     navigate('/')
-    // }
-
+    const getNewNameProfileAvatar = (e: ChangeEvent<HTMLInputElement>) => {
+        setAvatar(e.currentTarget.value)
+    }
     return (
         <div className="container">
             <Profile overlay={overlay}
                      closeModal={closeModal}
-                     getNewNameProfile={getNewNameProfile}
+                     getNewNameProfileName={getNewNameProfileName}
                      updateProfile={updateProfile}
                      title={title}
                      name={name}
                      avatar={avatar}
-                     showModal={showModal}/>
+                     showModal={showModal}
+                     avatarValue={avatarValue}
+                     getNewNameProfileAvatar={getNewNameProfileAvatar}
+            />
         </div>
     )
 }

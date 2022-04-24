@@ -5,16 +5,29 @@ import {SuperModal} from "../common/SuperModal/SuperModal";
 type ProfilePropsType = {
     overlay: boolean
     closeModal: () => void
-    getNewNameProfile: (e: ChangeEvent<HTMLInputElement>) => void
+    getNewNameProfileName: (e: ChangeEvent<HTMLInputElement>) => void
+    getNewNameProfileAvatar: (e: ChangeEvent<HTMLInputElement>) => void
     updateProfile: () => void
     title: string
+    avatarValue: string
     name: string
     avatar: string
     showModal: () => void
 }
 
+
 export const Profile = (props: ProfilePropsType) => {
-    const {overlay, closeModal, getNewNameProfile, updateProfile, title, name, avatar, showModal} = props
+    const {
+        overlay,
+        closeModal,
+        getNewNameProfileName,
+        updateProfile,
+        title,
+        name,
+        avatar,
+        showModal,
+        getNewNameProfileAvatar
+    } = props
 
     return (
         <div className="container">
@@ -25,14 +38,15 @@ export const Profile = (props: ProfilePropsType) => {
                         <div>
                             <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
                                 <SuperModal closeModal={closeModal} titleName={'update pack'}>
-                                    <input onChange={getNewNameProfile} className='inputModal' placeholder={name}
+                                    <input onChange={getNewNameProfileName} className='inputModal' placeholder={name}
                                            value={title}/>
+                                    <input onChange={getNewNameProfileAvatar} className='inputModal'
+                                           placeholder={'avatar'}
+                                           value={avatar}/>
                                     <button onClick={updateProfile} className='successBtn'>Save</button>
                                 </SuperModal>
                             </div>
-                            <div>
                                 <img className={style.avatar} src={avatar} alt="avatar"/>
-                            </div>
                             <p className={style.description}>
                                 {name}
                             </p>

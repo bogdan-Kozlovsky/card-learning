@@ -1,17 +1,18 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Navigate, useParams} from "react-router-dom";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../bll/store";
+import {useDispatch} from "react-redux";
 import {newPasswordTC} from "../../../bll/reducers/auth-reducer";
 import {SuperInputPassword} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
+import {selectAuthNewPasswordValue} from "../../../bll/selectors";
+import {useAppSelector} from "../../common/hook/hook";
 
 export const NewPassword = () => {
+    const newPasswordValue = useAppSelector(selectAuthNewPasswordValue)
     const dispatch = useDispatch()
     const {token} = useParams()
     const [password, setPassword] = useState<string>('Stupid23Stupid')
-    const newPasswordValue = useSelector<AppRootStateType, boolean>(state => state.auth.newPasswordValue)
 
     const onChangeHandlerPassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value);

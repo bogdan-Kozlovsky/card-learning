@@ -1,13 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../bll/store";
+import {useDispatch} from "react-redux";
 import {
     addPacksTC,
     doubleRangeAC,
     getPacksTC,
     getUserIdAC,
-    PacksParamsType,
-    PackType,
     setCurrentPageAC,
     setSearchAC,
     setSortPacksAC
@@ -18,26 +15,33 @@ import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
-import useDebounce from "../common/hook/hook";
+import useDebounce, {useAppSelector} from "../common/hook/hook";
 import {SuperModal} from "../common/SuperModal/SuperModal";
 import {getCardsTC} from "../../bll/reducers/cards-reducer";
 import {useNavigate} from "react-router-dom";
 import {ErrorSnackbar} from "../error/Error";
-
+import search from '../assets/images/icons/search.svg'
+import {
+    selectPacksCardsPacks,
+    selectPacksCardsPacksTotalCount,
+    selectPacksParams,
+    selectProfileProfileId
+} from "../../bll/selectors";
 
 export const Packs = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const [overlay, setOverlay] = useState(false);
-    const [title, setTitle] = useState<string>('')
-    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    const myId = useAppSelector(selectProfileProfileId)
     const {
         page,
         sortPacks,
         user_id,
         packName, min, max
-    } = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
-    const myId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
+    } = useAppSelector(selectPacksParams)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [overlay, setOverlay] = useState(false);
+
+
+    const [title, setTitle] = useState<string>('')
     const [activeBtn, setActiveBtn] = useState<string>('all')
 
     const debounceMin = useDebounce(min, 700)
@@ -60,13 +64,11 @@ export const Packs = () => {
     }, [setSearch])
 
 
-
-
     //pagination
-    const {pageCount} = useSelector<AppRootStateType, PacksParamsType>(state => state.packs.params)
-    const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
+    const {pageCount} = useAppSelector(selectPacksParams)
+    const cardPacksTotalCount = useAppSelector(selectPacksCardsPacksTotalCount)
     const totalPages = Math.ceil(cardPacksTotalCount / pageCount)
-    const pack = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks)
+    const pack = useAppSelector(selectPacksCardsPacks)
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
@@ -168,8 +170,12 @@ export const Packs = () => {
                 <div className={style.packsBoxRight}>
                     <h2 className={style.packsBoxRightTitle}>Packs list</h2>
                     <div className={style.packsBoxSearch}>
+                        {/*<SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}*/}
+                        {/*            placeholder={'Search...'}/>*/}
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
-                                    placeholder={'Search...'}/>
+                                    placeholder={'Search...'}>
+                            <img className={style.inputIcons} src={search} alt="search"/>
+                        </SuperInput>
                         <SuperButton onClick={showModal} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
 
