@@ -13,12 +13,15 @@ import Login from "../auth/Login/Login";
 import ProfileContainer from "../profile/ProfileContainer";
 import {LoginNavigate} from "../auth/Login/LoginNavigate";
 
-
-const RoutesNav = () => {
+type propsType = {
+    theme?: string
+}
+const RoutesNav = (props: propsType) => {
+    const {theme} = props
     return (
         <div className='container'>
             <Routes>
-                <Route path='/' element={<Login/>}/>
+                <Route path='/' element={<Login theme={theme}/>}/>
                 <Route path='/register' element={<Registration/>}/>
                 <Route path='/profile' element={<LoginNavigate><ProfileContainer/></LoginNavigate>}/>
                 <Route path='recovery-password' element={<PasswordRecovery/>}/>

@@ -19,4 +19,5 @@ function useDebounce<T>(value: T, delay?: number): T {
 export default useDebounce
 
 
+// useSelector hook
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

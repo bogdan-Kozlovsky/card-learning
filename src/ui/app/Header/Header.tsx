@@ -2,8 +2,13 @@ import React from 'react';
 import style from './header.module.css'
 import logo from '../../assets/images/logo.svg'
 import {NavigateLink} from "../../navigate/NavigateLink";
+import {Theme} from "../../common/theme/Theme";
 
-const Header = () => {
+type propsTyp = {
+    theme: string
+    toggleTheme: () => void
+}
+const Header = (props: propsTyp) => {
 
     return (
         <div className={style.headerBox}>
@@ -11,6 +16,7 @@ const Header = () => {
                 <div className={style.wrapperHeader}>
                     <img src={logo} alt="logo"/>
                     <NavigateLink/>
+                    <Theme theme={props.theme} toggleTheme={props.toggleTheme}/>
                 </div>
             </div>
         </div>

@@ -7,10 +7,12 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {ErrorSnackbar} from "../../error/Error";
 import {useAppSelector} from "../../common/hook/hook";
 import {selectAppStatus} from "../../../bll/selectors";
+import useTheme from "../../common/hook/useTheme";
+import style from './App.module.css'
 
 export const App = () => {
     const status = useAppSelector(selectAppStatus)
-
+    const {theme, toggleTheme} = useTheme();
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -18,13 +20,12 @@ export const App = () => {
     }, [])
 
     return (
-        <div className="App">
+        <div className={`App ${theme === 'dark' ? style.dark : style.light}`}>
             {status === "loading" &&
                 <div style={{position: 'absolute', left: '0', right: '0', zIndex: '999'}}><LinearProgress/></div>}
-            <Header/>
+            <Header theme={theme} toggleTheme={toggleTheme}/>
             <ErrorSnackbar/>
-            <RoutesNav/>
-
+            <RoutesNav theme={theme}/>
         </div>
     );
 }

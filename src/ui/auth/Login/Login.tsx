@@ -9,7 +9,12 @@ import {ErrorSnackbar} from "../../error/Error";
 import {useAppSelector} from "../../common/hook/hook";
 import {selectAppInitialized} from "../../../bll/selectors";
 
-const Login = () => {
+type propsType = {
+    theme?: string
+}
+
+const Login = (props: propsType) => {
+    const {theme} = props
     const initialized = useAppSelector(selectAppInitialized)
 
     const dispatch = useDispatch()
@@ -36,7 +41,8 @@ const Login = () => {
     }
 
     return (
-        <div className="wrapperBox">
+        // <div className={`wrapperBox ${theme === 'dark' ? style.dark : style.light}`}>
+        <div className={`wrapperBox`}>
             <ErrorSnackbar/>
             <div className="boxMax">
                 <h2 className="title">It-incubator</h2>

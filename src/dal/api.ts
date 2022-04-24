@@ -123,7 +123,7 @@ export const requestsApi = {
     deleteCard(cardId: string | undefined) {
         return instance.delete(`cards/card?id=${cardId}`)
     },
-    updateCard(card: { _id: string, question: string }) {
-        return instance.put(`/cards/card`, {card})
+    updateCard(updateName: string, _id: string) {
+        return instance.put(`/cards/card`, {card: {_id, updateName}})
     }
 }

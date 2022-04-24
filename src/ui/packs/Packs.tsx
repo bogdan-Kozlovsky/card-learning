@@ -27,6 +27,8 @@ import {
     selectPacksParams,
     selectProfileProfileId
 } from "../../bll/selectors";
+import arrowUp from '../assets/images/icons/upArrow.svg'
+import arrowDown from '../assets/images/icons/downArrow.svg'
 
 export const Packs = () => {
     const myId = useAppSelector(selectProfileProfileId)
@@ -94,7 +96,14 @@ export const Packs = () => {
     const requestForSorting = (num: number) => {
         const sortPacks = `${num}cardsCount`
         dispatch(setSortPacksAC(sortPacks))
+        setOpen(!open)
     }
+    const [open, setOpen] = useState(false)
+
+    //спросить у ментора много перерисовок
+    console.log(open)
+    /////////////////////////////////////////
+
     //add show modal
     const showModal = () => {
         setOverlay(true)
@@ -170,8 +179,6 @@ export const Packs = () => {
                 <div className={style.packsBoxRight}>
                     <h2 className={style.packsBoxRightTitle}>Packs list</h2>
                     <div className={style.packsBoxSearch}>
-                        {/*<SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}*/}
-                        {/*            placeholder={'Search...'}/>*/}
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
                                     placeholder={'Search...'}>
                             <img className={style.inputIcons} src={search} alt="search"/>
@@ -182,8 +189,12 @@ export const Packs = () => {
                     <ul className={style.packsList}>
                         <li className={style.packsItem}>Name</li>
                         <li className={style.packsItem}>Cards
-                            <button onClick={() => requestForSorting(0)}>+</button>
-                            <button onClick={() => requestForSorting(1)}>-</button>
+                            {!open && <button onClick={() => requestForSorting(0)}>
+                                <img style={{width:'15px'}} src={arrowDown} alt="arrowDown"/>
+                            </button>}
+                            {open && <button onClick={() => requestForSorting(1)}>
+                                <img style={{width:'15px'}} src={arrowUp} alt="arrowUp"/>
+                            </button>}
                         </li>
                         <li className={style.packsItem}>Last Updated
                         </li>
@@ -198,7 +209,6 @@ export const Packs = () => {
                                   userId={e.more_id} packId={e._id} ourUserId={myId} getLearnCard={getLearnCard}/>
                         )
                     })}
-
                     <Paginator handlePageChange={handlePageChange} totalPages={totalPages}/>
                 </div>
             </div>

@@ -1,0 +1,15 @@
+.emoji {
+    font-size: 30px;
+    line-height: 1;
+    transition: 0.3s all;
+}
+
+.emoji:hover {
+    cursor: pointer;
+}
+
+.btnBox {
+    display: flex;
+    height: inherit;
+    align-items: flex-end;
+}
