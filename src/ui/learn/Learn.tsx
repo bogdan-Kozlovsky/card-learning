@@ -5,14 +5,18 @@ import {CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../bll/store";
 import {LearnAnswer} from "./LearnAnswer";
+import {useAppSelector} from "../common/hook/hook";
+import { selectPacksCardsPacks, selectProfileProfileId} from "../../bll/selectors";
 
 export const Learn = () => {
     const [showAnswer, setShowAnswer] = useState<boolean>(false)
+    const packs = useAppSelector(selectPacksCardsPacks)
     const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
     const dispatch = useDispatch();
     const {learnId} = useParams();
     const [state, setState] = useState<CardsType | null>(null)
-    console.log(learnId,'learnId')
+    console.log(packs,'packs')
+    console.log(state,'state')
     useEffect(() => {
         if (!showAnswer) {
             dispatch(getCardsTC(learnId))
@@ -23,6 +27,8 @@ export const Learn = () => {
         const learnData = getCard(cards);
         setState(learnData)
     }, [cards])
+
+    const pack = packs.find((p) => p._id === state?.cardsPack_id)
 
     const getCard = (cards: CardsType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -49,12 +55,12 @@ export const Learn = () => {
                     {
                         showAnswer
                             ? <div>
-                                <LearnAnswer learn_id={state?._id|| ''} closeAnswer={closeAnswer}
+                                <LearnAnswer question={state?.question} answer={state?.answer} name={pack?.name} learn_id={state?._id|| ''} closeAnswer={closeAnswer}
                                 />
                             </div>
                             : <div>
                                 <div className={style.learnWrap}>
-                                    <h3 className={style.name}>{state?.question}</h3>
+                                    <h3 className={style.name}>{pack?.name}</h3>
                                     <p className={style.question}><span
                                         className={style.questionSpan}>Question:</span> {state?.question}</p>
                                 </div>
