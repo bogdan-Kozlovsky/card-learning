@@ -18,7 +18,7 @@ import Slider from "@material-ui/core/Slider";
 import useDebounce, {useAppSelector} from "../common/hook/hook";
 import {SuperModal} from "../common/SuperModal/SuperModal";
 import {getCardsTC} from "../../bll/reducers/cards-reducer";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {ErrorSnackbar} from "../error/Error";
 import search from '../assets/images/icons/search.svg'
 import {
@@ -41,6 +41,7 @@ export const Packs = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [overlay, setOverlay] = useState(false);
+    // const {learnId} = useParams();
 
 
     const [title, setTitle] = useState<string>('')
@@ -129,11 +130,11 @@ export const Packs = () => {
     }
 
     // learn Card
-    const getLearnCard = (learnId: string) => {
-        dispatch(getCardsTC(learnId))
-        navigate('/packs_list/link')
-    }
 
+    const getLearnCard = (learnId: string | null) => {
+        navigate(`/packs_list/link/${learnId}`)
+    }
+    console.log(pack,'pack')
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
@@ -190,10 +191,10 @@ export const Packs = () => {
                         <li className={style.packsItem}>Name</li>
                         <li className={style.packsItem}>Cards
                             {!open && <button onClick={() => requestForSorting(0)}>
-                                <img style={{width:'15px'}} src={arrowDown} alt="arrowDown"/>
+                                <img style={{width: '15px'}} src={arrowDown} alt="arrowDown"/>
                             </button>}
                             {open && <button onClick={() => requestForSorting(1)}>
-                                <img style={{width:'15px'}} src={arrowUp} alt="arrowUp"/>
+                                <img style={{width: '15px'}} src={arrowUp} alt="arrowUp"/>
                             </button>}
                         </li>
                         <li className={style.packsItem}>Last Updated

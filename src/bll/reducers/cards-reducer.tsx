@@ -58,7 +58,14 @@ export type CardsParamsType = {
     page: number,
     pageCount: number,
 }
-
+type UpdatedGradeType= {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
+}
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
 
 type ActionType =
@@ -66,6 +73,7 @@ type ActionType =
     | ReturnType<typeof getStatusAC>
     | ReturnType<typeof setCardsCurrentPageAC>
     | ReturnType<typeof setAppErrorAC>
+    | ReturnType<typeof setGradeCardAC>
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
@@ -78,12 +86,15 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                     ...state.params, page: action.value
                 }
             }
+        // case "CARDS/SET-GRADE-CARD":{
+        //   return state.cards.map(el=>el._id===action.value._id ? el.grade = action.value.grade : el)
+        // }
         default: {
             return state
         }
     }
 }
-
+/////////action///////////
 
 export const initializedCardsAC = (cards: CardsType[]) => {
     return {
@@ -97,6 +108,14 @@ export const setCardsCurrentPageAC = (value: number) => {
     } as const
 }
 
+export const setGradeCardAC= (value:UpdatedGradeType) => {
+    return {
+        type : 'CARDS/SET-GRADE-CARD',
+        value
+    }as const
+}
+
+////////////thunk////////////////////
 
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
     dispatch(getStatusAC('loading'))
@@ -147,5 +166,17 @@ export const updateCardTC = (packId: string | undefined, _id: string, updateName
         })
         .catch(error => {
             dispatch(setAppErrorAC(error.response.data.error))
+        })
+}
+
+export const gradeTC = (grade: number, card_id: any):ThunkType =>(dispatch)=>{
+const payload = {
+    grade,
+    card_id
+}
+    console.log(payload.card_id, 'payload')
+    requestsApi.gradeCard(payload)
+        .then(res=>{
+            dispatch(setGradeCardAC(res.data))
         })
 }

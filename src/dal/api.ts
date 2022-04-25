@@ -125,5 +125,10 @@ export const requestsApi = {
     },
     updateCard(updateName: string, _id: string) {
         return instance.put(`/cards/card`, {card: {_id, updateName}})
+    },
+    gradeCard(payload: {
+        grade: number, card_id: any
+    }) {
+        return instance.put(`/cards/grade`, payload)
     }
 }

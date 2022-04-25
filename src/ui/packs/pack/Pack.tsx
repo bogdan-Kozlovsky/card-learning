@@ -16,7 +16,8 @@ type propsType = {
     userId: string | null
     packId: string
     ourUserId: string | null
-    getLearnCard: (learnId: string) => void
+    getLearnCard: (learnId: string | null) => void
+    // getLearnCard: any
 }
 export const Pack = (props: propsType) => {
     const {
@@ -35,8 +36,7 @@ export const Pack = (props: propsType) => {
     const handlerDeletePack = () => {
         dispatch(deletePackTC(packId))
     }
-
-
+    console.log(packId,'packId')
     //update pack
     const [updateName, setUpdateName] = useState<string>(name)
     const [overlayUpdate, setOverlayUpdate] = useState(false);
@@ -115,7 +115,8 @@ export const Pack = (props: propsType) => {
 
                     }
                     {/*{cardsCount && <NavLink onClick={a} to={`/packs_list/link`}>Learn</NavLink>}*/}
-                    {cardsCount && <img className={`${style.learningIcons} btn`} src={learning} alt={learning}/>
+                    {cardsCount && <img onClick={() => getLearnCard(packId)} className={`${style.learningIcons} btn`}
+                                        src={learning} alt={learning}/>
                     }
                 </li>
             </ul>
