@@ -1,6 +1,7 @@
 import React, {ChangeEvent, memo} from 'react';
 import style from './profile.module.css'
 import {SuperModal} from "../common/SuperModal/SuperModal";
+import {AddUpdateModal} from "../common/hook/AddUpdateModal";
 
 type ProfilePropsType = {
     overlay: boolean
@@ -13,6 +14,7 @@ type ProfilePropsType = {
     name: string
     avatar: string
     showModal: () => void
+    setOverlay: (overlayUpdate: boolean) => void
 }
 
 
@@ -26,7 +28,8 @@ export const Profile = memo((props: ProfilePropsType) => {
         name,
         avatar,
         showModal,
-        getNewNameProfileAvatar
+        getNewNameProfileAvatar,
+        setOverlay
     } = props
 
     return (
@@ -36,16 +39,11 @@ export const Profile = memo((props: ProfilePropsType) => {
                 <div className={style.leftBox}>
                     <div className={style.avatarBox}>
                         <div>
-                            <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
-                                <SuperModal closeModal={closeModal} titleName={'update pack'}>
-                                    <input onChange={getNewNameProfileName} className='inputModal' placeholder={name}
-                                           value={title}/>
-                                    <input onChange={getNewNameProfileAvatar} className='inputModal'
-                                           placeholder={'avatar'}
-                                           value={avatar}/>
-                                    <button onClick={updateProfile} className='successBtn'>Save</button>
-                                </SuperModal>
-                            </div>
+                            <AddUpdateModal handlerUpdate={updateProfile}
+                                            overlayUpdate={overlay}
+                                            setOverlayUpdate={setOverlay}
+                                            updateName={title}
+                                            updateNameChange={getNewNameProfileName}/>
                             <img className={style.avatar} src={avatar} alt="avatar"/>
                             <p className={style.description}>
                                 {name}

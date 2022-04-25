@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import {SuperModal} from "../SuperModal/SuperModal";
 
-type UpdateModalPropsType = {
+type AddUpdateModalPropsType = {
     handlerUpdate: () => void
     overlayUpdate: boolean
     setOverlayUpdate: (overlayUpdate: boolean) => void
@@ -9,7 +9,7 @@ type UpdateModalPropsType = {
     updateNameChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const UpdateModal = (props: UpdateModalPropsType) => {
+export const AddUpdateModal = (props: AddUpdateModalPropsType) => {
 
     const {overlayUpdate, setOverlayUpdate, handlerUpdate, updateName,updateNameChange} = props
 
