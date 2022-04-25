@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {SuperModal} from "../../common/SuperModal/SuperModal";
 import {deletePackTC} from "../../../bll/reducers/packs-reducer";
 import {DeleteModal} from "../../common/hook/DeleteModal";
+import {UpdateModal} from "../../common/hook/UpdateModal";
 
 type propsType = {
     question: string
@@ -50,10 +51,7 @@ export const Card = (props: propsType) => {
     const showModalUpdate = () => {
         setOverlayUpdate(true)
     }
-    //close show modal
-    const closeModalUpdate = () => {
-        setOverlayUpdate(false)
-    }
+
     const updateNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setUpdateName(e.currentTarget.value)
     }
@@ -63,14 +61,14 @@ export const Card = (props: propsType) => {
     }
     return (
         <>
-            <div className={overlayUpdate ? `overlay_shown` : `overlay_hidden`}>
-                <SuperModal closeModal={closeModalUpdate} titleName={'Update pack'}>
-                    <input onChange={updateNameChange} className='inputModal' placeholder={'updateName'}
-                           value={updateName}/>
-                    <button onClick={handlerUpdatePackName} className='successBtn'>Save</button>
-                </SuperModal>
-            </div>
-            <DeleteModal value={overlayDelete} setValue={setOverlayDelete} handlerDeletePack={handlerDeletePack}/>
+            <DeleteModal value={overlayDelete}
+                         setValue={setOverlayDelete}
+                         handlerDeletePack={handlerDeletePack}/>
+            <UpdateModal overlayUpdate={overlayUpdate}
+                         setOverlayUpdate={setOverlayUpdate}
+                         handlerUpdate={handlerUpdatePackName}
+                         updateName={updateName}
+                         updateNameChange={updateNameChange}/>
 
             <ul className={style.list}>
                 <li className={style.item}>{question}</li>
