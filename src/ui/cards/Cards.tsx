@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, memo, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {addCardsTC, getCardsTC, setCardsCurrentPageAC} from "../../bll/reducers/cards-reducer";
 import {NavLink, useParams} from "react-router-dom";
@@ -17,7 +17,7 @@ import {
 } from "../../bll/selectors";
 import {useAppSelector} from "../common/hook/hook";
 
-export const Cards = () => {
+export const Cards = memo(() => {
     const cards = useAppSelector(selectCardsCards)
     const cardsTotalCount = useAppSelector(selectCardsCardsTotalCount)
     const ourUserId = useAppSelector(selectProfileProfileId)
@@ -44,6 +44,7 @@ export const Cards = () => {
 
 
     //add show modal
+    // все относить к добавлению карточки
     const [overlay, setOverlay] = useState(false);
     const [title, setTitle] = useState<string>('')
     const showModal = () => {
@@ -52,7 +53,6 @@ export const Cards = () => {
     const closeModal = () => {
         setOverlay(false)
     }
-
     // get new name pack
     const getNewNameCardChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -61,7 +61,7 @@ export const Cards = () => {
         dispatch(addCardsTC(packId, title))
         closeModal()
     }
-
+// все относить к добавлению карточки
 
     return (
         <div className='container'>
@@ -73,8 +73,10 @@ export const Cards = () => {
                     </NavLink>
                     <h3 className={style.cardsTitle}>Pack Name</h3>
                 </div>
+
+                {/*уже есть готовые классы в index.css*/}
                 <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
-                    <SuperModal closeModal={closeModal} valueTitle={title} titleName={'Add new card'}>
+                    <SuperModal closeModal={closeModal}  titleName={'Add new card'}>
                         <input onChange={getNewNameCardChange} className='inputModal' placeholder={title}
                                value={title}/>
                         <button onClick={handlerNewCard} className='successBtn'>Save</button>
@@ -114,5 +116,5 @@ export const Cards = () => {
             </div>
         </div>
     );
-};
+})
 

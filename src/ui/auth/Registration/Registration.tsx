@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import style from './registration.module.css'
 import {useDispatch} from "react-redux";
 import {Navigate, NavLink} from 'react-router-dom';
@@ -8,7 +8,7 @@ import {ErrorSnackbar} from "../../error/Error";
 import {selectSignUpIsRegistration} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
 
-export const Registration = () => {
+export const Registration = memo(() => {
     const isRegistration = useAppSelector(selectSignUpIsRegistration)
 
     const dispatch = useDispatch()
@@ -61,5 +61,5 @@ export const Registration = () => {
             </div>
         </div>
     );
-};
+})
 

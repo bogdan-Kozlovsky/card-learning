@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Registration} from "../auth/Registration/Registration";
 import {PasswordRecovery} from "../auth/PasswordRecovery/PasswordRecovery";
 import {Error404} from "../common/Error404/Error404";
@@ -8,15 +8,14 @@ import {Navigate, Route, Routes,} from 'react-router-dom'
 import {Packs} from "../packs/Packs";
 import {Cards} from "../cards/Cards";
 import {Learn} from "../learn/Learn";
-import {LearnAnswer} from "../learn/LearnAnswer";
-import Login from "../auth/Login/Login";
-import ProfileContainer from "../profile/ProfileContainer";
+import {Login} from "../auth/Login/Login";
+import {ProfileContainer} from "../profile/ProfileContainer";
 import {LoginNavigate} from "../auth/Login/LoginNavigate";
 
 type propsType = {
     theme?: string
 }
-const RoutesNav = (props: propsType) => {
+export const RoutesNav = memo((props: propsType) => {
     const {theme} = props
     return (
         <div className='container'>
@@ -41,6 +40,5 @@ const RoutesNav = (props: propsType) => {
             </Routes>
         </div>
     );
-};
+})
 
-export default RoutesNav;

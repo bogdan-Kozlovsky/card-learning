@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, memo, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {
     addPacksTC,
@@ -17,8 +17,7 @@ import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
 import useDebounce, {useAppSelector} from "../common/hook/hook";
 import {SuperModal} from "../common/SuperModal/SuperModal";
-import {getCardsTC} from "../../bll/reducers/cards-reducer";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {ErrorSnackbar} from "../error/Error";
 import search from '../assets/images/icons/search.svg'
 import {
@@ -30,7 +29,7 @@ import {
 import arrowUp from '../assets/images/icons/upArrow.svg'
 import arrowDown from '../assets/images/icons/downArrow.svg'
 
-export const Packs = () => {
+export const Packs = memo(() => {
     const myId = useAppSelector(selectProfileProfileId)
     const {
         page,
@@ -143,7 +142,7 @@ export const Packs = () => {
                 <div className={style.packsBoxLeft}>
                     <h3 className={style.packsLeftTitle}>Show packs cards</h3>
                     <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
-                        <SuperModal closeModal={closeModal} valueTitle={title} titleName={'Add new pack'}>
+                        <SuperModal closeModal={closeModal}  titleName={'Add new pack'}>
                             <input onChange={getNewNamePackChange} className='inputModal' placeholder={packName}
                                    value={title}/>
                             <button onClick={handlerNewPacks} className='successBtn'>Save</button>
@@ -215,5 +214,5 @@ export const Packs = () => {
         </div>
 
     );
-};
+})
 

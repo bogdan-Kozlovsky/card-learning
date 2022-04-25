@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import {Navigate, useParams} from "react-router-dom";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {useDispatch} from "react-redux";
@@ -8,7 +8,7 @@ import {ErrorSnackbar} from "../../error/Error";
 import {selectAuthNewPasswordValue} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
 
-export const NewPassword = () => {
+export const NewPassword = memo(() => {
     const newPasswordValue = useAppSelector(selectAuthNewPasswordValue)
     const dispatch = useDispatch()
     const {token} = useParams()
@@ -42,5 +42,5 @@ export const NewPassword = () => {
             </div>
         </div>
     );
-};
+})
 

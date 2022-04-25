@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import Header from "../Header/Header";
-import RoutesNav from "../../navigate/RoutesNav";
+import React, {memo, useEffect} from 'react';
+import {Header} from "../Header/Header";
+import {RoutesNav} from "../../navigate/RoutesNav";
 import {useDispatch} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -10,7 +10,7 @@ import {selectAppStatus} from "../../../bll/selectors";
 import useTheme from "../../common/hook/useTheme";
 import style from './App.module.css'
 
-export const App = () => {
+export const App = memo(() => {
     const status = useAppSelector(selectAppStatus)
     const {theme, toggleTheme} = useTheme();
     const dispatch = useDispatch()
@@ -21,12 +21,13 @@ export const App = () => {
 
     return (
         <div className={`App ${theme === 'dark' ? style.dark : style.light}`}>
-            {status === "loading" &&
-                <div style={{position: 'absolute', left: '0', right: '0', zIndex: '999'}}><LinearProgress/></div>}
+            {status === "loading"
+                &&
+                <div className={style.linearProgress}><LinearProgress/></div>}
             <Header theme={theme} toggleTheme={toggleTheme}/>
-            <ErrorSnackbar/>
             <RoutesNav theme={theme}/>
+            <ErrorSnackbar/>
         </div>
     );
-}
+})
 

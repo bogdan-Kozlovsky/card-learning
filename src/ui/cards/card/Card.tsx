@@ -1,11 +1,10 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import style from "./card.module.css";
 import deleteIcon from "../../assets/images/icons/delete.svg";
 import updatePack from "../../assets/images/icons/update.svg";
 import {deleteCardTC, updateCardTC} from "../../../bll/reducers/cards-reducer";
 import {useDispatch} from "react-redux";
 import {SuperModal} from "../../common/SuperModal/SuperModal";
-import {deletePackTC} from "../../../bll/reducers/packs-reducer";
 import {DeleteModal} from "../../common/hook/DeleteModal";
 
 type propsType = {
@@ -19,7 +18,7 @@ type propsType = {
     grade: number
 }
 
-export const Card = (props: propsType) => {
+export const Card = memo((props: propsType) => {
     const {
         question,
         answer,
@@ -94,5 +93,5 @@ export const Card = (props: propsType) => {
         </>
 
     );
-};
+})
 

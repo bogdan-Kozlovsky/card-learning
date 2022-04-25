@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import style from './login.module.css'
 import {useDispatch} from "react-redux";
 import {Navigate, NavLink} from "react-router-dom";
@@ -13,7 +13,7 @@ type propsType = {
     theme?: string
 }
 
-const Login = (props: propsType) => {
+export const Login = memo((props: propsType) => {
     const {theme} = props
     const initialized = useAppSelector(selectAppInitialized)
 
@@ -26,6 +26,7 @@ const Login = (props: propsType) => {
     }
 
 
+    //onChange
     const onChangeHandlerEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value);
     };
@@ -41,7 +42,6 @@ const Login = (props: propsType) => {
     }
 
     return (
-        // <div className={`wrapperBox ${theme === 'dark' ? style.dark : style.light}`}>
         <div className={`wrapperBox`}>
             <ErrorSnackbar/>
             <div className="boxMax">
@@ -77,7 +77,6 @@ const Login = (props: propsType) => {
             </div>
         </div>
     );
-};
+})
 
-export default Login
 

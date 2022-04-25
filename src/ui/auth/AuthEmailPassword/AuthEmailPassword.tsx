@@ -3,7 +3,7 @@ import iconDecor from '../../assets/images/Group 281.svg'
 import style from './authEmailPassword.module.css'
 import {ErrorSnackbar} from "../../error/Error";
 
-export const AuthEmailPassword = () => {
+export const AuthEmailPassword = React.memo(() => {
     return (
         <div className="wrapperBox">
             <ErrorSnackbar/>
@@ -17,5 +17,5 @@ export const AuthEmailPassword = () => {
             </div>
         </div>
     );
-};
+})
 

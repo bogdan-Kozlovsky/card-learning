@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import style from './passwordRecovery.module.css'
 import {Navigate, NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -9,7 +9,7 @@ import {ErrorSnackbar} from "../../error/Error";
 import {selectAuthForgotValue} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
 
-export const PasswordRecovery = () => {
+export const PasswordRecovery = memo(() => {
     const forgotValue = useAppSelector(selectAuthForgotValue)
 
     const [email, setEmail] = useState<string>("maxcardbogdan@gmail.com")
@@ -18,10 +18,9 @@ export const PasswordRecovery = () => {
         email,
         from: 'test-front-admin <ai73a@yandex.by>',
         message: `<div style="background-color: lime; padding: 15px">
-password recovery link: 
-<a href='http://localhost:3000/entering-new-password/$token$'>
-link</a>
-</div>`
+            password recovery link: 
+            <a href='http://localhost:3000/entering-new-password/$token$'>link</a>
+        </div>`
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
@@ -62,5 +61,5 @@ link</a>
             </div>
         </div>
     );
-};
+})
 

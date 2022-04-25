@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 type propsType = {
     name: string
@@ -6,12 +6,12 @@ type propsType = {
     className: string
     children: JSX.Element,
 }
-export const SuperButton = ({name, ...props}: Partial<propsType>) => {
+export const SuperButton = memo(({name, ...props}: Partial<propsType>) => {
     return (
         <div>
             <button {...props}>{name}</button>
             {props.children}
         </div>
     );
-};
+})
 
