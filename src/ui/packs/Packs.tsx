@@ -20,10 +20,8 @@ import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
 import useDebounce from "../common/hook/hook";
 import {SuperModal} from "../common/SuperModal/SuperModal";
-import {getCardsTC} from "../../bll/reducers/cards-reducer";
 import {useNavigate} from "react-router-dom";
 import {ErrorSnackbar} from "../error/Error";
-import {ProfileType} from "../../dal/api";
 
 
 export const Packs = () => {

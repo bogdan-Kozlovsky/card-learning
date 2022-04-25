@@ -119,7 +119,7 @@ export const Cards = () => {
                                 question={fixLengthText(el.question)} answer={fixLengthText(el.answer)}
                                 updated={el.updated} packId={packId}
                                 _id={el._id} more_id={el.more_id} ourUserId={ourUserId}
-                                rating={el.rating}
+                                grade={el.grade}
                             />
                         </div>
                     )

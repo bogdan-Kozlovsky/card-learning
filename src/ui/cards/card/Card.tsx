@@ -13,7 +13,7 @@ type propsType = {
     _id: string
     more_id: any
     ourUserId: string | null
-    rating: number
+    grade: number
 }
 
 export const Card = (props: propsType) => {
@@ -25,7 +25,7 @@ export const Card = (props: propsType) => {
         _id,
         more_id,
         ourUserId,
-        rating,
+        grade,
     } = props
 
 
@@ -47,7 +47,7 @@ export const Card = (props: propsType) => {
             <li className={style.item}>{question}</li>
             <li className={style.item}>{answer}</li>
             <li className={style.item}>{time}</li>
-            <li className={style.item}>{rating}</li>
+            <li className={style.item}>{grade}</li>
             <li>
                 {ourUserId === more_id
                     &&
