@@ -74,7 +74,7 @@ export const Card = (props: propsType) => {
                 <li className={style.item}>{question}</li>
                 <li className={style.item}>{answer}</li>
                 <li className={style.item}>{time}</li>
-                <li className={style.item}>{rating}</li>
+                <li className={style.item}>{grade}</li>
                 <li>
                     {ourUserId === more_id
                         &&

@@ -12,7 +12,7 @@ export const Learn = () => {
     const dispatch = useDispatch();
     const {learnId} = useParams();
     const [state, setState] = useState<CardsType | null>(null)
-
+    console.log(learnId,'learnId')
     useEffect(() => {
         if (!showAnswer) {
             dispatch(getCardsTC(learnId))
@@ -50,7 +50,6 @@ export const Learn = () => {
                         showAnswer
                             ? <div>
                                 <LearnAnswer learn_id={state?._id|| ''} closeAnswer={closeAnswer}
-
                                 />
                             </div>
                             : <div>
