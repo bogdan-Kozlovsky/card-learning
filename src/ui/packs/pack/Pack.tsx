@@ -1,11 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
-import deleteIcon from '../../assets/images/deleteIcon.svg'
-import updatePackName from '../../assets/images/updatePackName.svg'
+import deleteIcon from '../../assets/images/icons/delete.svg'
+import updatePackName from '../../assets/images/icons/update.svg'
 import {deletePackTC, updatePackNameTC} from "../../../bll/reducers/packs-reducer";
 import {useDispatch} from "react-redux";
 import {NavLink} from "react-router-dom";
 import style from './pack.module.css'
 import {SuperModal} from "../../common/SuperModal/SuperModal";
+import learning from '../../assets/images/icons/learning.svg'
 
 type propsType = {
     name: string
@@ -103,17 +104,17 @@ export const Pack = (props: propsType) => {
                     {ourUserId === userId
                         &&
                         <div className={`boxBtn`}>
-                            <img className={`btn btnUpdate`} onClick={showModalDelete}
+                            <img className={`btn btnDelete `} onClick={showModalDelete}
                                  src={deleteIcon}
                                  alt="deleteIcon"/>
-                            <img className={`btn btnDelete`} onClick={showModalUpdate}
+                            <img className={`btn btnUpdate`} onClick={showModalUpdate}
                                  src={updatePackName}
                                  alt="updatePackName"/>
                         </div>
 
                     }
                     {/*{cardsCount && <NavLink onClick={a} to={`/packs_list/link`}>Learn</NavLink>}*/}
-                    {cardsCount && <button onClick={() => getLearnCard(packId)}>Learn</button>
+                    {cardsCount && <img className={`${style.learningIcons} btn`} src={learning} alt={learning}/>
                     }
                 </li>
             </ul>

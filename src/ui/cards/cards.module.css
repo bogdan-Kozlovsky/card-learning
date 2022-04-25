@@ -56,3 +56,12 @@
     display: none;
     opacity: 0;
 }
+
+.title{
+    text-align: center;
+}
+
+.btn{
+    padding: 9px 78px;
+    margin-bottom: 20px;
+}

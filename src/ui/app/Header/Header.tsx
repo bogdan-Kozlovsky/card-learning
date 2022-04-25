@@ -2,28 +2,21 @@ import React from 'react';
 import style from './header.module.css'
 import logo from '../../assets/images/logo.svg'
 import {NavigateLink} from "../../navigate/NavigateLink";
-import {logoutTC} from "../../../bll/reducers/app-reducer";
-import {useDispatch} from "react-redux";
-import logoutIcon from '../../assets/images/icons/logout.svg'
-import {NavLink} from "react-router-dom";
+import {Theme} from "../../common/theme/Theme";
 
-const Header = () => {
-    const dispatch = useDispatch()
-    const logout = () => {
-        dispatch(logoutTC())
-    }
+type propsTyp = {
+    theme: string
+    toggleTheme: () => void
+}
+const Header = (props: propsTyp) => {
+
     return (
         <div className={style.headerBox}>
             <div className="container">
                 <div className={style.wrapperHeader}>
                     <img src={logo} alt="logo"/>
                     <NavigateLink/>
-                    <button onClick={logout} className={'logoutBtn'}>
-                        <img style={{width:'30px'}} src={logoutIcon} alt=""/>
-                        logout
-                    </button>
-
-                    <NavLink to={'/packs_list/link'}>Link</NavLink>
+                    <Theme theme={props.theme} toggleTheme={props.toggleTheme}/>
                 </div>
             </div>
         </div>

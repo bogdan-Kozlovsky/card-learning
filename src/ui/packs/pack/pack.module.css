@@ -1,7 +1,9 @@
 .packBox {
-    padding: 16px 64px 16px 24px;
+    padding: 16px 110px 16px 24px;
     display: flex;
+    align-items: center;
     width: 100%;
+    position: relative;
 }
 
 .packItem {
@@ -18,5 +20,11 @@
 .packName {
     font-size: 13px;
     color: #000000;
+}
+
+.learningIcons{
+    right: 80px;
+    position: absolute;
+    width: 27px;
 }
 

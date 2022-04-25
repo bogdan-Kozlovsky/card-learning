@@ -1,7 +1,7 @@
 @import '../src/ui/assets/normalize.css';
 
 body {
-    background: linear-gradient(#36b6c2, #c391e5);
+    /*background: linear-gradient(#36b6c2, #c391e5);*/
     color: #2D2E46;
     font-size: 16px;
     line-height: 24px;
@@ -109,14 +109,14 @@ ul {
 .btnBlue {
     display: block;
     cursor: pointer;
-    padding: 9px 108px;
+    /*padding: 9px 108px;*/
     border-radius: 30px;
     background: #21268F;
     box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
     letter-spacing: 0.01em;
     color: #ECECF9;
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
-    margin: 0 auto 39px;
+    /*margin: 0 auto 39px;*/
 }
 
 .btn {
@@ -176,20 +176,22 @@ ul {
 /*btn*/
 
 .boxBtn {
-    position: relative;
+    display: flex;
+    align-items: center;
+    /*position: relative;*/
 }
 
 .btn {
     cursor: pointer;
-    width: 30px;
+    width: 27px;
     position: absolute;
     right: 10px;
     top: 50%;
-    transform: translateX(-50%);
+    transform: translateY(-50%);
 }
 
 .btnUpdate {
-    right: -70px;
+    right: 40px;
 }
 
 .grayBtn{
@@ -204,7 +206,7 @@ ul {
 }
 
 .btnDelete {
-    right: -25px;
+    right: 0px;
 }
 
 .logoutBtn{
@@ -249,4 +251,10 @@ ul {
     padding: 15px 3px;
     margin-bottom: 24px;
     background-color: #F9F9FE;
+}
+
+/*//App*/
+
+.App{
+    height: 100vh;
 }

@@ -12,3 +12,9 @@
 .list:nth-child(odd){
     background: #F8F7FD;
 }
+
+.btn{
+    cursor: pointer;
+    width: 27px;
+    margin: 0 10px;
+}

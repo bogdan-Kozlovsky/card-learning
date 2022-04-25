@@ -1,14 +1,15 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './registration.module.css'
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {Navigate, NavLink} from 'react-router-dom';
-import {AppRootStateType} from "../../../bll/store";
 import {requestRegistrationTC} from "../../../bll/reducers/sign_up-reducer";
 import {SuperInputPassword} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
+import {selectSignUpIsRegistration} from "../../../bll/selectors";
+import {useAppSelector} from "../../common/hook/hook";
 
 export const Registration = () => {
-    const isRegistration = useSelector<AppRootStateType, boolean>(state => state.signUp.isRegistration)
+    const isRegistration = useAppSelector(selectSignUpIsRegistration)
 
     const dispatch = useDispatch()
     const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com');

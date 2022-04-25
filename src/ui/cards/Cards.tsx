@@ -1,23 +1,29 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {
-    addCardsTC,
-    CardsParamsType,
-    CardsType,
-    getCardsTC,
-    setCardsCurrentPageAC
-} from "../../bll/reducers/cards-reducer";
-import {AppRootStateType} from "../../bll/store";
+import {useDispatch} from "react-redux";
+import {addCardsTC, getCardsTC, setCardsCurrentPageAC} from "../../bll/reducers/cards-reducer";
 import {NavLink, useParams} from "react-router-dom";
 import {Card} from "./card/Card";
 import redirectIcons from '../assets/images/icons/leftCards.svg'
 import style from './cards.module.css'
-import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperModal} from "../common/SuperModal/SuperModal";
 import {ErrorSnackbar} from "../error/Error";
+import {
+    selectCardsCards,
+    selectCardsCardsCardsTotalCount,
+    selectCardsCardsParamsPageCount,
+    selectCardsCardsTotalCount,
+    selectProfileProfileId
+} from "../../bll/selectors";
+import {useAppSelector} from "../common/hook/hook";
 
 export const Cards = () => {
+    const cards = useAppSelector(selectCardsCards)
+    const cardsTotalCount = useAppSelector(selectCardsCardsTotalCount)
+    const ourUserId = useAppSelector(selectProfileProfileId)
+    const {pageCount} = useAppSelector(selectCardsCardsParamsPageCount)
+    const cardsTotalCountNum = useAppSelector(selectCardsCardsCardsTotalCount)
+
     const dispatch = useDispatch()
     const {packId} = useParams()
 
@@ -26,17 +32,9 @@ export const Cards = () => {
         dispatch(getCardsTC(packId))
     }, [])
 
-    const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
-    const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
-
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-    // const ourUserId = useSelector<AppRootStateType, string | null>(state => state.signIn.profile._id)
-    const ourUserId = useSelector<AppRootStateType, null | string>(state => state.profile.profile._id)
-
 
     //pagination
-    const {pageCount} = useSelector<AppRootStateType, CardsParamsType>(state => state.cards.params)
-    const cardsTotalCountNum = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
     const totalPages = Math.ceil(cardsTotalCountNum / pageCount)
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
@@ -48,11 +46,9 @@ export const Cards = () => {
     //add show modal
     const [overlay, setOverlay] = useState(false);
     const [title, setTitle] = useState<string>('')
-
     const showModal = () => {
         setOverlay(true)
     }
-
     const closeModal = () => {
         setOverlay(false)
     }
@@ -66,22 +62,6 @@ export const Cards = () => {
         closeModal()
     }
 
-    // const getCard = (cards: CardsType[]) => {
-    //     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
-    //     const rand = Math.random() * sum;
-    //     const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
-    //             const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
-    //             return {sum: newSum, id: newSum < rand ? i : acc.id}
-    //         }
-    //         , {sum: 0, id: -1});
-    //     console.log(cards[res.id + 1])
-    //     return cards[res.id + 1];
-    // }
-    //
-    // const a = () => {
-    //     dispatch(getCardsTC(getCard(cards).cardsPack_id))
-    // }
-
 
     return (
         <div className='container'>
@@ -93,16 +73,6 @@ export const Cards = () => {
                     </NavLink>
                     <h3 className={style.cardsTitle}>Pack Name</h3>
                 </div>
-                <SuperInput placeholder={'Search...'} type='text' className={style.cardsInput}/>
-
-
-                {cardsTotalCount - 1 && <ul className={style.cardsList}>
-                    <li className={style.cardsItem}>Question</li>
-                    <li className={style.cardsItem}>Answer</li>
-                    <li className={style.cardsItem}>Last Updated</li>
-                    <li className={style.cardsItem}>Rating</li>
-                </ul>}
-
                 <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
                     <SuperModal closeModal={closeModal} valueTitle={title} titleName={'Add new card'}>
                         <input onChange={getNewNameCardChange} className='inputModal' placeholder={title}
@@ -110,8 +80,21 @@ export const Cards = () => {
                         <button onClick={handlerNewCard} className='successBtn'>Save</button>
                     </SuperModal>
                 </div>
+                <button className={`btnBlue ${style.btn}`} onClick={showModal}>Add Card</button>
 
-                <button onClick={showModal}>Add</button>
+                {!!cardsTotalCount ?
+                    <>
+                        <ul className={style.cardsList}>
+                            <li className={style.cardsItem}>Question</li>
+                            <li className={style.cardsItem}>Answer</li>
+                            <li className={style.cardsItem}>Last Updated</li>
+                            <li className={style.cardsItem}>Rating</li>
+                        </ul>
+                    </>
+                    : <h1 className={style.title}>No card</h1>
+                }
+
+
                 {cards.map(el => {
                     return (
                         <div key={el._id}>
@@ -124,7 +107,10 @@ export const Cards = () => {
                         </div>
                     )
                 })}
-                <Paginator totalPages={totalPages} handlePageChange={handlePageChange}/>
+                {!!cardsTotalCount
+                    && cardsTotalCount > 7
+                    && <Paginator totalPages={totalPages} handlePageChange={handlePageChange}/>
+                }
             </div>
         </div>
     );

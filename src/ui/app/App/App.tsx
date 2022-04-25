@@ -1,43 +1,31 @@
 import React, {useEffect} from 'react';
 import Header from "../Header/Header";
 import RoutesNav from "../../navigate/RoutesNav";
-import {AppRootStateType} from "../../../bll/store";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {authMeTC} from "../../../bll/reducers/auth-reducer";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {ErrorSnackbar} from "../../error/Error";
-import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../common/hook/hook";
+import {selectAppStatus} from "../../../bll/selectors";
+import useTheme from "../../common/hook/useTheme";
+import style from './App.module.css'
 
 export const App = () => {
+    const status = useAppSelector(selectAppStatus)
+    const {theme, toggleTheme} = useTheme();
     const dispatch = useDispatch()
-    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
-    const status = useSelector<AppRootStateType, null | string>(state => state.app.status)
-    const navigate = useNavigate()
-
 
     useEffect(() => {
-        if (!initialized) {
-            dispatch(authMeTC())
-        }
+        dispatch(authMeTC())
     }, [])
 
-    useEffect(() => {
-        if (initialized) {
-            navigate('/packs_list')
-        }
-        if (!initialized) {
-            navigate('/')
-        }
-    }, [initialized])
-
     return (
-        <div className="App">
+        <div className={`App ${theme === 'dark' ? style.dark : style.light}`}>
             {status === "loading" &&
                 <div style={{position: 'absolute', left: '0', right: '0', zIndex: '999'}}><LinearProgress/></div>}
-            <Header/>
+            <Header theme={theme} toggleTheme={toggleTheme}/>
             <ErrorSnackbar/>
-            <RoutesNav/>
-
+            <RoutesNav theme={theme}/>
         </div>
     );
 }

@@ -1,21 +1,26 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './login.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../bll/store";
+import {useDispatch} from "react-redux";
 import {Navigate, NavLink} from "react-router-dom";
 import {requestLoginTC} from "../../../bll/reducers/sign_in-reducer";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {SuperInput, SuperInputPassword} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
+import {useAppSelector} from "../../common/hook/hook";
+import {selectAppInitialized} from "../../../bll/selectors";
 
-export const Login = () => {
+type propsType = {
+    theme?: string
+}
+
+const Login = (props: propsType) => {
+    const {theme} = props
+    const initialized = useAppSelector(selectAppInitialized)
+
     const dispatch = useDispatch()
-
     const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
     const [password, setPassword] = useState<string>('Stupid23Stupid')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
-    // const isLogin = useSelector<AppRootStateType, boolean>(state => state.signIn.loginValue)
-
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))
     }
@@ -31,12 +36,13 @@ export const Login = () => {
         setRememberMe(e.currentTarget.checked);
     };
 
-    // if (isLogin) {
-    //     return <Navigate to='/profile'/>
-    // }
+    if (initialized) {
+        return <Navigate to='/profile'/>
+    }
 
     return (
-        <div className="wrapperBox">
+        // <div className={`wrapperBox ${theme === 'dark' ? style.dark : style.light}`}>
+        <div className={`wrapperBox`}>
             <ErrorSnackbar/>
             <div className="boxMax">
                 <h2 className="title">It-incubator</h2>
@@ -54,7 +60,7 @@ export const Login = () => {
                 <label className="inputLabel inputLabelFlex">
                     Remember Me
                     <SuperInput type={'checkbox'} onChange={onChangeHandlerChecked} className='inputCheckbox'
-                                checked={rememberMe} />
+                                checked={rememberMe}/>
                 </label>
 
                 <div className={style.wrapperLink}>
@@ -62,7 +68,7 @@ export const Login = () => {
                         Forgot Password
                     </NavLink>
                 </div>
-                <SuperButton name={'Login'} onClick={isLoginHandler} className="btnBlue"/>
+                <SuperButton name={'Login'} onClick={isLoginHandler} className={`${style.btn} btnBlue`}/>
                 <div className='wrapperLinkCenter'>
                     <NavLink to={'/register'} className={style.forgotLink}>
                         Sign Up
@@ -72,3 +78,6 @@ export const Login = () => {
         </div>
     );
 };
+
+export default Login
+

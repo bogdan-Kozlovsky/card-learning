@@ -1,0 +1,12 @@
+.dark {
+    /*background: #1a1a2e;*/
+    background: linear-gradient(rgb(5 5 7 / 93%), #554a79);
+    /*color: #f8f8f8;*/
+    transition: 0.3s all;
+}
+
+.light {
+    background: linear-gradient(#36b6c2, #c391e5);
+    /*color: #444444;*/
+    transition: 0.3s all;
+}

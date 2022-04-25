@@ -1,7 +1,7 @@
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 import {Dispatch} from "redux";
-import {ProfileType, requestsApi} from "../../dal/api";
-import {signInAC} from "./sign_in-reducer";
+import {requestsApi} from "../../dal/api";
+import {isLoginAC} from "./sign_in-reducer";
 
 export type RequestStatusType = 'loading' | 'succeeded'
 export type InitialStateType = {
@@ -61,8 +61,9 @@ export const setAppErrorAC = (error: string | null) => {
 export const logoutTC = () => (dispatch: Dispatch) => {
     requestsApi.logoutRequest()
         .then((res) => {
-            dispatch(signInAC({} as ProfileType))
+            // dispatch(signInAC({} as ProfileType, false))
             dispatch(initializedAC(false))
+            dispatch(isLoginAC(false))
         })
         .catch((error: any) => {
             dispatch(setAppErrorAC(error.response.data.error))
