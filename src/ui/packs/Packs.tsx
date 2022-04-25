@@ -134,7 +134,6 @@ export const Packs = () => {
     const getLearnCard = (learnId: string | null) => {
         navigate(`/packs_list/link/${learnId}`)
     }
-    console.log(pack,'pack')
 
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (

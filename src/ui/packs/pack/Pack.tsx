@@ -7,6 +7,7 @@ import {NavLink} from "react-router-dom";
 import style from './pack.module.css'
 import {SuperModal} from "../../common/SuperModal/SuperModal";
 import learning from '../../assets/images/icons/learning.svg'
+import {DeleteModal} from "../../common/hook/DeleteModal";
 
 type propsType = {
     name: string
@@ -33,10 +34,7 @@ export const Pack = (props: propsType) => {
 
     const dispatch = useDispatch()
 
-    const handlerDeletePack = () => {
-        dispatch(deletePackTC(packId))
-    }
-    console.log(packId,'packId')
+
     //update pack
     const [updateName, setUpdateName] = useState<string>(name)
     const [overlayUpdate, setOverlayUpdate] = useState(false);
@@ -59,26 +57,15 @@ export const Pack = (props: propsType) => {
 
     /*delete pack*/
     const [overlayDelete, setOverlayDelete] = useState(false);
-    //open show modal
-    const showModalDelete = () => {
-        setOverlayDelete(true)
-    }
-    //close show modal
-    const closeModalDelete = () => {
-        setOverlayDelete(false)
+    const handlerDeletePack = () => {
+        dispatch(deletePackTC(packId))
     }
 
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
 
     return (
         <div>
-            {/*delete pack*/}
-            <div className={overlayDelete ? `overlay_shown` : `overlay_hidden`}>
-                <SuperModal closeModal={closeModalDelete} onClickSuperCallback={handlerDeletePack}
-                            titleName={'Delete Pack'}>
-                    <button onClick={handlerDeletePack} className='successBtn'>Ok</button>
-                </SuperModal>
-            </div>
+            <DeleteModal value={overlayDelete} setValue={setOverlayDelete} handlerDeletePack={handlerDeletePack}/>
 
             {/*update pack*/}
             <div className={overlayUpdate ? `overlay_shown` : `overlay_hidden`}>
@@ -105,7 +92,7 @@ export const Pack = (props: propsType) => {
                     {ourUserId === userId
                         &&
                         <div className={`boxBtn`}>
-                            <img className={`btn btnDelete `} onClick={showModalDelete}
+                            <img className={`btn btnDelete `} onClick={() => setOverlayDelete(true)}
                                  src={deleteIcon}
                                  alt="deleteIcon"/>
                             <img className={`btn btnUpdate`} onClick={showModalUpdate}
