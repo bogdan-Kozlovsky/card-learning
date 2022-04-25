@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, memo} from "react";
 import style from '../../assets/thema.module.css'
 
 type ThemePropsType = {
@@ -6,7 +6,7 @@ type ThemePropsType = {
     toggleTheme: () => void
 }
 
-export const Theme: FC<ThemePropsType> = ({theme, toggleTheme}) => {
+export const Theme: FC<ThemePropsType> = memo(({theme, toggleTheme}) => {
     return (
         <div className={style.btnBox}>
             {theme === 'dark'
@@ -14,4 +14,4 @@ export const Theme: FC<ThemePropsType> = ({theme, toggleTheme}) => {
                 : <span onClick={toggleTheme} className={style.emoji}>&#127773;</span>}
         </div>
     )
-}
+})

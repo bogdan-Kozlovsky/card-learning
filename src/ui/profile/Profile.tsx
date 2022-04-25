@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 import style from './profile.module.css'
 import {SuperModal} from "../common/SuperModal/SuperModal";
 
@@ -16,7 +16,7 @@ type ProfilePropsType = {
 }
 
 
-export const Profile = (props: ProfilePropsType) => {
+export const Profile = memo((props: ProfilePropsType) => {
     const {
         overlay,
         closeModal,
@@ -46,7 +46,7 @@ export const Profile = (props: ProfilePropsType) => {
                                     <button onClick={updateProfile} className='successBtn'>Save</button>
                                 </SuperModal>
                             </div>
-                                <img className={style.avatar} src={avatar} alt="avatar"/>
+                            <img className={style.avatar} src={avatar} alt="avatar"/>
                             <p className={style.description}>
                                 {name}
                             </p>
@@ -58,5 +58,5 @@ export const Profile = (props: ProfilePropsType) => {
             </div>
         </div>
     );
-};
+})
 

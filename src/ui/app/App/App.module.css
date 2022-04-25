@@ -10,3 +10,11 @@
     /*color: #444444;*/
     transition: 0.3s all;
 }
+
+.linearProgress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import deleteIcon from '../../assets/images/icons/delete.svg'
 import updatePackName from '../../assets/images/icons/update.svg'
 import {deletePackTC, updatePackNameTC} from "../../../bll/reducers/packs-reducer";
@@ -19,9 +19,8 @@ type propsType = {
     packId: string
     ourUserId: string | null
     getLearnCard: (learnId: string | null) => void
-    // getLearnCard: any
 }
-export const Pack = (props: propsType) => {
+export const Pack = memo((props: propsType) => {
     const {
         name,
         cardsCount,
@@ -110,5 +109,5 @@ export const Pack = (props: propsType) => {
 
         </div>
     );
-};
+})
 

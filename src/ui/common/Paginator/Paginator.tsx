@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {memo} from 'react';
 import ReactPaginate from 'react-paginate';
 import p from './Paginator.module.css';
 
 type PaginationComponentPropsType = {
     totalPages: number;
-    handlePageChange:(selectedItem: { selected: number }) => void;
+    handlePageChange: (selectedItem: { selected: number }) => void;
 }
 
 
-export const Paginator: React.FC<PaginationComponentPropsType> = ({totalPages, handlePageChange,}) => {
+export const Paginator: React.FC<PaginationComponentPropsType> = memo(({totalPages, handlePageChange,}) => {
     return (
         <div className={p.paginationBox}>
             <ReactPaginate pageCount={totalPages}
@@ -31,4 +31,4 @@ export const Paginator: React.FC<PaginationComponentPropsType> = ({totalPages, h
             />
         </div>
     );
-};
+})

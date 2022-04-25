@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import style from './header.module.css'
 import logo from '../../assets/images/logo.svg'
 import {NavigateLink} from "../../navigate/NavigateLink";
@@ -8,7 +8,7 @@ type propsTyp = {
     theme: string
     toggleTheme: () => void
 }
-const Header = (props: propsTyp) => {
+export const Header = memo((props: propsTyp) => {
 
     return (
         <div className={style.headerBox}>
@@ -21,7 +21,6 @@ const Header = (props: propsTyp) => {
             </div>
         </div>
     );
-};
+})
 
-export default Header;
 

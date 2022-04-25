@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {NavLink} from "react-router-dom";
 import style from './navigate.module.css'
 import profile from '../assets/images/icons/profile.svg'
@@ -10,7 +10,7 @@ import {logoutTC} from "../../bll/reducers/app-reducer";
 import {useAppSelector} from "../common/hook/hook";
 import {selectSignInisLogin} from "../../bll/selectors";
 
-export const NavigateLink = () => {
+export const NavigateLink = memo(() => {
     const isLogin = useAppSelector(selectSignInisLogin)
 
     const dispatch = useDispatch()
@@ -57,5 +57,5 @@ export const NavigateLink = () => {
             </ul>
         </>
     );
-};
+})
 

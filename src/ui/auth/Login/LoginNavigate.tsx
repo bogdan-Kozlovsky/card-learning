@@ -1,10 +1,10 @@
 import {FC} from "react";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../bll/store";
 import {Navigate} from "react-router-dom";
+import {useAppSelector} from "../../common/hook/hook";
+import {selectAppInitialized} from "../../../bll/selectors";
 
 export const LoginNavigate: FC = ({children}) => {
-    const initialized = useSelector<AppRootStateType, boolean>(state => state.app.initialized)
+    const initialized = useAppSelector(selectAppInitialized)
     if (!initialized) return <Navigate to={'/'}/>
     return <>{children}</>
 }

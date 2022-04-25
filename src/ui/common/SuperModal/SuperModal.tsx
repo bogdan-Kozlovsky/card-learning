@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 import style from './SuperModal.module.css'
 
 type UpdateProfilePropsTYpe = {
@@ -10,8 +10,8 @@ type UpdateProfilePropsTYpe = {
     titleName: string
 }
 
-export const SuperModal = (props: UpdateProfilePropsTYpe) => {
-    const {closeModal, titleName} = props
+export const SuperModal = memo((props: UpdateProfilePropsTYpe) => {
+    const {closeModal, titleName, children} = props
 
 
     return (
@@ -25,10 +25,10 @@ export const SuperModal = (props: UpdateProfilePropsTYpe) => {
                     </div>
                     <h3 className={style.title}>{titleName}</h3>
                     <div className={style.formWrapper}>
-                        {props.children}
+                        {children}
                     </div>
                 </div>
             </div>
         </div>
     );
-};
+})
