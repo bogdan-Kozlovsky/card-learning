@@ -28,6 +28,7 @@ import {
 } from "../../bll/selectors";
 import arrowUp from '../assets/images/icons/upArrow.svg'
 import arrowDown from '../assets/images/icons/downArrow.svg'
+import {AddUpdateModal} from "../common/hook/AddUpdateModal";
 
 export const Packs = memo(() => {
     const myId = useAppSelector(selectProfileProfileId)
@@ -141,13 +142,11 @@ export const Packs = memo(() => {
             <div className={style.packsBox}>
                 <div className={style.packsBoxLeft}>
                     <h3 className={style.packsLeftTitle}>Show packs cards</h3>
-                    <div className={overlay ? `overlay_shown` : `overlay_hidden`}>
-                        <SuperModal closeModal={closeModal}  titleName={'Add new pack'}>
-                            <input onChange={getNewNamePackChange} className='inputModal' placeholder={packName}
-                                   value={title}/>
-                            <button onClick={handlerNewPacks} className='successBtn'>Save</button>
-                        </SuperModal>
-                    </div>
+                    <AddUpdateModal handlerUpdate={handlerNewPacks}
+                                    overlayUpdate={overlay}
+                                    setOverlayUpdate={setOverlay}
+                                    updateName={title}
+                                    updateNameChange={getNewNamePackChange}/>
                     <div>
                         <div className={style.packsButtonsBox}>
                             <button onClick={myPacks}

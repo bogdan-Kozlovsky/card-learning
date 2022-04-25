@@ -16,6 +16,7 @@ import {
     selectProfileProfileId
 } from "../../bll/selectors";
 import {useAppSelector} from "../common/hook/hook";
+import {AddUpdateModal} from "../common/hook/AddUpdateModal";
 
 export const Cards = memo(() => {
     const cards = useAppSelector(selectCardsCards)
@@ -73,15 +74,11 @@ export const Cards = memo(() => {
                     </NavLink>
                     <h3 className={style.cardsTitle}>Pack Name</h3>
                 </div>
-
-                {/*уже есть готовые классы в index.css*/}
-                <div className={overlay ? `${style.overlay_shown}` : `${style.overlay_hidden}`}>
-                    <SuperModal closeModal={closeModal}  titleName={'Add new card'}>
-                        <input onChange={getNewNameCardChange} className='inputModal' placeholder={title}
-                               value={title}/>
-                        <button onClick={handlerNewCard} className='successBtn'>Save</button>
-                    </SuperModal>
-                </div>
+                <AddUpdateModal handlerUpdate={handlerNewCard}
+                                overlayUpdate={overlay}
+                                setOverlayUpdate={setOverlay}
+                                updateName={title}
+                                updateNameChange={getNewNameCardChange}/>
                 <button className={`btnBlue ${style.btn}`} onClick={showModal}>Add Card</button>
 
                 {!!cardsTotalCount ?

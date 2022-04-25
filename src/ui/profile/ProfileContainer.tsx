@@ -45,6 +45,7 @@ export const ProfileContainer = memo(() => {
                      showModal={showModal}
                      avatarValue={avatarValue}
                      getNewNameProfileAvatar={getNewNameProfileAvatar}
+                     setOverlay={setOverlay}
             />
         </div>
     )
