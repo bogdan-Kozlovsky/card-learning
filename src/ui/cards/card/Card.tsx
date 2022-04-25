@@ -5,7 +5,7 @@ import updatePack from "../../assets/images/icons/update.svg";
 import {deleteCardTC, updateCardTC} from "../../../bll/reducers/cards-reducer";
 import {useDispatch} from "react-redux";
 import {SuperModal} from "../../common/SuperModal/SuperModal";
-import {updatePackNameTC} from "../../../bll/reducers/packs-reducer";
+import {deletePackTC} from "../../../bll/reducers/packs-reducer";
 
 type propsType = {
     question: string
@@ -33,13 +33,21 @@ export const Card = (props: propsType) => {
 
     const dispatch = useDispatch()
 
-    const deleteCardHandler = (_id: string) => {
+    /*delete card*/
+    const [overlayDelete, setOverlayDelete] = useState(false);
+    //open show modal
+    const showModalDelete = () => {
+        setOverlayDelete(true)
+    }
+    //close show modal
+    const closeModalDelete = () => {
+        setOverlayDelete(false)
+    }
+    const handlerDeletePack = () => {
         dispatch(deleteCardTC(packId, _id))
     }
 
-    // const updateCardHandler = (_id: string) => {
-    //     dispatch(updateCardTC(packId, _id))
-    // }
+
     const time = updated && updated.toString().slice(0, 10)
 
 // modal
@@ -69,6 +77,13 @@ export const Card = (props: propsType) => {
                     <button onClick={handlerUpdatePackName} className='successBtn'>Save</button>
                 </SuperModal>
             </div>
+            {/*delete card*/}
+            <div className={overlayDelete ? `overlay_shown` : `overlay_hidden`}>
+                <SuperModal closeModal={closeModalDelete} onClickSuperCallback={handlerDeletePack}
+                            titleName={'Delete Pack'}>
+                    <button onClick={handlerDeletePack} className='successBtn'>Ok</button>
+                </SuperModal>
+            </div>
 
             <ul className={style.list}>
                 <li className={style.item}>{question}</li>
@@ -79,7 +94,8 @@ export const Card = (props: propsType) => {
                     {ourUserId === more_id
                         &&
                         <div className={`boxBtn`}>
-                            <img className={style.btn} onClick={() => deleteCardHandler(_id)} src={deleteIcon}
+                            {/*<img className={style.btn} onClick={() => deleteCardHandler(_id)} src={deleteIcon}*/}
+                            <img className={style.btn} onClick={showModalDelete} src={deleteIcon}
                                  alt={'deleteIcon'}/>
                             <img className={style.btn} onClick={showModalUpdate} src={updatePack}
                                  alt={'updatePack'}/>

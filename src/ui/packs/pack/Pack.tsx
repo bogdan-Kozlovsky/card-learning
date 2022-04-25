@@ -31,6 +31,7 @@ export const Pack = (props: propsType) => {
     } = props
 
     const dispatch = useDispatch()
+
     const handlerDeletePack = () => {
         dispatch(deletePackTC(packId))
     }
