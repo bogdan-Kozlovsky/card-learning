@@ -156,11 +156,11 @@ export const deleteCardTC = (packId: string | undefined, cardId: string | undefi
 }
 
 export const updateCardTC = (packId: string | undefined, _id: string, updateName: string): ThunkType => (dispatch) => {
-    // const card = {
-    //     _id: _id,
-    //     question: "new Card",
-    // }
-    requestsApi.updateCard(_id, updateName)
+    const card = {
+        _id: _id,
+        question: updateName,
+    }
+    requestsApi.updateCard(card)
         .then(res => {
             dispatch(getCardsTC(packId))
         })

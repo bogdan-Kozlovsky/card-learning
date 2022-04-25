@@ -7,10 +7,13 @@ import {gradeTC} from "../../bll/reducers/cards-reducer";
 type LearnAnswerPropsType = {
     learn_id: string
     closeAnswer: () => void
+    name: string | undefined
+    question: string | undefined
+    answer: string | undefined
 }
 
 export const LearnAnswer = (props: LearnAnswerPropsType) => {
-    const {learn_id} = props
+    const {learn_id, name, question, answer} = props
     const dispatch = useDispatch()
     const [valueInput, setValueInput] = useState<string>('')
 
@@ -24,15 +27,12 @@ export const LearnAnswer = (props: LearnAnswerPropsType) => {
             <div className={style.answerBody}>
                 <div className={style.flexBox}>
                     <div className={style.learnWrap}>
-                        <h3 className={style.name}>Learn “Pack Name”</h3>
+                        <h3 className={style.name}>Learn {name}</h3>
                         <div className={style.descriptionBox}>
-                            <p className={style.question}><span className={style.questionSpan}>Question:</span> “How
-                                "This"
-                                works in JavaScript?”
+                            <p className={style.question}><span
+                                className={style.questionSpan}>Question:</span>{question}
                             </p>
-                            <p className={style.question}><span className={style.questionSpan}>Answer:</span> “How
-                                "This"
-                                works in JavaScript?”
+                            <p className={style.question}><span className={style.questionSpan}>Answer:</span> {answer}
                             </p>
                         </div>
 

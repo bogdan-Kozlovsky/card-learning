@@ -21,21 +21,21 @@ export const RoutesNav = memo((props: propsType) => {
         <div className='container'>
             <Routes>
                 <Route path='/' element={<Login theme={theme}/>}/>
-                <Route path='/register' element={<Registration/>}/>
+                <Route path='/register' element={<LoginNavigate><Registration/></LoginNavigate>}/>
                 <Route path='/profile' element={<LoginNavigate><ProfileContainer/></LoginNavigate>}/>
-                <Route path='recovery-password' element={<PasswordRecovery/>}/>
+                <Route path='recovery-password' element={<LoginNavigate><PasswordRecovery/></LoginNavigate>}/>
                 <Route
                     path='auth-email-password'
-                    element={<AuthEmailPassword/>}
+                    element={<LoginNavigate><AuthEmailPassword/></LoginNavigate>}
                 />
                 <Route
                     path='entering-new-password/:token'
-                    element={<NewPassword/>}
+                    element={<LoginNavigate><NewPassword/></LoginNavigate>}
                 />
-                <Route path='404' element={<Error404/>}/>
+                <Route path='404' element={<LoginNavigate><Error404/></LoginNavigate>}/>
                 <Route path='*' element={<Navigate to='404'/>}/>
                 <Route path='/packs_list' element={<LoginNavigate><Packs/></LoginNavigate>}/>
-                <Route path='/packs_list/link/:learnId' element={<Learn/>}/>
+                <Route path='/packs_list/link/:learnId' element={<LoginNavigate><Learn/></LoginNavigate>}/>
                 <Route path='/packs_list_cards/:packId' element={<LoginNavigate><Cards/></LoginNavigate>}/>
             </Routes>
         </div>

@@ -8,6 +8,7 @@ import style from './pack.module.css'
 import {SuperModal} from "../../common/SuperModal/SuperModal";
 import learning from '../../assets/images/icons/learning.svg'
 import {DeleteModal} from "../../common/hook/DeleteModal";
+import {UpdateModal} from "../../common/hook/UpdateModal";
 
 type propsType = {
     name: string
@@ -64,16 +65,15 @@ export const Pack = memo((props: propsType) => {
 
     return (
         <div>
-            <DeleteModal value={overlayDelete} setValue={setOverlayDelete} handlerDeletePack={handlerDeletePack}/>
+            <DeleteModal value={overlayDelete}
+                         setValue={setOverlayDelete}
+                         handlerDeletePack={handlerDeletePack}/>
 
-            {/*update pack*/}
-            <div className={overlayUpdate ? `overlay_shown` : `overlay_hidden`}>
-                <SuperModal closeModal={closeModalUpdate} titleName={'Update pack'}>
-                    <input onChange={updateNameChange} className='inputModal' placeholder={updateName}
-                           value={updateName}/>
-                    <button onClick={handlerUpdatePackName} className='successBtn'>Save</button>
-                </SuperModal>
-            </div>
+            <UpdateModal handlerUpdate={handlerUpdatePackName}
+                         overlayUpdate={overlayUpdate}
+                         setOverlayUpdate={setOverlayUpdate}
+                         updateName={updateName}
+                         updateNameChange={updateNameChange}/>
             <ul className={style.packBox}>
                 <li className={style.packItem}>
                     <NavLink to={`/packs_list_cards/${packId}`} className={style.packName}>{name}</NavLink>
