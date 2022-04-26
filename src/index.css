@@ -47,10 +47,10 @@ ul {
 
 
 .wrapperBox {
+    height: calc(100vh - 85px);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .title {

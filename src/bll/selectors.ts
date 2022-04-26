@@ -1,10 +1,9 @@
 import {AppRootStateType} from "./store";
-import {useSelector} from "react-redux";
-import {CardsType} from "./reducers/cards-reducer";
 
 //  auth
 export const selectAuthNewPasswordValue = (state: AppRootStateType) => state.auth.newPasswordValue
 export const selectAuthForgotValue = (state: AppRootStateType) => state.auth.forgotValue
+export const selectAuthForgotProfile = (state: AppRootStateType) => state.auth.profile
 
 // app
 export const selectAppInitialized = (state: AppRootStateType) => state.app.initialized

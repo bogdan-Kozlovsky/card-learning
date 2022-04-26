@@ -7,11 +7,12 @@ type AddUpdateModalPropsType = {
     setOverlayUpdate: (overlayUpdate: boolean) => void
     updateName: string
     updateNameChange: (e: ChangeEvent<HTMLInputElement>) => void
+    children?: any
 }
 
 export const AddUpdateModal = (props: AddUpdateModalPropsType) => {
 
-    const {overlayUpdate, setOverlayUpdate, handlerUpdate, updateName,updateNameChange} = props
+    const {overlayUpdate, setOverlayUpdate, handlerUpdate, updateName, updateNameChange, children} = props
 
     const handleSetOverlayUpdate = () => {
         setOverlayUpdate(false)
@@ -23,6 +24,7 @@ export const AddUpdateModal = (props: AddUpdateModalPropsType) => {
             <SuperModal closeModal={handleSetOverlayUpdate} titleName={'Update pack'}>
                 <input onChange={updateNameChange} className='inputModal' placeholder={'updateName'}
                        value={updateName}/>
+                {children}
                 <button onClick={handlerUpdate} className='successBtn'>Save</button>
             </SuperModal>
         </div>

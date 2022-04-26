@@ -47,11 +47,11 @@ export const PasswordRecovery = memo(() => {
                 <p className="description">
                     Enter your email address and we will send you further instructions{' '}
                 </p>
-                <SuperButton name={'Send Instructions'} onClick={onClickHandler} className="btnBlue"/>
+                <SuperButton name={'Send Instructions'} onClick={onClickHandler} className={`btnBlue ${style.btn}`}/>
                 <div className='wrapperLinkCenter'>
-                    <NavLink to={'/auth-email-password'} className={style.forgotLink}>
-                        Did you remember your password?
-                    </NavLink>
+                    {/*<NavLink to={'/auth-email-password'} className={style.forgotLinkOpacity}>*/}
+                    {/*    Did you remember your password?*/}
+                    {/*</NavLink>*/}
                 </div>
                 <div className='wrapperLinkCenter'>
                     <NavLink to={'/'} className={style.forgotLink}>
