@@ -38,7 +38,6 @@ export const Pack = memo((props: propsType) => {
     //update pack
     const [updateName, setUpdateName] = useState<string>(name)
     const [overlayUpdate, setOverlayUpdate] = useState(false);
-
     const updateNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setUpdateName(e.currentTarget.value)
     }
@@ -49,10 +48,6 @@ export const Pack = memo((props: propsType) => {
     //open show modal
     const showModalUpdate = () => {
         setOverlayUpdate(true)
-    }
-    //close show modal
-    const closeModalUpdate = () => {
-        setOverlayUpdate(false)
     }
 
     /*delete pack*/
@@ -100,9 +95,9 @@ export const Pack = memo((props: propsType) => {
                         </div>
 
                     }
-                    {/*{cardsCount && <NavLink onClick={a} to={`/packs_list/link`}>Learn</NavLink>}*/}
-                    {cardsCount && <img onClick={() => getLearnCard(packId)} className={`${style.learningIcons} btn`}
-                                        src={learning} alt={learning}/>
+                    {cardsCount
+                        && <img onClick={() => getLearnCard(packId)} className={`${style.learningIcons} btn`}
+                                src={learning} alt={learning}/>
                     }
                 </li>
             </ul>

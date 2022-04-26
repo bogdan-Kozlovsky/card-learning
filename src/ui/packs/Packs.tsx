@@ -30,111 +30,49 @@ import arrowUp from '../assets/images/icons/upArrow.svg'
 import arrowDown from '../assets/images/icons/downArrow.svg'
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
 
-export const Packs = memo(() => {
-    const myId = useAppSelector(selectProfileProfileId)
+type propsType = {
+    handlerNewPacks: () => void
+    myPacks: () => void
+    allPacks: () => void
+    showModal: () => void
+    requestForSorting: (num: number) => void
+    overlay: boolean
+    open: boolean
+    activeBtn: string
+    value: string
+    totalPages: number
+    setOverlay: (overlay: boolean) => void
+    title: string
+    getNewNamePackChange: (e: ChangeEvent<HTMLInputElement>) => void
+    onSearchHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeHandler: (event: ChangeEvent<{}>, value: (number[] | number)) => void
+    handlePageChange: (e: { selected: number }) => void
+    getLearnCard: (learnId: string | null) => void
+}
+export const Packs = memo((props: propsType) => {
     const {
-        page,
-        sortPacks,
-        user_id,
-        packName, min, max
-    } = useAppSelector(selectPacksParams)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const [overlay, setOverlay] = useState(false);
-    // const {learnId} = useParams();
+        handlerNewPacks,
+        overlay,
+        setOverlay,
+        title,
+        getNewNamePackChange,
+        myPacks,
+        activeBtn,
+        allPacks,
+        onChangeHandler,
+        value,
+        onSearchHandler,
+        showModal,
+        requestForSorting,
+        open,
+        handlePageChange,
+        totalPages,
+        getLearnCard,
+    } = props
 
-
-    const [title, setTitle] = useState<string>('')
-    const [activeBtn, setActiveBtn] = useState<string>('all')
-
-    const debounceMin = useDebounce(min, 700)
-    const debounceMax = useDebounce(max, 700)
-
-    //search
-    const [value, setValue] = useState('')
-    const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
-    }
-    const setSearch = useDebounce(value, 800)
-
-
-    useEffect(() => {
-        dispatch(getPacksTC())
-    }, [page, sortPacks, user_id, packName, debounceMin, debounceMax])
-
-    useEffect(() => {
-        dispatch(setSearchAC(value))
-    }, [setSearch])
-
-
-    //pagination
-    const {pageCount} = useAppSelector(selectPacksParams)
-    const cardPacksTotalCount = useAppSelector(selectPacksCardsPacksTotalCount)
-    const totalPages = Math.ceil(cardPacksTotalCount / pageCount)
+    const {min, max} = useAppSelector(selectPacksParams)
     const pack = useAppSelector(selectPacksCardsPacks)
-    const handlePageChange = (e: { selected: number }) => {
-        const selectedPage = e.selected + 1;
-        dispatch(setCurrentPageAC(selectedPage))
-    };
-
-    //add Packs
-    const handlerNewPacks = () => {
-        dispatch(addPacksTC(title))
-        closeModal()
-    }
-
-    // sorting between own and shared Packs
-    const myPacks = () => {
-        setActiveBtn('own')
-        dispatch(getUserIdAC(myId))
-    }
-    const allPacks = () => {
-        setActiveBtn('all')
-        dispatch(getUserIdAC(null))
-    }
-
-    //sort
-    const requestForSorting = (num: number) => {
-        const sortPacks = `${num}cardsCount`
-        dispatch(setSortPacksAC(sortPacks))
-        setOpen(!open)
-    }
-    const [open, setOpen] = useState(false)
-
-    //спросить у ментора много перерисовок
-    console.log(open)
-    /////////////////////////////////////////
-
-    //add show modal
-    const showModal = () => {
-        setOverlay(true)
-    }
-
-    const closeModal = () => {
-        setOverlay(false)
-    }
-
-    // get new name pack
-    const getNewNamePackChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-
-    // double Range
-    const onChangeRange = (value: number | [number, number]) => {
-        if (Array.isArray(value)) {
-            dispatch(doubleRangeAC(value[0], value[1]))
-        }
-    }
-    const onChangeHandler = (event: ChangeEvent<{}>, value: (number[] | number)) => {
-        onChangeRange && onChangeRange(value as number)
-    }
-
-    // learn Card
-
-    const getLearnCard = (learnId: string | null) => {
-        navigate(`/packs_list/link/${learnId}`)
-    }
-
+    const myId = useAppSelector(selectProfileProfileId)
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
