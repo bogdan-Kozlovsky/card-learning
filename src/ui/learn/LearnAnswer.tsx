@@ -1,6 +1,6 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import style from './learn.module.css'
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {gradeTC} from "../../bll/reducers/cards-reducer";
 
@@ -12,14 +12,14 @@ type LearnAnswerPropsType = {
     answer: string | undefined
 }
 
-export const LearnAnswer = (props: LearnAnswerPropsType) => {
-    const {learn_id, name, question, answer} = props
+export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
+    const {learn_id, name, question, answer, closeAnswer} = props
     const dispatch = useDispatch()
     const [valueInput, setValueInput] = useState<string>('')
 
     const nextCard = () => {
         dispatch(gradeTC(+valueInput, learn_id))
-        props.closeAnswer()
+        closeAnswer()
     }
 
     return (
@@ -35,7 +35,6 @@ export const LearnAnswer = (props: LearnAnswerPropsType) => {
                             <p className={style.question}><span className={style.questionSpan}>Answer:</span> {answer}
                             </p>
                         </div>
-
                         <ul>
                             <li className={style.answerItem}>
                                 <span className={style.answerItemSpan}>Rate yourself:</span>
@@ -56,15 +55,15 @@ export const LearnAnswer = (props: LearnAnswerPropsType) => {
             </div>
         </div>
     );
-};
+})
 
 type AnswerItemType = {
     name: string
     value: number
     setValueInput: (value: string) => void
 }
-const AnswerItem = ({name, value, setValueInput}: AnswerItemType) => {
-// const valueInput
+const AnswerItem = memo((props: AnswerItemType) => {
+    const {name, value, setValueInput} = props
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValueInput(e.currentTarget.value)
     }
@@ -78,5 +77,5 @@ const AnswerItem = ({name, value, setValueInput}: AnswerItemType) => {
             </label>
         </li>
     )
-}
+})
 

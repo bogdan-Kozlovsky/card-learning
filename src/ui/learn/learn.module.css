@@ -15,7 +15,6 @@
 
 .body {
     width: 100%;
-    height: calc(100vh - 130px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,11 +33,17 @@
 .question {
     font-weight: 600;
     line-height: 24px;
-    margin-bottom: 12px;
+    margin-bottom: 30px;
 }
 
 .questionSpan {
     color: orange;
+}
+
+.bodyWrap{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .wrapperBtn {

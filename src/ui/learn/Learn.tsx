@@ -1,22 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import style from './learn.module.css'
 import {NavLink, useParams} from "react-router-dom";
 import {CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../bll/store";
+import {useDispatch} from "react-redux";
 import {LearnAnswer} from "./LearnAnswer";
 import {useAppSelector} from "../common/hook/hook";
-import { selectPacksCardsPacks, selectProfileProfileId} from "../../bll/selectors";
+import {selectCardsCards, selectPacksCardsPacks} from "../../bll/selectors";
 
-export const Learn = () => {
+export const Learn = memo(() => {
     const [showAnswer, setShowAnswer] = useState<boolean>(false)
     const packs = useAppSelector(selectPacksCardsPacks)
-    const cards = useSelector<AppRootStateType, Array<CardsType>>(state => state.cards.cards)
+    const cards = useAppSelector(selectCardsCards)
     const dispatch = useDispatch();
     const {learnId} = useParams();
     const [state, setState] = useState<CardsType | null>(null)
-    console.log(packs,'packs')
-    console.log(state,'state')
     useEffect(() => {
         if (!showAnswer) {
             dispatch(getCardsTC(learnId))
@@ -38,7 +35,6 @@ export const Learn = () => {
                 return {sum: newSum, id: newSum < rand ? i : acc.id}
             }
             , {sum: 0, id: -1});
-        console.log(cards[res.id + 1], 'hallaaaa')
         return cards[res.id + 1];
     }
 
@@ -51,14 +47,15 @@ export const Learn = () => {
     return (
         <div className={style.body}>
             <div className={style.box}>
-                <div>
+                <>
                     {
                         showAnswer
                             ? <div>
-                                <LearnAnswer question={state?.question} answer={state?.answer} name={pack?.name} learn_id={state?._id|| ''} closeAnswer={closeAnswer}
+                                <LearnAnswer question={state?.question} answer={state?.answer} name={pack?.name}
+                                             learn_id={state?._id || ''} closeAnswer={closeAnswer}
                                 />
                             </div>
-                            : <div>
+                            : <div className={style.bodyWrap}>
                                 <div className={style.learnWrap}>
                                     <h3 className={style.name}>{pack?.name}</h3>
                                     <p className={style.question}><span
@@ -70,11 +67,9 @@ export const Learn = () => {
                                 </div>
                             </div>
                     }
-
-                </div>
-
+                </>
             </div>
         </div>
     );
-};
+})
 

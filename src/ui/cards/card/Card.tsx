@@ -78,8 +78,6 @@ export const Card = memo((props: propsType) => {
                     {ourUserId === more_id
                         &&
                         <div className={`boxBtn`}>
-                            {/*<img className={style.btn} onClick={() => deleteCardHandler(_id)} src={deleteIcon}*/}
-                            {/*<img className={style.btn} onClick={showModalDelete} src={deleteIcon}*/}
                             <img className={style.btn} onClick={() => setOverlayDelete(true)} src={deleteIcon}
                                  alt={'deleteIcon'}/>
                             <img className={style.btn} onClick={showModalUpdate} src={updatePack}
