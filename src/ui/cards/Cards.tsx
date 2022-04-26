@@ -1,68 +1,43 @@
-import React, {ChangeEvent, memo, useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
-import {addCardsTC, getCardsTC, setCardsCurrentPageAC} from "../../bll/reducers/cards-reducer";
-import {NavLink, useParams} from "react-router-dom";
+import React, {ChangeEvent, memo} from 'react';
+import {NavLink} from "react-router-dom";
 import {Card} from "./card/Card";
 import redirectIcons from '../assets/images/icons/leftCards.svg'
 import style from './cards.module.css'
 import {Paginator} from "../common/Paginator/Paginator";
-import {SuperModal} from "../common/SuperModal/SuperModal";
 import {ErrorSnackbar} from "../error/Error";
-import {
-    selectCardsCards,
-    selectCardsCardsCardsTotalCount,
-    selectCardsCardsParamsPageCount,
-    selectCardsCardsTotalCount,
-    selectProfileProfileId
-} from "../../bll/selectors";
-import {useAppSelector} from "../common/hook/hook";
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
+import {useAppSelector} from "../common/hook/hook";
+import {selectCardsCards, selectProfileProfileId} from "../../bll/selectors";
 
-export const Cards = memo(() => {
+type propsType = {
+    handlerNewCard: () => void
+    showModal: () => void
+    overlay: boolean
+    title: string
+    packId: string | undefined
+    cardsTotalCount: number
+    totalPages: number
+    setOverlay: (overlay: boolean) => void
+    getNewNameCardChange: (e: ChangeEvent<HTMLInputElement>) => void
+    handlePageChange: (e: { selected: number }) => void
+}
+export const Cards = memo((props: propsType) => {
+    const {
+        handlerNewCard,
+        overlay,
+        setOverlay,
+        title,
+        getNewNameCardChange,
+        showModal,
+        cardsTotalCount,
+        packId,
+        totalPages,
+        handlePageChange,
+    } = props
+
     const cards = useAppSelector(selectCardsCards)
-    const cardsTotalCount = useAppSelector(selectCardsCardsTotalCount)
     const ourUserId = useAppSelector(selectProfileProfileId)
-    const {pageCount} = useAppSelector(selectCardsCardsParamsPageCount)
-    const cardsTotalCountNum = useAppSelector(selectCardsCardsCardsTotalCount)
-
-    const dispatch = useDispatch()
-    const {packId} = useParams()
-
-
-    useEffect(() => {
-        dispatch(getCardsTC(packId))
-    }, [])
-
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
-
-    //pagination
-    const totalPages = Math.ceil(cardsTotalCountNum / pageCount)
-    const handlePageChange = (e: { selected: number }) => {
-        const selectedPage = e.selected + 1;
-        dispatch(setCardsCurrentPageAC(selectedPage))
-        dispatch(getCardsTC(packId))
-    };
-
-
-    //add show modal
-    // все относить к добавлению карточки
-    const [overlay, setOverlay] = useState(false);
-    const [title, setTitle] = useState<string>('')
-    const showModal = () => {
-        setOverlay(true)
-    }
-    const closeModal = () => {
-        setOverlay(false)
-    }
-    // get new name pack
-    const getNewNameCardChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-    const handlerNewCard = () => {
-        dispatch(addCardsTC(packId, title))
-        closeModal()
-    }
-// все относить к добавлению карточки
 
     return (
         <div className='container'>
@@ -78,7 +53,9 @@ export const Cards = memo(() => {
                                 overlayUpdate={overlay}
                                 setOverlayUpdate={setOverlay}
                                 updateName={title}
-                                updateNameChange={getNewNameCardChange}/>
+                                updateNameChange={getNewNameCardChange}
+                                values={'add card'}
+                />
                 <button className={`btnBlue ${style.btn}`} onClick={showModal}>Add Card</button>
 
                 {!!cardsTotalCount ?
@@ -113,5 +90,6 @@ export const Cards = memo(() => {
             </div>
         </div>
     );
+
 })
 

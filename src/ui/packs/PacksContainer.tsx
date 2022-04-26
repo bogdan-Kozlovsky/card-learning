@@ -53,7 +53,7 @@ export const PacksContainer = memo(() => {
     //add Packs
     const handlerNewPacks = () => {
         dispatch(addPacksTC(title))
-        setOverlay(true)
+        setOverlay(false)
     }
 
     // sorting between own and shared Packs

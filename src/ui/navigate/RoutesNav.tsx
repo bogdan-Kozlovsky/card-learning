@@ -12,6 +12,7 @@ import {Login} from "../auth/Login/Login";
 import {ProfileContainer} from "../profile/ProfileContainer";
 import {LoginNavigate} from "../auth/Login/LoginNavigate";
 import {PacksContainer} from "../packs/PacksContainer";
+import {CardsContainer} from "../cards/CardsContainer";
 
 type propsType = {
     theme?: string
@@ -37,7 +38,7 @@ export const RoutesNav = memo((props: propsType) => {
                 <Route path='*' element={<Navigate to='404'/>}/>
                 <Route path='/packs_list' element={<LoginNavigate><PacksContainer/></LoginNavigate>}/>
                 <Route path='/packs_list/link/:learnId' element={<LoginNavigate><Learn/></LoginNavigate>}/>
-                <Route path='/packs_list_cards/:packId' element={<LoginNavigate><Cards/></LoginNavigate>}/>
+                <Route path='/packs_list_cards/:packId' element={<LoginNavigate><CardsContainer/></LoginNavigate>}/>
             </Routes>
         </div>
     );
