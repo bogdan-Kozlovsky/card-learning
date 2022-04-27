@@ -7,7 +7,7 @@ import {Paginator} from "../common/Paginator/Paginator";
 import {ErrorSnackbar} from "../error/Error";
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
 import {useAppSelector} from "../common/hook/hook";
-import {selectCardsCards, selectProfileProfileId} from "../../bll/selectors";
+import {selectCardsCards, selectCardsPackUserId, selectProfileProfileId} from "../../bll/selectors";
 
 type propsType = {
     handlerNewCard: () => void
@@ -36,7 +36,8 @@ export const Cards = memo((props: propsType) => {
     } = props
 
     const cards = useAppSelector(selectCardsCards)
-    const ourUserId = useAppSelector(selectProfileProfileId)
+    const myUserId = useAppSelector(selectProfileProfileId)
+    const packUserId = useAppSelector(selectCardsPackUserId)
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
 
     return (
@@ -56,7 +57,8 @@ export const Cards = memo((props: propsType) => {
                                 updateNameChange={getNewNameCardChange}
                                 values={'add card'}
                 />
-                <button className={`btnBlue ${style.btn}`} onClick={showModal}>Add Card</button>
+                {myUserId === packUserId
+                    && <button className={`btnBlue ${style.btn}`} onClick={showModal}>Add Card</button>}
 
                 {!!cardsTotalCount ?
                     <>
@@ -75,9 +77,11 @@ export const Cards = memo((props: propsType) => {
                     return (
                         <div key={el._id}>
                             <Card
-                                question={fixLengthText(el.question)} answer={fixLengthText(el.answer)}
+                                question={fixLengthText(el.question)}
+                                answer={fixLengthText(el.answer)}
                                 updated={el.updated} packId={packId}
-                                _id={el._id} more_id={el.more_id} ourUserId={ourUserId}
+                                _id={el._id} more_id={el.more_id}
+                                myUserId={myUserId}
                                 grade={el.grade}
                             />
                         </div>

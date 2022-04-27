@@ -9,7 +9,7 @@ type propsType = {
     className: string
     value: string
     checked?: boolean
-    children?: JSX.Element | JSX.Element[];
+    children?: any
 }
 export const SuperInput = memo((props: Partial<propsType>) => {
     const {

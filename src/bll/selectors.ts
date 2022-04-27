@@ -17,6 +17,7 @@ export const selectSignUpIsRegistration = (state: AppRootStateType) => state.sig
 
 // cards
 export const selectCardsCards = (state: AppRootStateType) => state.cards.cards
+export const selectCardsPackUserId = (state: AppRootStateType) => state.cards.packUserId
 export const selectCardsCardsTotalCount = (state: AppRootStateType) => state.cards.cardsTotalCount
 export const selectCardsCardsParamsPageCount = (state: AppRootStateType) => state.cards.params
 export const selectCardsCardsCardsTotalCount = (state: AppRootStateType) => state.cards.cardsTotalCount

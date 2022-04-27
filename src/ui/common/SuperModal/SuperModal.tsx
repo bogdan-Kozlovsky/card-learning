@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo} from 'react';
+import React, {ChangeEvent, FC, memo} from 'react';
 import style from './SuperModal.module.css'
 
 type UpdateProfilePropsTYpe = {
@@ -10,7 +10,7 @@ type UpdateProfilePropsTYpe = {
     titleName: string
 }
 
-export const SuperModal = memo((props: UpdateProfilePropsTYpe) => {
+export const SuperModal:FC<UpdateProfilePropsTYpe> = memo((props: UpdateProfilePropsTYpe) => {
     const {closeModal, titleName, children} = props
 
 

@@ -1,31 +1,14 @@
-import React, {ChangeEvent, memo, useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
-import {
-    addPacksTC,
-    doubleRangeAC,
-    getPacksTC,
-    getUserIdAC,
-    setCurrentPageAC,
-    setSearchAC,
-    setSortPacksAC
-} from "../../bll/reducers/packs-reducer";
+import React, {ChangeEvent, memo} from 'react';
 import {Pack} from "./pack/Pack";
 import style from './packs.module.css'
 import {SuperInput} from "../common/SuperInput/SuperInput";
 import {Paginator} from "../common/Paginator/Paginator";
 import {SuperButton} from "../common/SuperButton/SuperButton";
 import Slider from "@material-ui/core/Slider";
-import useDebounce, {useAppSelector} from "../common/hook/hook";
-import {SuperModal} from "../common/SuperModal/SuperModal";
-import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../common/hook/hook";
 import {ErrorSnackbar} from "../error/Error";
 import search from '../assets/images/icons/search.svg'
-import {
-    selectPacksCardsPacks,
-    selectPacksCardsPacksTotalCount,
-    selectPacksParams,
-    selectProfileProfileId
-} from "../../bll/selectors";
+import {selectPacksCardsPacks, selectPacksParams, selectProfileProfileId} from "../../bll/selectors";
 import arrowUp from '../assets/images/icons/upArrow.svg'
 import arrowDown from '../assets/images/icons/downArrow.svg'
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
@@ -34,6 +17,7 @@ type propsType = {
     handlerNewPacks: () => void
     myPacks: () => void
     allPacks: () => void
+    closeHandler: any
     showModal: () => void
     requestForSorting: (num: number) => void
     overlay: boolean
@@ -68,11 +52,13 @@ export const Packs = memo((props: propsType) => {
         handlePageChange,
         totalPages,
         getLearnCard,
+        closeHandler,
     } = props
 
     const {min, max} = useAppSelector(selectPacksParams)
     const pack = useAppSelector(selectPacksCardsPacks)
     const myId = useAppSelector(selectProfileProfileId)
+
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
@@ -117,6 +103,7 @@ export const Packs = memo((props: propsType) => {
                     <div className={style.packsBoxSearch}>
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
                                     placeholder={'Search...'}>
+                            {value.length >= 1 && <span onClick={closeHandler} className={style.close}>&times;</span>}
                             <img className={style.inputIcons} src={search} alt="search"/>
                         </SuperInput>
                         <SuperButton onClick={showModal} name={'Add'} className={style.packsBtnSearch}/>

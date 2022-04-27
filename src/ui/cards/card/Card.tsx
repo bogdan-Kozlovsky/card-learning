@@ -15,7 +15,7 @@ type propsType = {
     packId: string | undefined
     _id: string
     more_id: any
-    ourUserId: string | null
+    myUserId: string | null
     grade: number
 }
 
@@ -27,7 +27,7 @@ export const Card = memo((props: propsType) => {
         packId,
         _id,
         more_id,
-        ourUserId,
+        myUserId,
         grade,
     } = props
 
@@ -59,7 +59,7 @@ export const Card = memo((props: propsType) => {
         setOverlayUpdate(false)
     }
     return (
-        <>
+        <div className={'nthChildOdd'}  >
             <DeleteModal value={overlayDelete}
                          setValue={setOverlayDelete}
                          handlerDeletePack={handlerDeletePack}/>
@@ -75,7 +75,7 @@ export const Card = memo((props: propsType) => {
                 <li className={style.item}>{time}</li>
                 <li className={style.item}>{grade}</li>
                 <li>
-                    {ourUserId === more_id
+                    {myUserId === more_id
                         &&
                         <div className={`boxBtn`}>
                             <img className={style.btn} onClick={() => setOverlayDelete(true)} src={deleteIcon}
@@ -86,7 +86,7 @@ export const Card = memo((props: propsType) => {
                     }
                 </li>
             </ul>
-        </>
+        </div>
 
     );
 })

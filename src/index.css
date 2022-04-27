@@ -258,3 +258,7 @@ ul {
 .App{
     height: 100vh;
 }
+
+.nthChildOdd:nth-child(odd) {
+    background: #F8F7FD;
+}

@@ -6,15 +6,11 @@
     position: relative;
 }
 
+
 .packItem {
     flex: 1 1 25%;
     flex-grow: 0;
     margin: 5px;
-}
-
-
-.packBox:nth-child(odd) {
-    background: #F8F7FD;
 }
 
 .packName {
@@ -22,7 +18,7 @@
     color: #000000;
 }
 
-.learningIcons{
+.learningIcons {
     right: 80px;
     position: absolute;
     width: 27px;

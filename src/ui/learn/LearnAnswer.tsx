@@ -23,7 +23,8 @@ export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
     }
 
     return (
-        <div className={style.body}>
+        <div className={style.learnAnswerBody}>
+
             <div className={style.answerBody}>
                 <div className={style.flexBox}>
                     <div className={style.learnWrap}>
@@ -48,7 +49,7 @@ export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
                     </div>
 
                     <div className={style.wrapperBtn}>
-                        <NavLink className={'grayBtn'} to={'/packs_list/link'}>Close</NavLink>
+                        <NavLink className={'grayBtn'} to={'/packs_list'}>Close</NavLink>
                         <button className={style.btnBlue} onClick={nextCard}>Next</button>
                     </div>
                 </div>

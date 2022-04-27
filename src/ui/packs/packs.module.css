@@ -80,12 +80,22 @@
 
 }
 
-.inputIcons{
+.inputIcons {
     position: absolute;
     width: 30px;
     top: 50%;
     transform: translateY(-50%);
     left: 10px;
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    width: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 39%;
+    z-index: 999;
 }
 
 .packsBtnSearch {
@@ -101,19 +111,20 @@
 
 /*//packsList*/
 
-.packsList{
+.packsList {
     display: flex;
     padding: 16px 24px;
     background: #ECECF9;
 }
 
-.packsItem{
+.packsItem {
     flex: 1 1 25%;
     font-weight: 700;
     font-size: 13px;
     line-height: 16px;
     color: #000;
 }
+
 .loader2 {
     position: absolute;
     z-index: 999;
@@ -122,7 +133,7 @@
     transform: translate(-50%, -50%);
 }
 
-.sliderDescription{
+.sliderDescription {
     width: 30px;
     background: #090080;
     border-radius: 50%;
@@ -131,7 +142,7 @@
     padding: 3px;
 }
 
-.sliderDescriptionBox{
+.sliderDescriptionBox {
     display: flex;
     align-items: center;
     margin-bottom: 5px;

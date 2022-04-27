@@ -31,6 +31,11 @@ export const PacksContainer = memo(() => {
     const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
+    const closeHandler = () => {
+        setValue('')
+    }
+
+
     const setSearch = useDebounce(value, 800)
 
     useEffect(() => {
@@ -79,7 +84,9 @@ export const PacksContainer = memo(() => {
     /////////////////////////////////////////
 
     //add show modal
-    const showModal = () => {setOverlay(true)}
+    const showModal = () => {
+        setOverlay(true)
+    }
 
     // get new name pack onChange
     const getNewNamePackChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -119,6 +126,7 @@ export const PacksContainer = memo(() => {
                 open={open}
                 handlePageChange={handlePageChange}
                 totalPages={totalPages}
+                closeHandler={closeHandler}
                 getLearnCard={getLearnCard}
             />
         </>

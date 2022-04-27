@@ -5,7 +5,6 @@ import {deletePackTC, updatePackNameTC} from "../../../bll/reducers/packs-reduce
 import {useDispatch} from "react-redux";
 import {NavLink} from "react-router-dom";
 import style from './pack.module.css'
-import {SuperModal} from "../../common/SuperModal/SuperModal";
 import learning from '../../assets/images/icons/learning.svg'
 import {DeleteModal} from "../../common/hook/DeleteModal";
 import {AddUpdateModal} from "../../common/hook/AddUpdateModal";
@@ -59,7 +58,7 @@ export const Pack = memo((props: propsType) => {
     const time = lastUpdated && lastUpdated.toString().slice(0, 10)
 
     return (
-        <div>
+        <div className={'nthChildOdd'}>
             <DeleteModal value={overlayDelete}
                          setValue={setOverlayDelete}
                          handlerDeletePack={handlerDeletePack}/>
@@ -69,39 +68,40 @@ export const Pack = memo((props: propsType) => {
                             setOverlayUpdate={setOverlayUpdate}
                             updateName={updateName}
                             updateNameChange={updateNameChange}/>
-            <ul className={style.packBox}>
-                <li className={style.packItem}>
-                    <NavLink to={`/packs_list_cards/${packId}`} className={style.packName}>{name}</NavLink>
-                </li>
-                <li className={style.packItem}>
-                    <p>{cardsCount}</p>
-                </li>
-                <li className={style.packItem}>
-                    <p>{time}</p>
-                </li>
-                <li className={style.packItem}>
-                    <p>{author}</p>
-                </li>
-                <li>
-                    {ourUserId === userId
-                        &&
-                        <div className={`boxBtn`}>
-                            <img className={`btn btnDelete `} onClick={() => setOverlayDelete(true)}
-                                 src={deleteIcon}
-                                 alt="deleteIcon"/>
-                            <img className={`btn btnUpdate`} onClick={showModalUpdate}
-                                 src={updatePackName}
-                                 alt="updatePackName"/>
-                        </div>
+            <div>
+                <ul className={style.packBox}>
+                    <li className={style.packItem}>
+                        <NavLink to={`/packs_list_cards/${packId}`} className={style.packName}>{name}</NavLink>
+                    </li>
+                    <li className={style.packItem}>
+                        <p>{cardsCount}</p>
+                    </li>
+                    <li className={style.packItem}>
+                        <p>{time}</p>
+                    </li>
+                    <li className={style.packItem}>
+                        <p>{author}</p>
+                    </li>
+                    <li>
+                        {ourUserId === userId
+                            &&
+                            <div className={`boxBtn`}>
+                                <img className={`btn btnDelete `} onClick={() => setOverlayDelete(true)}
+                                     src={deleteIcon}
+                                     alt="deleteIcon"/>
+                                <img className={`btn btnUpdate`} onClick={showModalUpdate}
+                                     src={updatePackName}
+                                     alt="updatePackName"/>
+                            </div>
 
-                    }
-                    {cardsCount
-                        && <img onClick={() => getLearnCard(packId)} className={`${style.learningIcons} btn`}
-                                src={learning} alt={learning}/>
-                    }
-                </li>
-            </ul>
-
+                        }
+                        {cardsCount
+                            && <img onClick={() => getLearnCard(packId)} className={`${style.learningIcons} btn`}
+                                    src={learning} alt={learning}/>
+                        }
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 })
