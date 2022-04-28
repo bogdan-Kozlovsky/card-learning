@@ -103,9 +103,11 @@ export const Packs = memo((props: propsType) => {
                     <div className={style.packsBoxSearch}>
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
                                     placeholder={'Search...'}>
-                            {value.length >= 1 && <span onClick={closeHandler} className={style.close}>&times;</span>}
-                            <img className={style.inputIcons} src={search} alt="search"/>
+                            {/*value.length >= 1 && <span onClick={closeHandler} className={style.close}>&times;</span>*/}
+                            {/*<img className={style.inputIcons} src={search} alt="search"/>*/}
                         </SuperInput>
+                        {value.length >= 1 && <span onClick={closeHandler} className={style.close}>&times;</span>}
+                        <img className={style.inputIcons} src={search} alt="search"/>
                         <SuperButton onClick={showModal} name={'Add'} className={style.packsBtnSearch}/>
                     </div>
 
