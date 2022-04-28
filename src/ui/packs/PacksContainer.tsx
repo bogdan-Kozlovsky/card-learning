@@ -10,13 +10,19 @@ import {
     setSortPacksAC
 } from "../../bll/reducers/packs-reducer";
 import useDebounce, {useAppSelector} from "../common/hook/hook";
-import {useNavigate} from "react-router-dom";
-import {selectPacksCardsPacksTotalCount, selectPacksParams, selectProfileProfileId} from "../../bll/selectors";
+import {Navigate, useNavigate} from "react-router-dom";
+import {
+    selectPacksCardsPacksTotalCount,
+    selectPacksParams,
+    selectProfileProfileId,
+    selectSignInisLogin
+} from "../../bll/selectors";
 import {Packs} from "./Packs";
 
 export const PacksContainer = memo(() => {
     const myId = useAppSelector(selectProfileProfileId)
     const {page, sortPacks, user_id, packName, min, max} = useAppSelector(selectPacksParams)
+    const isLogin = useAppSelector(selectSignInisLogin)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [overlay, setOverlay] = useState(false);
@@ -107,6 +113,11 @@ export const PacksContainer = memo(() => {
     const getLearnCard = (learnId: string | null) => {
         navigate(`/packs_list/link/${learnId}`)
     }
+
+    if (!isLogin) {
+        navigate('/login')
+    }
+
     return (
         <>
             <Packs

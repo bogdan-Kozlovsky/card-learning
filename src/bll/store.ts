@@ -7,6 +7,7 @@ import {authReducer} from "./reducers/auth-reducer";
 import {profileReducer} from "./reducers/profile-reducer";
 import {packsReducer} from "./reducers/packs-reducer";
 import {cardsReducer} from "./reducers/cards-reducer";
+import {composeWithDevTools} from "redux-devtools-extension";
 
 export const rootReducer = combineReducers({
     signUp: sign_upReducer,
@@ -18,6 +19,6 @@ export const rootReducer = combineReducers({
     cards: cardsReducer,
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunk))
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

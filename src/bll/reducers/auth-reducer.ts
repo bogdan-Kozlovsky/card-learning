@@ -34,7 +34,7 @@ export const initialState: InitialStateType = {
         _id: null,
     },
     forgotValue: false,
-    newPasswordValue: false
+    newPasswordValue: false,
 }
 
 ///////////////////////////////////////////// reducer ////////////////////////////////////////////
@@ -70,14 +70,13 @@ export const authMeTC = () => (dispatch: Dispatch) => {
     dispatch(getStatusAC('loading'))
     requestsApi.authMeRequest()
         .then((res) => {
-            // dispatch(initializedAC('profile'))
             dispatch(initializedAC(true))
             dispatch(isLoginAC(true))
             dispatch(authMeAC(res.data))
         })
         .catch(error => {
             dispatch(isLoginAC(false))
-            // dispatch(initializedAC(false))
+            dispatch(initializedAC(true))
             dispatch(setAppErrorAC(error.response.data.error))
         })
         .finally(() => {

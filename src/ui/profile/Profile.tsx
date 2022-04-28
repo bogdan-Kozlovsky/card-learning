@@ -1,6 +1,8 @@
 import React, {ChangeEvent, memo} from 'react';
 import style from './profile.module.css'
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
+import {useAppSelector} from "../common/hook/hook";
+import {selectAppInitialized} from "../../bll/selectors";
 
 type ProfilePropsType = {
     overlay: boolean
@@ -33,6 +35,7 @@ export const Profile = memo((props: ProfilePropsType) => {
         email,
     } = props
 
+    const initialized = useAppSelector(selectAppInitialized)
     return (
         <div className="container">
             <div className={style.wrapperBox}>

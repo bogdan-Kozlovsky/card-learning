@@ -16,7 +16,7 @@ export const Registration = memo(() => {
     const [password, setPassword] = useState<string>('Stupid23Stupid');
 
     if (isRegistration) {
-        return <Navigate to='/'/>
+        return <Navigate to='/login'/>
     }
     // callBack
     const onChangeHandlerEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ export const Registration = memo(() => {
                     <SuperInputPassword className={'input'} value={password} onChange={onChangeHandlerPassword}/>
                 </label>
                 <div className={style.buttons}>
-                    <NavLink to={'/'} className={style.cancel}>
+                    <NavLink to={'/login'} className={style.cancel}>
                         Cancel
                     </NavLink>
                     <button

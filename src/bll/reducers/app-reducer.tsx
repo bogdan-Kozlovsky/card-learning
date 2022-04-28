@@ -61,8 +61,6 @@ export const setAppErrorAC = (error: string | null) => {
 export const logoutTC = () => (dispatch: Dispatch) => {
     requestsApi.logoutRequest()
         .then((res) => {
-            // dispatch(signInAC({} as ProfileType, false))
-            dispatch(initializedAC(false))
             dispatch(isLoginAC(false))
         })
         .catch((error: any) => {

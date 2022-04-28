@@ -9,6 +9,7 @@ import {ErrorSnackbar} from "../../error/Error";
 import {useAppSelector} from "../../common/hook/hook";
 import {selectAppInitialized} from "../../../bll/selectors";
 import {useFormik} from "formik";
+import {selectSignInisLogin} from "../../../bll/selectors";
 
 type propsType = {
     theme?: string
@@ -18,6 +19,9 @@ export const Login = memo((props: propsType) => {
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const {theme} = props
     const initialized = useAppSelector(selectAppInitialized)
+export const Login = memo(() => {
+
+    const isLogin = useAppSelector(selectSignInisLogin)
 
     const formik = useFormik({
         initialValues: {
@@ -52,7 +56,7 @@ export const Login = memo((props: propsType) => {
         setRememberMe(e.currentTarget.checked);
     };
 
-    if (initialized) {
+    if (isLogin) {
         return <Navigate to='/profile'/>
     }
     const handlerShowPassword = () => {
