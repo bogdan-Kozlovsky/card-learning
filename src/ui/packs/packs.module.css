@@ -149,3 +149,13 @@
     justify-content: space-between;
 }
 
+
+.preloader {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+}

@@ -17,6 +17,7 @@ export const NavigateLink = memo(() => {
     const logout = () => {
         dispatch(logoutTC())
     }
+    console.log(isLogin)
     return (
         <>
             <ul className={style.navigateList}>
@@ -24,7 +25,7 @@ export const NavigateLink = memo(() => {
                     <li className={style.itemLink}>
                         <img className={style.decor} src={logoutIcon} alt="profileIcon"/>
                         <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
-                                 to={'/'}>Login</NavLink>
+                                 to={'/login'}>Login</NavLink>
                     </li>
                     <li className={style.itemLink}>
                         <img className={style.decor} src={loginIcon} alt="profileIcon"/>

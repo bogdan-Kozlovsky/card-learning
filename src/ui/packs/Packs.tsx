@@ -8,7 +8,12 @@ import Slider from "@material-ui/core/Slider";
 import {useAppSelector} from "../common/hook/hook";
 import {ErrorSnackbar} from "../error/Error";
 import search from '../assets/images/icons/search.svg'
-import {selectPacksCardsPacks, selectPacksParams, selectProfileProfileId} from "../../bll/selectors";
+import {
+    selectAppInitialized,
+    selectPacksCardsPacks,
+    selectPacksParams,
+    selectProfileProfileId
+} from "../../bll/selectors";
 import arrowUp from '../assets/images/icons/upArrow.svg'
 import arrowDown from '../assets/images/icons/downArrow.svg'
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
@@ -58,7 +63,7 @@ export const Packs = memo((props: propsType) => {
     const {min, max} = useAppSelector(selectPacksParams)
     const pack = useAppSelector(selectPacksCardsPacks)
     const myId = useAppSelector(selectProfileProfileId)
-
+    const initialized = useAppSelector(selectAppInitialized)
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
@@ -112,12 +117,12 @@ export const Packs = memo((props: propsType) => {
                     <ul className={style.packsList}>
                         <li className={style.packsItem}>Name</li>
                         <li className={style.packsItem}>Cards
-                            {!open && <button onClick={() => requestForSorting(0)}>
+                            {!open && <span onClick={() => requestForSorting(0)}>
                                 <img style={{width: '15px'}} src={arrowDown} alt="arrowDown"/>
-                            </button>}
-                            {open && <button onClick={() => requestForSorting(1)}>
+                            </span>}
+                            {open && <span onClick={() => requestForSorting(1)}>
                                 <img style={{width: '15px'}} src={arrowUp} alt="arrowUp"/>
-                            </button>}
+                            </span>}
                         </li>
                         <li className={style.packsItem}>Last Updated
                         </li>

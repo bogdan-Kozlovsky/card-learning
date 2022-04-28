@@ -22,7 +22,7 @@ export const NewPassword = memo(() => {
     }
 
     if (newPasswordValue) {
-        return <Navigate to='/'/>
+        return <Navigate to='/login'/>
     }
     return (
         <div className="wrapperBox">

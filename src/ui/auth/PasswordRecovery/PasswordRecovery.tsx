@@ -54,7 +54,7 @@ export const PasswordRecovery = memo(() => {
                     {/*</NavLink>*/}
                 </div>
                 <div className='wrapperLinkCenter'>
-                    <NavLink to={'/'} className={style.forgotLink}>
+                    <NavLink to={'/login'} className={style.forgotLink}>
                         Try login in
                     </NavLink>
                 </div>

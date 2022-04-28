@@ -7,20 +7,22 @@ import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {SuperInput, SuperInputPassword} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
 import {useAppSelector} from "../../common/hook/hook";
-import {selectAppInitialized} from "../../../bll/selectors";
+import {selectAppInitialized, selectSignInisLogin} from "../../../bll/selectors";
 
 type propsType = {
     theme?: string
 }
 
 export const Login = memo((props: propsType) => {
+    console.log('login')
     const {theme} = props
-    const initialized = useAppSelector(selectAppInitialized)
+    const isLogin = useAppSelector(selectSignInisLogin)
 
     const dispatch = useDispatch()
     const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
     const [password, setPassword] = useState<string>('Stupid23Stupid')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
+
     const isLoginHandler = () => {
         dispatch(requestLoginTC({email, password, rememberMe}))
     }
@@ -37,9 +39,10 @@ export const Login = memo((props: propsType) => {
         setRememberMe(e.currentTarget.checked);
     };
 
-    if (initialized) {
+    if (isLogin) {
         return <Navigate to='/profile'/>
     }
+    // if (isLogin) return <Navigate to='/profile'/>
 
     return (
         <div className={`wrapperBox`}>

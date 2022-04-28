@@ -32,7 +32,7 @@ const initialState: InitialStateType = {
         __v: null,
         _id: null,
     },
-    isLogin: true,
+    isLogin: false,
 }
 
 
@@ -64,14 +64,16 @@ export const isLoginAC = (value: boolean,) => {
     } as const
 }
 
+
+
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 export const requestLoginTC = (data: { email: string, password: string, rememberMe: boolean }) => (dispatch: Dispatch) => {
     requestsApi.loginRequest(data)
         .then((res) => {
+            dispatch(isLoginAC(true))
             dispatch(signInAC(res.data,))
             dispatch(authMeAC(res.data))
-            dispatch(initializedAC(true))
-            dispatch(isLoginAC(true))
+            // dispatch(initializedAC(true))
         })
         .catch(error => {
             dispatch(setAppErrorAC(error.response.data.error))
