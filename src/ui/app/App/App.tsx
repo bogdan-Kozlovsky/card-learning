@@ -27,7 +27,6 @@ export const App = memo(() => {
         return <InitializingLoader />
     }
 
-
     return (
         <div className={`App ${theme === 'dark' ? style.dark : style.light}`}>
             {status === "loading"

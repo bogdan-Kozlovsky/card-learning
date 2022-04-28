@@ -23,7 +23,7 @@ export const RoutesNav = memo((props: propsType) => {
                 <Route path='/login' element={<Login theme={theme}/>}/>
                 <Route path='/register' element={<Registration/>}/>
                 {/*<Route path='/profile' element={<LoginNavigate><ProfileContainer/></LoginNavigate>}/>*/}
-                <Route path='/profile' element={<ProfileContainer/>}/>
+                <Route path='/profile' element={<LoginNavigate><ProfileContainer/> </LoginNavigate>}/>
                 <Route path='recovery-password' element={<PasswordRecovery/>}/>
                 <Route
                     path='auth-email-password'

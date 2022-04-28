@@ -76,6 +76,7 @@ export const authMeTC = () => (dispatch: Dispatch) => {
         })
         .catch(error => {
             dispatch(isLoginAC(false))
+            dispatch(initializedAC(true))
             dispatch(setAppErrorAC(error.response.data.error))
         })
         .finally(() => {
