@@ -21,7 +21,6 @@ type  FormikErrorType = {
 
 export const Login = memo(() => {
     const dispatch = useDispatch()
-
     const [disable, setDisable] = useState<boolean>(false)
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
     const isLogin = useAppSelector(selectSignInisLogin)
@@ -35,10 +34,14 @@ export const Login = memo(() => {
         validate: (values) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
-                errors.email = 'Email is required';
+                errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
             }
             if (!values.password) {
-                errors.password = 'Password is required';
+                errors.password = 'Required';
+            } else if (values.password.length < 3) {
+                errors.password = 'Must be more than 3 characters.';
             }
 
             if (formik.errors.email || formik.errors.password) {
