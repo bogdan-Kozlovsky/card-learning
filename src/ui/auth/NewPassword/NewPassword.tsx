@@ -3,10 +3,10 @@ import {Navigate, useParams} from "react-router-dom";
 import {SuperButton} from "../../common/SuperButton/SuperButton";
 import {useDispatch} from "react-redux";
 import {newPasswordTC} from "../../../bll/reducers/auth-reducer";
-import {SuperInputPassword} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
 import {selectAuthNewPasswordValue} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
+import {SuperInputPassword} from "../../common/SuperInput/SuperInputPassword";
 
 export const NewPassword = memo(() => {
     const newPasswordValue = useAppSelector(selectAuthNewPasswordValue)

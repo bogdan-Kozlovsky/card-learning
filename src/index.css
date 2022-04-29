@@ -75,7 +75,7 @@ ul {
     height: 30px;
     border-bottom: 1px solid #24254A;
     width: 100%;
-    padding: 15px 3px;
+    padding: 15px 5px;
     margin-bottom: 24px;
     background-color: #F9F9FE;
 }
@@ -92,15 +92,6 @@ ul {
     width: 30px;
     background-color: #F9F9FE;
     margin-top: 3px;
-}
-
-.inputLabel {
-    text-align: left;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-    color: #24254A;
-    opacity: 0.5;
 }
 
 .inputLabelFlex {
@@ -170,7 +161,7 @@ ul {
     width: 25px;
     cursor: pointer;
     position: absolute;
-    top: 3px;
+    top: 50%;
     right: 10px;
 }
 
