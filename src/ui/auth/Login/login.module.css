@@ -16,7 +16,14 @@
     padding: 9px 100px;
     margin: 0 auto 20px auto;
 }
-
+.error {
+    position: absolute;
+    left: 50%;
+    bottom: -55%;
+    transform: translate(-50%, -50%);
+    color: red;
+    font-size: 14px;
+}
 
 .dark {
     /*background: linear-gradient(#36b6c2, #c391e5);*/

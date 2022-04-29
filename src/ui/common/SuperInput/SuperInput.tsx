@@ -40,12 +40,15 @@ export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
         // value,
         // children,
         type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
-        onChange, onChangeText,
-        onKeyPress, onEnter,
+        onChange,
+        onChangeText,
+        onKeyPress,
+        onEnter,
         error,
         className,
         spanClassName, inputClassName,
         theme,
+        onBlur,
         ...restProps
 
     } = props
@@ -66,7 +69,7 @@ export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
 
     return (
         <>
-            <input
+            <input onBlur={onBlur}
                 type={type ? type : 'text'}
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
@@ -90,6 +93,7 @@ export const SuperInputPassword = memo((props: Partial<SuperInputPropsType>) => 
         spanClassName, inputClassName,
         theme,
         className,
+        onBlur,
         handlerShowPassword,
         ...restProps
     } = props
@@ -109,15 +113,15 @@ export const SuperInputPassword = memo((props: Partial<SuperInputPropsType>) => 
         && onEnter(); // то вызвать его
     }
 
-   const onHandlerShow = () =>{
-       handlerShowPassword()
-       setShown(!shown)
-   }
+    const onHandlerShow = () => {
+        handlerShowPassword()
+        setShown(!shown)
+    }
 
     return (
 
         <div className='inputPasswordShow'>
-            <input
+            <input onBlur={onBlur}
                 type={type ? type : 'text'}
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
@@ -132,7 +136,6 @@ export const SuperInputPassword = memo((props: Partial<SuperInputPropsType>) => 
 
 export const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
     {
-        theme,
         type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
         onChange, onChangeChecked,
         className, spanClassName,

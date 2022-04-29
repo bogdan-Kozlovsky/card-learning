@@ -14,12 +14,14 @@ import {selectSignInisLogin} from "../../../bll/selectors";
 type propsType = {
     theme?: string
 }
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
+}
 
-export const Login = memo((props: propsType) => {
-    const [showPassword, setShowPassword] = useState<boolean>(false)
-    const {theme} = props
-    const initialized = useAppSelector(selectAppInitialized)
 export const Login = memo(() => {
+    const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const isLogin = useAppSelector(selectSignInisLogin)
 
@@ -29,6 +31,20 @@ export const Login = memo(() => {
             password: '',
             rememberMe: false
         },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.email) {
+                errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+            }
+            if (!values.password) {
+                errors.password = 'Required';
+            } else if (values.password.length < 3) {
+                errors.password = 'Must be more than 3 characters.';
+            }
+            return errors;
+        },
         onSubmit: values => {
             dispatch(requestLoginTC(values))
             formik.resetForm()
@@ -37,24 +53,24 @@ export const Login = memo(() => {
 
 
     const dispatch = useDispatch()
-    const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
-    const [password, setPassword] = useState<string>('Stupid23Stupid')
-    const [rememberMe, setRememberMe] = useState<boolean>(false)
-    const isLoginHandler = () => {
-        dispatch(requestLoginTC({email, password, rememberMe}))
-    }
+    // const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com')
+    // const [password, setPassword] = useState<string>('Stupid23Stupid')
+    // const [rememberMe, setRememberMe] = useState<boolean>(false)
+    // const isLoginHandler = () => {
+    //     dispatch(requestLoginTC({email, password, rememberMe}))
+    // }
 
 
     //onChange
-    const onChangeHandlerEmail = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.currentTarget.value);
-    };
-    const onChangeHandlerPassword = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.currentTarget.value);
-    };
-    const onChangeHandlerChecked = (e: ChangeEvent<HTMLInputElement>) => {
-        setRememberMe(e.currentTarget.checked);
-    };
+    // const onChangeHandlerEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setEmail(e.currentTarget.value);
+    // };
+    // const onChangeHandlerPassword = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setPassword(e.currentTarget.value);
+    // };
+    // const onChangeHandlerChecked = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setRememberMe(e.currentTarget.checked);
+    // };
 
     if (isLogin) {
         return <Navigate to='/profile'/>
@@ -71,8 +87,13 @@ export const Login = memo(() => {
                 <form onSubmit={formik.handleSubmit}>
                     <label className="inputLabel">
                         Email
-                        <SuperInput className='input' {...formik.getFieldProps('email')}
-                                    type='text'/>
+                        <SuperInput
+                            className='input'
+                            {...formik.getFieldProps('email')}
+                            type='text'/>
+                        {formik.touched.email && formik.errors.email &&
+                            <div style={{color: 'red'}}>{formik.errors.email}</div>}
+
                     </label>
                     <label className="inputLabel">
                         Password
@@ -81,13 +102,15 @@ export const Login = memo(() => {
                                             type={showPassword ? 'text' : 'password'}
                                             {...formik.getFieldProps('password')}
                         />
+                        {formik.touched.password && formik.errors.password && <div style={{color: 'red'}}>{formik.errors.password}</div>}
+
                     </label>
                     <label className="inputLabel inputLabelFlex">
                         Remember Me
-                        <SuperCheckbox theme={theme}
-                                       id="rememberMe"
-                                       type="rememberMe"
-                                       {...formik.getFieldProps('rememberMe')}
+                        <SuperCheckbox
+                            id="rememberMe"
+                            type="rememberMe"
+                            {...formik.getFieldProps('rememberMe')}
                         />
                         {/*<SuperInput type={'checkbox'} {...formik.getFieldProps('rememberMe')} className='inputCheckbox'*/}
                         {/*            checked={rememberMe}/>*/}
