@@ -1,5 +1,5 @@
 export enum PATH {
-    LOGIN = '/login',
+    LOGIN = '/',
     REGISTRATION = '/register',
     PROFILE = '/profile',
     ERROR_404 = '/404',

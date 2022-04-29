@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo, useState} from 'react';
+import React, {memo, useState} from 'react';
 import style from './registration.module.css'
 import {useDispatch} from "react-redux";
 import {Navigate, NavLink} from 'react-router-dom';
@@ -8,10 +8,10 @@ import {selectSignUpIsRegistration} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
 import {SuperInputPassword} from "../../common/SuperInput/SuperInputPassword";
 import {useFormik} from "formik";
-import {requestLoginTC} from "../../../bll/reducers/sign_in-reducer";
 import {SuperInput} from "../../common/SuperInput/SuperInput";
 import openShow from "../../assets/images/openShow.svg";
 import closeShow from "../../assets/images/closeShow.svg";
+import {PATH} from "../../enums/paths";
 
 type  FormikErrorType = {
     email?: string
@@ -23,8 +23,6 @@ export const Registration = memo(() => {
     const isRegistration = useAppSelector(selectSignUpIsRegistration)
 
     const dispatch = useDispatch()
-    const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com');
-    const [password, setPassword] = useState<string>('Stupid23Stupid');
     const [disable, setDisable] = useState<boolean>(false)
     const [isShownVoice, setIsShownVoice] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
@@ -59,26 +57,16 @@ export const Registration = memo(() => {
             return errors;
         },
         onSubmit: data => {
-           dispatch(requestRegistrationTC(data))
+            dispatch(requestRegistrationTC(data))
             setDisable(true)
             formik.resetForm()
         },
     })
 
     if (isRegistration) {
-        return <Navigate to='/login'/>
+        return <Navigate to={PATH.LOGIN}/>
     }
     // callBack
-    const onChangeHandlerEmail = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.currentTarget.value);
-    };
-    const onChangeHandlerPassword = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.currentTarget.value);
-    };
-    const sendRegistrationRequest = () => {
-        dispatch(requestRegistrationTC({email, password}))
-    }
-
     const onHandlerShow = () => {
         handlerShowPassword()
         setIsShownVoice(!isShownVoice)
@@ -94,7 +82,7 @@ export const Registration = memo(() => {
                 <h2 className="title">It-incubator</h2>
                 <h3 className="subtitle">Sign Up</h3>
                 <form onSubmit={formik.handleSubmit}>
-                    <label className={style.inputLabel}>
+                    <label className={'inputLabel'}>
                         Email
                         <SuperInput className='input' {...formik.getFieldProps('email')}
                                     type='text'/>
@@ -103,7 +91,7 @@ export const Registration = memo(() => {
                             : null
                         }
                     </label>
-                    <label className={style.inputLabel}>
+                    <label className={'inputLabel'}>
                         Password
                         <SuperInputPassword className={'input'}
                                             type={isShowPassword ? 'text' : 'password'}
@@ -116,16 +104,12 @@ export const Registration = memo(() => {
                             : null
                         }
                     </label>
-                <div className={style.buttons}>
-                    <NavLink to={'/login'} className={style.cancel}>
-                        Cancel
-                    </NavLink>
-                    <button
-                        onClick={sendRegistrationRequest}
-                        className={style.btnRegister}
-                    >Register
-                    </button>
-                </div>
+                    <div className={style.buttons}>
+                        <NavLink to={PATH.LOGIN} className={style.cancel}>
+                            Cancel
+                        </NavLink>
+                        <button disabled={disable} className={style.btnRegister}>Register</button>
+                    </div>
                 </form>
             </div>
         </div>

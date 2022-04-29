@@ -18,6 +18,7 @@ import {
     selectSignInisLogin
 } from "../../bll/selectors";
 import {Packs} from "./Packs";
+import {PATH} from "../enums/paths";
 
 export const PacksContainer = memo(() => {
     const myId = useAppSelector(selectProfileProfileId)
@@ -115,7 +116,7 @@ export const PacksContainer = memo(() => {
     }
 
     if (!isLogin) {
-        navigate('/login')
+        navigate(`${PATH.LOGIN}`)
     }
 
     return (

@@ -48,13 +48,3 @@
     color: #d03566;
     font-size: 14px;
 }
-
-.inputLabel {
-    position: relative;
-    text-align: left;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-    color: #24254A;
-    opacity: 0.5;
-}

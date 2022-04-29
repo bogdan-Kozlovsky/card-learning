@@ -1,16 +1,18 @@
 import React, {memo, useEffect, useState} from 'react';
 import style from './learn.module.css'
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {CardsType, getCardsTC} from "../../bll/reducers/cards-reducer";
 import {useDispatch} from "react-redux";
 import {LearnAnswer} from "./LearnAnswer";
 import {useAppSelector} from "../common/hook/hook";
-import {selectCardsCards, selectPacksCardsPacks} from "../../bll/selectors";
+import {selectCardsCards, selectPacksCardsPacks, selectSignInisLogin} from "../../bll/selectors";
+import {PATH} from "../enums/paths";
 
 export const Learn = memo(() => {
     const [showAnswer, setShowAnswer] = useState<boolean>(false)
     const packs = useAppSelector(selectPacksCardsPacks)
     const cards = useAppSelector(selectCardsCards)
+    const isLogin = useAppSelector(selectSignInisLogin)
     const dispatch = useDispatch();
     const {learnId} = useParams();
     const [state, setState] = useState<CardsType | null>(null)
@@ -26,6 +28,12 @@ export const Learn = memo(() => {
     }, [cards])
 
     const pack = packs.find((p) => p._id === state?.cardsPack_id)
+
+    const navigate = useNavigate()
+    if (!isLogin) {
+        navigate(`${PATH.LOGIN}`)
+    }
+
 
     const getCard = (cards: CardsType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);

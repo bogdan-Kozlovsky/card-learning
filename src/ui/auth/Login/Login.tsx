@@ -12,6 +12,7 @@ import {SuperCheckbox} from "../../common/SuperInput/SuperCheckbox";
 import {SuperInputPassword} from "../../common/SuperInput/SuperInputPassword";
 import openShow from "../../assets/images/openShow.svg";
 import closeShow from "../../assets/images/closeShow.svg";
+import {InitializingLoader} from "../../common/InitializingLoader/InitializingLoader";
 
 type  FormikErrorType = {
     email?: string
@@ -81,7 +82,7 @@ export const Login = memo(() => {
                 <h2 className="title">It-incubator</h2>
                 <h3 className="subtitle">Sign In</h3>
                 <form onSubmit={formik.handleSubmit}>
-                    <label className={style.inputLabel}>
+                    <label className={'inputLabel'}>
                         Email
                         <SuperInput className='input' {...formik.getFieldProps('email')}
                                     type='text'/>
@@ -90,7 +91,7 @@ export const Login = memo(() => {
                             : null
                         }
                     </label>
-                    <label className={style.inputLabel}>
+                    <label className={'inputLabel'}>
                         Password
                         <SuperInputPassword className={'input'}
                                             type={isShowPassword ? 'text' : 'password'}
@@ -103,7 +104,7 @@ export const Login = memo(() => {
                             : null
                         }
                     </label>
-                    <label className={`${style.inputLabel} inputLabelFlex`}>
+                    <label className={`inputLabel inputLabelFlex`}>
                         Remember Me
                         <SuperCheckbox
                             id="rememberMe"

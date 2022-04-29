@@ -7,6 +7,7 @@ import {ErrorSnackbar} from "../../error/Error";
 import {selectAuthNewPasswordValue} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
 import {SuperInputPassword} from "../../common/SuperInput/SuperInputPassword";
+import {PATH} from "../../enums/paths";
 
 export const NewPassword = memo(() => {
     const newPasswordValue = useAppSelector(selectAuthNewPasswordValue)
@@ -22,7 +23,7 @@ export const NewPassword = memo(() => {
     }
 
     if (newPasswordValue) {
-        return <Navigate to='/login'/>
+        return <Navigate to={PATH.LOGIN}/>
     }
     return (
         <div className="wrapperBox">

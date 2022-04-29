@@ -8,6 +8,7 @@ import {SuperInput} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
 import {selectAuthForgotValue} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
+import {PATH} from "../../enums/paths";
 
 export const PasswordRecovery = memo(() => {
     const forgotValue = useAppSelector(selectAuthForgotValue)
@@ -54,7 +55,7 @@ export const PasswordRecovery = memo(() => {
                     {/*</NavLink>*/}
                 </div>
                 <div className='wrapperLinkCenter'>
-                    <NavLink to={'/login'} className={style.forgotLink}>
+                    <NavLink to={PATH.LOGIN} className={style.forgotLink}>
                         Try login in
                     </NavLink>
                 </div>

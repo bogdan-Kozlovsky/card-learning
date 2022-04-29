@@ -1,8 +1,11 @@
 import React, {ChangeEvent, memo, useState} from 'react';
 import style from './learn.module.css'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {gradeTC} from "../../bll/reducers/cards-reducer";
+import {useAppSelector} from "../common/hook/hook";
+import {selectSignInisLogin} from "../../bll/selectors";
+import {PATH} from "../enums/paths";
 
 type LearnAnswerPropsType = {
     learn_id: string
@@ -13,13 +16,19 @@ type LearnAnswerPropsType = {
 }
 
 export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
-    const {learn_id, name, question, answer, closeAnswer} = props
     const dispatch = useDispatch()
+    const {learn_id, name, question, answer, closeAnswer} = props
+
+    const isLogin = useAppSelector(selectSignInisLogin)
     const [valueInput, setValueInput] = useState<string>('')
 
     const nextCard = () => {
         dispatch(gradeTC(+valueInput, learn_id))
         closeAnswer()
+    }
+    const navigate = useNavigate()
+    if (!isLogin) {
+        navigate(`${PATH.LOGIN}`)
     }
 
     return (

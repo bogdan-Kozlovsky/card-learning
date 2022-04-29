@@ -9,6 +9,7 @@ import logoutIcon from "../assets/images/icons/logout.svg";
 import {logoutTC} from "../../bll/reducers/app-reducer";
 import {useAppSelector} from "../common/hook/hook";
 import {selectSignInisLogin} from "../../bll/selectors";
+import {PATH} from "../enums/paths";
 
 export const NavigateLink = memo(() => {
     const isLogin = useAppSelector(selectSignInisLogin)
@@ -25,12 +26,12 @@ export const NavigateLink = memo(() => {
                     <li className={style.itemLink}>
                         <img className={style.decor} src={logoutIcon} alt="profileIcon"/>
                         <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
-                                 to={'/login'}>Login</NavLink>
+                                 to={PATH.LOGIN}>Login</NavLink>
                     </li>
                     <li className={style.itemLink}>
                         <img className={style.decor} src={loginIcon} alt="profileIcon"/>
                         <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
-                                 to={'/register'}>Registration</NavLink>
+                                 to={PATH.REGISTRATION}>Registration</NavLink>
                     </li>
 
                 </>}
@@ -40,13 +41,13 @@ export const NavigateLink = memo(() => {
                         <li className={style.itemLink}>
                             <img className={style.decor} src={profile} alt="profileIcon"/>
                             <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
-                                     to={'/profile'}>Profile</NavLink>
+                                     to={PATH.PROFILE}>Profile</NavLink>
                         </li>
 
                         <li className={style.itemLink}>
                             <img className={style.decor} src={packIcon} alt="packIcon"/>
                             <NavLink className={({isActive}) => `${style.link} ${isActive ? style.linkActive : ''}`}
-                                     to={'/packs_list'}>Packs list</NavLink>
+                                     to={PATH.PACKS}>Packs list</NavLink>
                         </li>
                     </div>
 

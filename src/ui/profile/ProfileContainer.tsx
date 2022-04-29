@@ -5,7 +5,7 @@ import {Profile} from "./Profile";
 import {selectAppInitialized, selectAuthForgotProfile, selectSignInisLogin} from "../../bll/selectors";
 import {useAppSelector} from "../common/hook/hook";
 import {useNavigate} from "react-router-dom";
-import style from "../packs/packs.module.css";
+import {PATH} from "../enums/paths";
 
 export const ProfileContainer = memo(() => {
     console.log('ProfileContainer')
@@ -41,7 +41,7 @@ export const ProfileContainer = memo(() => {
 
     const initialized = useAppSelector(selectAppInitialized)
     if (!isLogin) {
-        navigate('/login')
+        navigate(`${PATH.LOGIN}`)
     }
     return (
         <>
