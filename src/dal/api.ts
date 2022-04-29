@@ -92,7 +92,7 @@ export const requestsApi = {
         return instance.put<ResponseType>('auth/me', {name, avatar})
     },
     forgotPassword(data: ForgotPasswordType) {
-        return instance.post<ProfileType>('auth/forgot', {data})
+        return instance.post<ProfileType>('auth/forgot', data)
     },
     newPassword(data: { password: string, resetPasswordToken: string | undefined }) {
         return instance.post<{ info: string, error: string }>('auth/set-new-password', data)

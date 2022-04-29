@@ -84,6 +84,7 @@ export const authMeTC = () => (dispatch: Dispatch) => {
         })
 }
 export const forgotPasswordTC = (data: ForgotPasswordType) => (dispatch: Dispatch) => {
+    debugger
     dispatch(getStatusAC('loading'))
     requestsApi.forgotPassword(data)
         .then(res => {

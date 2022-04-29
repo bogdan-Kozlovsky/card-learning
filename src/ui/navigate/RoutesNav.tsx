@@ -18,7 +18,6 @@ type propsType = {
 }
 
 export const RoutesNav = memo((props: propsType) => {
-    const {theme} = props
     return (
         <div className='container'>
             <Routes>
@@ -27,7 +26,7 @@ export const RoutesNav = memo((props: propsType) => {
                 <Route path={PATH.PROFILE} element={<LoginNavigate><ProfileContainer/> </LoginNavigate>}/>
                 <Route path={PATH.PASSWORD_RECOVERY} element={<PasswordRecovery/>}/>
                 <Route path={PATH.EMAIL_PASSWORD} element={<AuthEmailPassword/>}/>
-                <Route path={`${PATH.NEW_PASSWORD}:token`} element={<NewPassword/>}/>
+                <Route path={`${PATH.NEW_PASSWORD}/:token`} element={<NewPassword/>}/>
                 <Route path={PATH.PACKS} element={<LoginNavigate><PacksContainer/></LoginNavigate>}/>
                 <Route path={`${PATH.LEARN}/:learnId`} element={<Learn/>}/>
                 <Route path={`${PATH.CARDS}/:packId`} element={<CardsContainer/>}/>

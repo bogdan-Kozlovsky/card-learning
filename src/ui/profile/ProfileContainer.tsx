@@ -2,7 +2,7 @@ import React, {ChangeEvent, memo, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {updateProfileTC} from "../../bll/reducers/profile-reducer";
 import {Profile} from "./Profile";
-import {selectAppInitialized, selectAuthForgotProfile, selectSignInisLogin} from "../../bll/selectors";
+import {selectAuthForgotProfile, selectSignInisLogin} from "../../bll/selectors";
 import {useAppSelector} from "../common/hook/hook";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../enums/paths";
@@ -39,7 +39,6 @@ export const ProfileContainer = memo(() => {
         setAvatar(e.currentTarget.value)
     }
 
-    const initialized = useAppSelector(selectAppInitialized)
     if (!isLogin) {
         navigate(`${PATH.LOGIN}`)
     }

@@ -14,6 +14,7 @@ export const PasswordRecovery = memo(() => {
     const forgotValue = useAppSelector(selectAuthForgotValue)
 
     const [email, setEmail] = useState<string>("maxcardbogdan@gmail.com")
+
     const dispatch = useDispatch()
     const data = {
         email,
@@ -23,6 +24,8 @@ export const PasswordRecovery = memo(() => {
             <a href='http://localhost:3000/entering-new-password/$token$'>link</a>
         </div>`
     }
+
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
     }
@@ -31,7 +34,7 @@ export const PasswordRecovery = memo(() => {
     }
 
     if (forgotValue) {
-        return <Navigate to={'/auth-email-password'}/>
+        return <Navigate to={PATH.EMAIL_PASSWORD}/>
     }
 
 
