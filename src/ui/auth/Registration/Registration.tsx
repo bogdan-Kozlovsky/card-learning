@@ -3,10 +3,10 @@ import style from './registration.module.css'
 import {useDispatch} from "react-redux";
 import {Navigate, NavLink} from 'react-router-dom';
 import {requestRegistrationTC} from "../../../bll/reducers/sign_up-reducer";
-import {SuperInputPassword} from "../../common/SuperInput/SuperInput";
 import {ErrorSnackbar} from "../../error/Error";
 import {selectSignUpIsRegistration} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
+import {SuperInputPassword} from "../../common/SuperInput/SuperInputPassword";
 
 export const Registration = memo(() => {
     const isRegistration = useAppSelector(selectSignUpIsRegistration)

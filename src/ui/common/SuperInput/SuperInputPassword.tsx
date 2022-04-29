@@ -1,6 +1,5 @@
-import React, {ChangeEvent, DetailedHTMLProps, KeyboardEvent, InputHTMLAttributes, memo, useState} from 'react';
-import openShow from '../../assets/images/openShow.svg'
-import closeShow from '../../assets/images/closeShow.svg'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, memo} from "react";
+
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -12,19 +11,16 @@ type SuperInputPropsType = DefaultInputPropsType & { // и + ещё пропсы
     error?: string | null | boolean
     spanClassName?: string
     inputClassName?: string
-    handlerShowPassword?: any
 };
-
-export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
+export const SuperInputPassword = memo((props: SuperInputPropsType) => {
     const {
         type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
         onChange, onChangeText,
         onKeyPress, onEnter,
         error,
-        className,
         spanClassName, inputClassName,
+        className,
         ...restProps
-
     } = props
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +38,7 @@ export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
     }
 
     return (
+
         <>
             <input
                 type={type ? type : 'text'}
@@ -53,8 +50,3 @@ export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
         </>
     );
 })
-
-
-
-
-
