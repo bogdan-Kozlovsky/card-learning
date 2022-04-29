@@ -12,12 +12,8 @@ import {SuperInput} from "../../common/SuperInput/SuperInput";
 import openShow from "../../assets/images/openShow.svg";
 import closeShow from "../../assets/images/closeShow.svg";
 import {PATH} from "../../enums/paths";
+import {checkValidation} from "../../common/checkValidation";
 
-type  FormikErrorType = {
-    email?: string
-    password?: string
-    rememberMe?: boolean
-}
 
 export const Registration = memo(() => {
     const isRegistration = useAppSelector(selectSignUpIsRegistration)
@@ -28,33 +24,16 @@ export const Registration = memo(() => {
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
 
 
+    // @ts-ignore
     const formik = useFormik({
         initialValues: {
             email: 'maxcardbogdan@gmail.com',
             password: 'Stupid23Stupid',
             rememberMe: true
         },
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-            if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-                errors.password = 'Required';
-            } else if (values.password.length < 3) {
-                errors.password = 'Must be more than 3 characters.';
-            }
 
-            if (formik.errors.email || formik.errors.password) {
-                if (Object.keys(errors).length === 0) {
-                    setDisable(false)
-                } else {
-                    setDisable(true)
-                }
-            }
-            return errors;
+        validate: (values) => {
+            return checkValidation(formik, values, setDisable)
         },
         onSubmit: data => {
             dispatch(requestRegistrationTC(data))
