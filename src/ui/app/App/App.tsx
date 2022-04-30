@@ -34,8 +34,6 @@ export const App = memo(() => {
                 <div className={style.linearProgress}><LinearProgress/></div>}
             <Header theme={theme} toggleTheme={toggleTheme}/>
             <RoutesNav theme={theme}/>
-            {/*"homepage": "https://bogdan-Kozlovsky.github.io/card-learning/",*/}
-
             <ErrorSnackbar/>
         </div>
     );

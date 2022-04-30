@@ -16,16 +16,21 @@ export const Learn = memo(() => {
     const dispatch = useDispatch();
     const {learnId} = useParams();
     const [state, setState] = useState<CardsType | null>(null)
-    useEffect(() => {
-        if (!showAnswer) {
-            dispatch(getCardsTC(learnId))
-        }
-    }, [showAnswer])
 
-    useEffect(() => {
+    const a = () => {
         const learnData = getCard(cards);
         setState(learnData)
+    }
+    useEffect(() => {
+        // if (!showAnswer) {
+        dispatch(getCardsTC(learnId))
+        // }
+    }, [])
+
+    useEffect(() => {
+        a()
     }, [cards])
+
 
     const pack = packs.find((p) => p._id === state?.cardsPack_id)
 
@@ -60,7 +65,7 @@ export const Learn = memo(() => {
                         showAnswer
                             ? <div>
                                 <LearnAnswer question={state?.question} answer={state?.answer} name={pack?.name}
-                                             learn_id={state?._id || ''} closeAnswer={closeAnswer}
+                                             learn_id={state?._id || ''} closeAnswer={closeAnswer} a={a}
                                 />
                             </div>
                             : <div className={style.bodyWrap}>

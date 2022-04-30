@@ -13,6 +13,7 @@ type LearnAnswerPropsType = {
     name: string | undefined
     question: string | undefined
     answer: string | undefined
+    a: any
 }
 
 export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
@@ -24,8 +25,11 @@ export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
 
     const nextCard = () => {
         dispatch(gradeTC(+valueInput, learn_id))
+        props.a()
         closeAnswer()
     }
+
+
     const navigate = useNavigate()
     if (!isLogin) {
         navigate(`${PATH.LOGIN}`)

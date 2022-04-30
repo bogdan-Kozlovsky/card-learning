@@ -63,7 +63,6 @@ export const Packs = memo((props: propsType) => {
     const {min, max} = useAppSelector(selectPacksParams)
     const pack = useAppSelector(selectPacksCardsPacks)
     const myId = useAppSelector(selectProfileProfileId)
-    const initialized = useAppSelector(selectAppInitialized)
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>

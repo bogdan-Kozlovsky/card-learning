@@ -112,7 +112,7 @@ export const PacksContainer = memo(() => {
 
     // learn Card
     const getLearnCard = (learnId: string | null) => {
-        navigate(`/packs_list/link/${learnId}`)
+        navigate(`${PATH.LEARN}/${learnId}`)
     }
 
     if (!isLogin) {

@@ -5,7 +5,6 @@ import {selectAppInitialized} from "../../../bll/selectors";
 import {PATH} from "../../enums/paths";
 
 export const LoginNavigate: FC = ({children}) => {
-    console.log('LoginNavigate')
     const initialized = useAppSelector(selectAppInitialized)
     if (!initialized) return <Navigate to={PATH.LOGIN}/>
     return <>{children}</>

@@ -58,7 +58,7 @@ export type CardsParamsType = {
     page: number,
     pageCount: number,
 }
-type UpdatedGradeType= {
+type UpdatedGradeType = {
     _id: string
     cardsPack_id: string
     card_id: string
@@ -108,11 +108,11 @@ export const setCardsCurrentPageAC = (value: number) => {
     } as const
 }
 
-export const setGradeCardAC= (value:UpdatedGradeType) => {
+export const setGradeCardAC = (value: UpdatedGradeType) => {
     return {
-        type : 'CARDS/SET-GRADE-CARD',
+        type: 'CARDS/SET-GRADE-CARD',
         value
-    }as const
+    } as const
 }
 
 ////////////thunk////////////////////
@@ -169,14 +169,13 @@ export const updateCardTC = (packId: string | undefined, _id: string, updateName
         })
 }
 
-export const gradeTC = (grade: number, card_id: any):ThunkType =>(dispatch)=>{
-const payload = {
-    grade,
-    card_id
-}
-    console.log(payload.card_id, 'payload')
+export const gradeTC = (grade: number, card_id: string): ThunkType => (dispatch) => {
+    const payload = {
+        grade,
+        card_id
+    }
     requestsApi.gradeCard(payload)
-        .then(res=>{
+        .then(res => {
             dispatch(setGradeCardAC(res.data))
         })
 }

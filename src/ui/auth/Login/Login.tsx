@@ -14,6 +14,7 @@ import openShow from "../../assets/images/openShow.svg";
 import closeShow from "../../assets/images/closeShow.svg";
 import {InitializingLoader} from "../../common/InitializingLoader/InitializingLoader";
 import {checkValidation} from "../../common/checkValidation";
+import {PATH} from "../../enums/paths";
 
 export const Login = memo(() => {
     const dispatch = useDispatch()
@@ -49,7 +50,7 @@ export const Login = memo(() => {
     }
 
     if (isLogin) {
-        return <Navigate to='/profile'/>
+        return <Navigate to={PATH.PROFILE}/>
     }
 
     return (
