@@ -13,14 +13,22 @@ type AddUpdateModalPropsType = {
 
 export const AddUpdateModal = (props: AddUpdateModalPropsType) => {
 
-    const {overlayUpdate, setOverlayUpdate, handlerUpdate, updateName, updateNameChange, children, values} = props
+    const {
+        overlayUpdate,
+        setOverlayUpdate,
+        handlerUpdate,
+        updateName,
+        updateNameChange,
+        children,
+        values
+    } = props
 
+    //close modal func
     const handleSetOverlayUpdate = () => {
         setOverlayUpdate(false)
     }
 
     return (
-
         <div className={overlayUpdate ? `overlay_shown` : `overlay_hidden`}>
             <SuperModal closeModal={handleSetOverlayUpdate} titleName={values || 'Update pack'}>
                 <input onChange={updateNameChange} className='inputModal' placeholder={values || 'add'}
@@ -29,7 +37,6 @@ export const AddUpdateModal = (props: AddUpdateModalPropsType) => {
                 <button onClick={handlerUpdate} className='successBtn'>Save</button>
             </SuperModal>
         </div>
-
     );
 };
 

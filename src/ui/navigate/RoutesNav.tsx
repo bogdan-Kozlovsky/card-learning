@@ -30,8 +30,8 @@ export const RoutesNav = memo((props: propsType) => {
                 <Route path={PATH.PACKS} element={<LoginNavigate><PacksContainer/></LoginNavigate>}/>
                 <Route path={`${PATH.LEARN}/:learnId`} element={<Learn/>}/>
                 <Route path={`${PATH.CARDS}/:packId`} element={<CardsContainer/>}/>
-                {/*<Route path={PATH.ERROR_404} element={<Error404/>}/>*/}
-                {/*<Route path='*' element={<Navigate to='404'/>}/>*/}
+                <Route path={PATH.ERROR_404} element={<Error404/>}/>
+                <Route path='*' element={<Navigate to='404'/>}/>
             </Routes>
         </div>
     );

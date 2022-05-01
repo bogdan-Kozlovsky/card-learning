@@ -8,12 +8,7 @@ import Slider from "@material-ui/core/Slider";
 import {useAppSelector} from "../common/hook/hook";
 import {ErrorSnackbar} from "../error/Error";
 import search from '../assets/images/icons/search.svg'
-import {
-    selectAppInitialized,
-    selectPacksCardsPacks,
-    selectPacksParams,
-    selectProfileProfileId
-} from "../../bll/selectors";
+import {selectPacksCardsPacks, selectPacksParams, selectProfileProfileId} from "../../bll/selectors";
 import arrowUp from '../assets/images/icons/upArrow.svg'
 import arrowDown from '../assets/images/icons/downArrow.svg'
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
@@ -60,9 +55,12 @@ export const Packs = memo((props: propsType) => {
         closeHandler,
     } = props
 
+    //selector
     const {min, max} = useAppSelector(selectPacksParams)
     const pack = useAppSelector(selectPacksCardsPacks)
     const myId = useAppSelector(selectProfileProfileId)
+
+    //text refactoring by length
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
     return (
         <div className='container'>
@@ -107,8 +105,6 @@ export const Packs = memo((props: propsType) => {
                     <div className={style.packsBoxSearch}>
                         <SuperInput value={value} onChange={onSearchHandler} className={style.packsInputSearch}
                                     placeholder={'Search...'}>
-                            {/*value.length >= 1 && <span onClick={closeHandler} className={style.close}>&times;</span>*/}
-                            {/*<img className={style.inputIcons} src={search} alt="search"/>*/}
                         </SuperInput>
                         {value.length >= 1 && <span onClick={closeHandler} className={style.close}>&times;</span>}
                         <img className={style.inputIcons} src={search} alt="search"/>

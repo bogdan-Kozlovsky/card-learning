@@ -8,6 +8,7 @@ import {ErrorSnackbar} from "../error/Error";
 import {AddUpdateModal} from "../common/hook/AddUpdateModal";
 import {useAppSelector} from "../common/hook/hook";
 import {selectCardsCards, selectCardsPackUserId, selectProfileProfileId} from "../../bll/selectors";
+import {PATH} from "../enums/paths";
 
 type propsType = {
     handlerNewCard: () => void
@@ -35,17 +36,22 @@ export const Cards = memo((props: propsType) => {
         handlePageChange,
     } = props
 
+    //selector
     const cards = useAppSelector(selectCardsCards)
     const myUserId = useAppSelector(selectProfileProfileId)
     const packUserId = useAppSelector(selectCardsPackUserId)
+
+    //text refactoring by length
     const fixLengthText = (text: any) => text && (text)?.length >= 10 ? `${text.substr(0, 10)}...` : text
 
+    //if cardsTotalCount is greater than 7, pagination will appear
+    const cardsTotalCountLength = 7
     return (
         <div className='container'>
             <ErrorSnackbar/>
             <div className={style.cardsWrapper}>
                 <div className={style.cardsWrapLink}>
-                    <NavLink to={'/packs_list'}>
+                    <NavLink to={PATH.PACKS}>
                         <img src={redirectIcons} alt="redirectIcons"/>
                     </NavLink>
                     <h3 className={style.cardsTitle}>Pack Name</h3>
@@ -72,7 +78,6 @@ export const Cards = memo((props: propsType) => {
                     : <h1 className={style.title}>No card</h1>
                 }
 
-
                 {cards.map(el => {
                     return (
                         <div key={el._id}>
@@ -88,7 +93,7 @@ export const Cards = memo((props: propsType) => {
                     )
                 })}
                 {!!cardsTotalCount
-                    && cardsTotalCount > 7
+                    && cardsTotalCount > cardsTotalCountLength
                     && <Paginator totalPages={totalPages} handlePageChange={handlePageChange}/>
                 }
             </div>

@@ -3,19 +3,18 @@ import {Dispatch} from "redux";
 import {getStatusAC, initializedAC, setAppErrorAC} from "./app-reducer";
 import {isLoginAC} from "./sign_in-reducer";
 
+///////////////////////////////////////////// type ////////////////////////////////////////////
 export type InitialStateType = {
     profile: ProfileType
     forgotValue: boolean
     newPasswordValue: boolean
 }
-
 type ActionType =
     | ReturnType<typeof authMeAC>
     | ReturnType<typeof forgotValueAC>
     | ReturnType<typeof newPasswordValueAC>
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
-
 export const initialState: InitialStateType = {
     profile: {
         avatar: '',
@@ -61,11 +60,18 @@ export const authMeAC = (data: ProfileType,) => {
         type: "PROFILE/UPDATE_PROFILE", data,
     } as const
 }
-export const forgotValueAC = (value: boolean) => ({type: 'FORGOT_VALUE', value} as const)
-export const newPasswordValueAC = (value: boolean) => ({type: 'NEW_PASSWORD_VALUE', value} as const)
+export const forgotValueAC = (value: boolean) => {
+    return {
+        type: 'FORGOT_VALUE', value
+    } as const
+}
+export const newPasswordValueAC = (value: boolean) => {
+    return {
+        type: 'NEW_PASSWORD_VALUE', value
+    } as const
+}
 
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
-
 export const authMeTC = () => (dispatch: Dispatch) => {
     dispatch(getStatusAC('loading'))
     requestsApi.authMeRequest()
@@ -96,8 +102,6 @@ export const forgotPasswordTC = (data: ForgotPasswordType) => (dispatch: Dispatc
             dispatch(getStatusAC('succeeded'))
         })
 }
-
-
 export const newPasswordTC = (data: { password: string, resetPasswordToken: string | undefined }) => (dispatch: Dispatch) => {
     dispatch(getStatusAC('loading'))
     requestsApi.newPassword(data)

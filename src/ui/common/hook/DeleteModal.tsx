@@ -8,6 +8,8 @@ type propsType = {
 }
 export const DeleteModal = (props: propsType) => {
     const {value, setValue, handlerDeletePack} = props
+
+    //close modal func
     const closeModal = () => {
         setValue(false)
     }

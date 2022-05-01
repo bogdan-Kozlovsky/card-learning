@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {ProfileType, requestsApi} from "../../dal/api";
 import {authMeAC} from "./auth-reducer";
-import {initializedAC, setAppErrorAC} from "./app-reducer";
+import {setAppErrorAC} from "./app-reducer";
 
 ///////////////////////////////////////////// type ////////////////////////////////////////////
 export type InitialStateType = {
@@ -14,7 +14,6 @@ type ActionType =
 
 
 ///////////////////////////////////////////// initial state ////////////////////////////////////////////
-
 const initialState: InitialStateType = {
     profile: {
         avatar: '',
@@ -43,7 +42,6 @@ export const sign_inReducer = (state: InitialStateType = initialState, action: A
             return {...state, profile: action.data}
         }
         case "LOGIN/IS-LOGIN": {
-            // return {...state, ...action.payload}
             return {...state, isLogin: action.payload.value}
         }
         default: {
@@ -63,7 +61,6 @@ export const isLoginAC = (value: boolean,) => {
         type: 'LOGIN/IS-LOGIN', payload: {value},
     } as const
 }
-
 
 
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////

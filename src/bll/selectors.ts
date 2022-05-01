@@ -1,4 +1,5 @@
 import {AppRootStateType} from "./store";
+import {useSelector} from "react-redux";
 
 //  auth
 export const selectAuthNewPasswordValue = (state: AppRootStateType) => state.auth.newPasswordValue
@@ -30,3 +31,5 @@ export const selectPacksParams = (state: AppRootStateType) => state.packs.params
 export const selectPacksCardsPacksTotalCount = (state: AppRootStateType) => state.packs.cardPacksTotalCount
 export const selectPacksCardsPacks = (state: AppRootStateType) => state.packs.cardPacks
 
+//error
+export const selectError = (state: AppRootStateType) => state.app.error

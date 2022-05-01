@@ -50,10 +50,9 @@ type AddedUserType = {
     _id: string
 }
 export type ForgotPasswordType = {
-    email: string, // кому восстанавливать пароль
+    email: string,
     from: string,
-    // можно указать разработчика фронта)
-    message: string // хтмп-письмо, вместо $token$ бэк вставит токен
+    message: string
 }
 type NewCardType = {
     name?: string
@@ -68,14 +67,12 @@ type UpadatePackNameType = {
 export const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
     // baseURL: "http://localhost:7542/2.0/",
-    // "https://neko-back.herokuapp.com/2.0/",
-    // 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
 // global queries
 export const requestsApi = {
-    // api registration
+    //auth api
     registrationRequest(data: RegistrationType) {
         return instance.post<AddedUserType>('auth/register', data)
     },
@@ -88,15 +85,19 @@ export const requestsApi = {
     logoutRequest() {
         return instance.delete('/auth/me', {})
     },
-    updateProfile(name: string, avatar: any) {
-        return instance.put<ResponseType>('auth/me', {name, avatar})
-    },
     forgotPassword(data: ForgotPasswordType) {
         return instance.post<ProfileType>('auth/forgot', data)
     },
     newPassword(data: { password: string, resetPasswordToken: string | undefined }) {
         return instance.post<{ info: string, error: string }>('auth/set-new-password', data)
     },
+
+
+    //profile api
+    updateProfile(name: string, avatar: any) {
+        return instance.put<ResponseType>('auth/me', {name, avatar})
+    },
+
 
     // packsAPI
     getPacks(page: number, pageCount: number, user_id: string | null, sortPacks: string = '1cardsCount', packName: string, min: number, max: number) {
@@ -112,11 +113,11 @@ export const requestsApi = {
         return instance.put(`cards/pack`, {cardsPack: newPackName})
     },
 
+
     // cardsAPI
     getCards(cardsPack_id: string | undefined, pageCount: number, page: number) {
         return instance.get(`cards/card`, {params: {cardsPack_id, pageCount, page}})
     },
-
     addNewCards(packId: string | undefined, name: string) {
         return instance.post(`cards/card`, {card: {cardsPack_id: packId, question: name}})
     },

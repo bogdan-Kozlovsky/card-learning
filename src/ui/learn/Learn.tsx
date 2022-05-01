@@ -9,37 +9,34 @@ import {selectCardsCards, selectPacksCardsPacks, selectSignInisLogin} from "../.
 import {PATH} from "../enums/paths";
 
 export const Learn = memo(() => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const {learnId} = useParams();
+
     const [showAnswer, setShowAnswer] = useState<boolean>(false)
+    const [state, setState] = useState<CardsType | null>(null)
+
+    //selector
     const packs = useAppSelector(selectPacksCardsPacks)
     const cards = useAppSelector(selectCardsCards)
     const isLogin = useAppSelector(selectSignInisLogin)
-    const dispatch = useDispatch();
-    const {learnId} = useParams();
-    const [state, setState] = useState<CardsType | null>(null)
 
-    const a = () => {
+    const getCardHandler = () => {
         const learnData = getCard(cards);
         setState(learnData)
     }
     useEffect(() => {
-        // if (!showAnswer) {
         dispatch(getCardsTC(learnId))
-        // }
     }, [])
 
     useEffect(() => {
-        a()
+        getCardHandler()
     }, [cards])
 
 
     const pack = packs.find((p) => p._id === state?.cardsPack_id)
 
-    const navigate = useNavigate()
-    if (!isLogin) {
-        navigate(`${PATH.LOGIN}`)
-    }
-
-
+    //random card
     const getCard = (cards: CardsType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
         const rand = Math.random() * sum;
@@ -50,12 +47,15 @@ export const Learn = memo(() => {
             , {sum: 0, id: -1});
         return cards[res.id + 1];
     }
-
     const showsAnswer = () => {
         setShowAnswer(true)
     }
     const closeAnswer = () => {
         setShowAnswer(false)
+    }
+
+    if (!isLogin) {
+        navigate(`${PATH.LOGIN}`)
     }
     return (
         <div className={style.body}>
@@ -65,7 +65,8 @@ export const Learn = memo(() => {
                         showAnswer
                             ? <div>
                                 <LearnAnswer question={state?.question} answer={state?.answer} name={pack?.name}
-                                             learn_id={state?._id || ''} closeAnswer={closeAnswer} a={a}
+                                             learn_id={state?._id || ''} closeAnswer={closeAnswer}
+                                             getCardHandler={getCardHandler}
                                 />
                             </div>
                             : <div className={style.bodyWrap}>
@@ -75,7 +76,7 @@ export const Learn = memo(() => {
                                         className={style.questionSpan}>Question:</span> {state?.question}</p>
                                 </div>
                                 <div className={style.wrapperBtn}>
-                                    <NavLink className={'grayBtn'} to={'/packs_list'}>Close</NavLink>
+                                    <NavLink className={'grayBtn'} to={PATH.PACKS}>Close</NavLink>
                                     <button className={style.btnBlue} onClick={showsAnswer}>Show answer</button>
                                 </div>
                             </div>

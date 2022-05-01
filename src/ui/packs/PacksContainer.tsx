@@ -10,7 +10,7 @@ import {
     setSortPacksAC
 } from "../../bll/reducers/packs-reducer";
 import useDebounce, {useAppSelector} from "../common/hook/hook";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {
     selectPacksCardsPacksTotalCount,
     selectPacksParams,
@@ -21,17 +21,19 @@ import {Packs} from "./Packs";
 import {PATH} from "../enums/paths";
 
 export const PacksContainer = memo(() => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    //selector
     const myId = useAppSelector(selectProfileProfileId)
     const {page, sortPacks, user_id, packName, min, max} = useAppSelector(selectPacksParams)
     const isLogin = useAppSelector(selectSignInisLogin)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const [overlay, setOverlay] = useState(false);
+
+    const [isOverlay, setIsOverlay] = useState<boolean>(false);
     const [title, setTitle] = useState<string>('')
     const [activeBtn, setActiveBtn] = useState<string>('all')
 
-    const debounceMin = useDebounce(min, 700)
-    const debounceMax = useDebounce(max, 700)
+
 
     //search
     const [value, setValue] = useState<string>('')
@@ -42,8 +44,11 @@ export const PacksContainer = memo(() => {
         setValue('')
     }
 
-
+    const debounceMin = useDebounce(min, 700)
+    const debounceMax = useDebounce(max, 700)
     const setSearch = useDebounce(value, 800)
+
+
 
     useEffect(() => {
         dispatch(getPacksTC())
@@ -65,7 +70,7 @@ export const PacksContainer = memo(() => {
     //add Packs
     const handlerNewPacks = () => {
         dispatch(addPacksTC(title))
-        setOverlay(false)
+        setIsOverlay(false)
     }
 
     // sorting between own and shared Packs
@@ -86,13 +91,10 @@ export const PacksContainer = memo(() => {
     }
     const [open, setOpen] = useState<boolean>(false)
 
-    //спросить у ментора много перерисовок
-    console.log(open)
-    /////////////////////////////////////////
 
     //add show modal
     const showModal = () => {
-        setOverlay(true)
+        setIsOverlay(true)
     }
 
     // get new name pack onChange
@@ -123,8 +125,8 @@ export const PacksContainer = memo(() => {
         <>
             <Packs
                 handlerNewPacks={handlerNewPacks}
-                overlay={overlay}
-                setOverlay={setOverlay}
+                overlay={isOverlay}
+                setOverlay={setIsOverlay}
                 title={title}
                 getNewNamePackChange={getNewNamePackChange}
                 myPacks={myPacks}

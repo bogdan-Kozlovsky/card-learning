@@ -8,13 +8,18 @@ import {selectAuthNewPasswordValue} from "../../../bll/selectors";
 import {useAppSelector} from "../../common/hook/hook";
 import {SuperInputPassword} from "../../common/SuperInput/SuperInputPassword";
 import {PATH} from "../../enums/paths";
+import style from './newPassword.module.css'
 
 export const NewPassword = memo(() => {
-    const newPasswordValue = useAppSelector(selectAuthNewPasswordValue)
     const dispatch = useDispatch()
     const {token} = useParams()
+
+    //selector
+    const newPasswordValue = useAppSelector(selectAuthNewPasswordValue)
+
     const [password, setPassword] = useState<string>('Stupid23Stupid')
 
+    //callback
     const onChangeHandlerPassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value);
     };
@@ -39,7 +44,7 @@ export const NewPassword = memo(() => {
                     {' '}
                     Create new password and we will send you further instructions to email
                 </p>
-                <SuperButton name={'Create new password'} className='btnBlue' onClick={sendData}/>
+                <SuperButton name={'Create new password'} className={`btnBlue ${style.btn}`} onClick={sendData}/>
             </div>
         </div>
     );

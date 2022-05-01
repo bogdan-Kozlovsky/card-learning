@@ -23,8 +23,8 @@ export const App = memo(() => {
         }
     }, [])
 
-    if(!initialized){
-        return <InitializingLoader />
+    if (!initialized) {
+        return <InitializingLoader/>
     }
 
     return (

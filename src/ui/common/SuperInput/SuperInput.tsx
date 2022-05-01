@@ -1,30 +1,27 @@
-import React, {ChangeEvent, DetailedHTMLProps, KeyboardEvent, InputHTMLAttributes, memo, useState} from 'react';
-import openShow from '../../assets/images/openShow.svg'
-import closeShow from '../../assets/images/closeShow.svg'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, memo} from 'react';
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 
 type SuperInputPropsType = DefaultInputPropsType & { // и + ещё пропсы которых нет в стандартном инпуте
-    onChangeText?: (value: string) => void
-    type?: string
-    onEnter?: () => void
-    error?: string | null | boolean
-    spanClassName?: string
-    inputClassName?: string
-    handlerShowPassword?: any
+    onChangeText: (value: string) => void
+    type: string
+    onEnter: () => void
+    error: string | null | boolean
+    spanClassName: string
+    inputClassName: string
+    handlerShowPassword: any
 };
 
 export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
     const {
-        type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
+        type,
         onChange, onChangeText,
         onKeyPress, onEnter,
         error,
         className,
         spanClassName, inputClassName,
         ...restProps
-
     } = props
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +30,7 @@ export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
 
         onChangeText && onChangeText(e.currentTarget.value);
     }
+
     const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
         onKeyPress && onKeyPress(e);
 
@@ -48,7 +46,7 @@ export const SuperInput = memo((props: Partial<SuperInputPropsType>) => {
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
                 className={className}
-                {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
+                {...restProps}
             />
         </>
     );

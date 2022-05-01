@@ -4,16 +4,7 @@ import {AppRootStateType} from "../store";
 import {Dispatch} from "redux";
 import {getStatusAC, setAppErrorAC} from "./app-reducer";
 
-// export type initialStateType = {
-//     cards: CardsType[],
-//     cardsTotalCount: number
-//     maxGrade: number
-//     minGrade: number
-//     page: number
-//     pageCount: number
-//     packUserId: string
-// }
-
+///////////////////////////////////////////// type ////////////////////////////////////////////
 type InitialStateType = typeof initialState
 
 export type CardsType = {
@@ -29,25 +20,6 @@ export type CardsType = {
     more_id: string
     rating: number
 }
-const initialState = {
-    cards: [] as CardsType[],
-    cardsTotalCount: 1,
-    maxGrade: 0,
-    minGrade: 0,
-    page: 1,
-    packUserId: "5eecf82a3ed8f700042f1186",
-    params: {
-        cardAnswer: '',
-        cardQuestion: '',
-        cardsPack_id: '',
-        min: 0,
-        max: 9,
-        sortCards: '0updated',
-        page: 1,
-        pageCount: 7,
-    } as CardsParamsType,
-}
-
 export type CardsParamsType = {
     cardAnswer: string,
     cardQuestion: string,
@@ -75,6 +47,27 @@ type ActionType =
     | ReturnType<typeof setAppErrorAC>
     | ReturnType<typeof setGradeCardAC>
 
+///////////////////////////////////////////// initial state ////////////////////////////////////////////
+const initialState = {
+    cards: [] as CardsType[],
+    cardsTotalCount: 1,
+    maxGrade: 0,
+    minGrade: 0,
+    page: 1,
+    packUserId: "5eecf82a3ed8f700042f1186",
+    params: {
+        cardAnswer: '',
+        cardQuestion: '',
+        cardsPack_id: '',
+        min: 0,
+        max: 9,
+        sortCards: '0updated',
+        page: 1,
+        pageCount: 7,
+    } as CardsParamsType,
+}
+
+///////////////////////////////////////////// reducer ////////////////////////////////////////////
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case "APP/INITIALIZED_CARDS": {
@@ -86,16 +79,13 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                     ...state.params, page: action.value
                 }
             }
-        // case "CARDS/SET-GRADE-CARD":{
-        //   return state.cards.map(el=>el._id===action.value._id ? el.grade = action.value.grade : el)
-        // }
         default: {
             return state
         }
     }
 }
-/////////action///////////
 
+///////////////////////////////////////////// action creator ////////////////////////////////////////////
 export const initializedCardsAC = (cards: CardsType[]) => {
     return {
         type: 'APP/INITIALIZED_CARDS', payload: cards
@@ -115,8 +105,7 @@ export const setGradeCardAC = (value: UpdatedGradeType) => {
     } as const
 }
 
-////////////thunk////////////////////
-
+///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
 export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, getState) => {
     dispatch(getStatusAC('loading'))
     const {page, pageCount} = getState().cards.params
@@ -131,9 +120,7 @@ export const getCardsTC = (packId: string | undefined): ThunkType => (dispatch, 
             dispatch(getStatusAC('succeeded'))
         })
 }
-
 export const addCardsTC = (packId: string | undefined, title: string): ThunkType => (dispatch) => {
-
     requestsApi.addNewCards(packId, title)
         .then(res => {
             dispatch(getCardsTC(packId))
@@ -143,9 +130,7 @@ export const addCardsTC = (packId: string | undefined, title: string): ThunkType
         })
 
 }
-
 export const deleteCardTC = (packId: string | undefined, cardId: string | undefined): ThunkType => (dispatch) => {
-
     requestsApi.deleteCard(cardId)
         .then(res => {
             dispatch(getCardsTC(packId))
@@ -154,7 +139,6 @@ export const deleteCardTC = (packId: string | undefined, cardId: string | undefi
             dispatch(setAppErrorAC(error.response.data.error))
         })
 }
-
 export const updateCardTC = (packId: string | undefined, _id: string, updateName: string): ThunkType => (dispatch) => {
     const card = {
         _id: _id,
@@ -168,7 +152,6 @@ export const updateCardTC = (packId: string | undefined, _id: string, updateName
             dispatch(setAppErrorAC(error.response.data.error))
         })
 }
-
 export const gradeTC = (grade: number, card_id: string): ThunkType => (dispatch) => {
     const payload = {
         grade,

@@ -8,6 +8,7 @@ import style from './pack.module.css'
 import learning from '../../assets/images/icons/learning.svg'
 import {DeleteModal} from "../../common/hook/DeleteModal";
 import {AddUpdateModal} from "../../common/hook/AddUpdateModal";
+import {PATH} from "../../enums/paths";
 
 type propsType = {
     name: string
@@ -71,7 +72,7 @@ export const Pack = memo((props: propsType) => {
             <div>
                 <ul className={style.packBox}>
                     <li className={style.packItem}>
-                        <NavLink to={`/packs_list_cards/${packId}`} className={style.packName}>{name}</NavLink>
+                        <NavLink to={`${PATH.CARDS}/${packId}`} className={style.packName}>{name}</NavLink>
                     </li>
                     <li className={style.packItem}>
                         <p>{cardsCount}</p>

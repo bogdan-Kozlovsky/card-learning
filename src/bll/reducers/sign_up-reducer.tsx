@@ -1,8 +1,7 @@
-///////////////////////////////////////////// type ////////////////////////////////////////////
 import {Dispatch} from "redux";
 import {requestsApi} from "../../dal/api";
 import {setAppErrorAC} from "./app-reducer";
-
+///////////////////////////////////////////// type ////////////////////////////////////////////
 type InitialStateType = {
     isRegistration: boolean
     registerError: string
@@ -36,7 +35,6 @@ export const signUpAC = (value: boolean) => {
 }
 
 ///////////////////////////////////////////// thunk creator ////////////////////////////////////////////
-
 export const requestRegistrationTC = (data: { email: string, password: string }) => (dispatch: Dispatch) => {
     requestsApi.registrationRequest(data)
         .then((res) => {

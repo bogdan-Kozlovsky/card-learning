@@ -21,7 +21,6 @@ export const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
 
     }
 
-
     return (
         <input
             type={'checkbox'}

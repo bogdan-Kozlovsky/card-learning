@@ -23,7 +23,6 @@ type ProfilePropsType = {
 export const Profile = memo((props: ProfilePropsType) => {
     const {
         overlay,
-        closeModal,
         getNewNameProfileName,
         updateProfile,
         title,
@@ -35,7 +34,6 @@ export const Profile = memo((props: ProfilePropsType) => {
         email,
     } = props
 
-    const initialized = useAppSelector(selectAppInitialized)
     return (
         <div className="container">
             <div className={style.wrapperBox}>
@@ -67,7 +65,6 @@ export const Profile = memo((props: ProfilePropsType) => {
                     </div>
                     <button className={`${style.btn} btnBlue`} onClick={showModal}>edit</button>
                 </div>
-                {/*<div className={style.rightBox}>boom</div>*/}
             </div>
         </div>
     );

@@ -16,9 +16,11 @@ import {checkValidation} from "../../common/checkValidation";
 
 
 export const Registration = memo(() => {
+    const dispatch = useDispatch()
+
+    //selector
     const isRegistration = useAppSelector(selectSignUpIsRegistration)
 
-    const dispatch = useDispatch()
     const [disable, setDisable] = useState<boolean>(false)
     const [isShownVoice, setIsShownVoice] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
@@ -42,9 +44,6 @@ export const Registration = memo(() => {
         },
     })
 
-    if (isRegistration) {
-        return <Navigate to={PATH.LOGIN}/>
-    }
     // callBack
     const onHandlerShow = () => {
         handlerShowPassword()
@@ -52,6 +51,10 @@ export const Registration = memo(() => {
     }
     const handlerShowPassword = () => {
         setIsShowPassword(!isShowPassword)
+    }
+
+    if (isRegistration) {
+        return <Navigate to={PATH.LOGIN}/>
     }
 
     return (

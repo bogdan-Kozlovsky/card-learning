@@ -40,7 +40,7 @@
 
 /*@keyframes rotate-one {*/
 /*    0% {*/
-/*        transform: rota(35deg) rotateY(-45deg) rotateZ(0deg);*/
+/*        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);*/
 /*    }*/
 /*    100% {*/
 /*        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);*/

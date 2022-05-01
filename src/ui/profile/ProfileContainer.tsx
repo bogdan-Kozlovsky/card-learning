@@ -8,30 +8,32 @@ import {useNavigate} from "react-router-dom";
 import {PATH} from "../enums/paths";
 
 export const ProfileContainer = memo(() => {
-    console.log('ProfileContainer')
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [overlay, setOverlay] = useState(false);
-    const {name, avatar, email, ...props} = useAppSelector(selectAuthForgotProfile)
+
+    //selector
+    const {name, avatar, email} = useAppSelector(selectAuthForgotProfile)
     const isLogin = useAppSelector(selectSignInisLogin)
+
+    const [isOverlay, setIsOverlay] = useState<boolean>(false);
     const [title, setTitle] = useState<string>(name)
     const [avatarValue, setAvatar] = useState<string>(avatar)
 
     //add show modal
-
     const showModal = () => {
-        setOverlay(true)
+        setIsOverlay(true)
     }
     const closeModal = () => {
-        setOverlay(false)
+        setIsOverlay(false)
     }
+
     //update profile name
     const updateProfile = () => {
         dispatch(updateProfileTC(title, avatarValue))
         closeModal()
     }
 
-    // get new name profile
+    // get new name profile and avatar (onChange) input
     const getNewNameProfileName = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
@@ -39,12 +41,13 @@ export const ProfileContainer = memo(() => {
         setAvatar(e.currentTarget.value)
     }
 
+    //redirects on successful logout request
     if (!isLogin) {
         navigate(`${PATH.LOGIN}`)
     }
     return (
         <>
-            <Profile overlay={overlay}
+            <Profile overlay={isOverlay}
                      closeModal={closeModal}
                      getNewNameProfileName={getNewNameProfileName}
                      updateProfile={updateProfile}
@@ -55,7 +58,7 @@ export const ProfileContainer = memo(() => {
                      showModal={showModal}
                      avatarValue={avatarValue}
                      getNewNameProfileAvatar={getNewNameProfileAvatar}
-                     setOverlay={setOverlay}
+                     setOverlay={setIsOverlay}
             />
         </>
     )

@@ -1,8 +1,8 @@
-///////////////////////////////////////////// type ////////////////////////////////////////////
 import {ProfileType, requestsApi} from "../../dal/api";
 import {Dispatch} from "redux";
 import {setAppErrorAC} from "./app-reducer";
 
+///////////////////////////////////////////// type ////////////////////////////////////////////
 export type InitialStateType = {
     profile: ProfileType
     myId: null | string
@@ -69,10 +69,16 @@ const userDateAC = (data: ProfileType) => {
         type: 'PROFILE/USER_DATE', data
     } as const
 }
-const updateProfileAC = (data: ProfileType) =>
-    ({type: 'PROFILE/UPDATE_PROFILE', data} as const)
-export const updateProfileNameAC = (name: string) =>
-    ({type: 'PROFILE/UPDATE_PROFILE_NAME', name} as const)
+const updateProfileAC = (data: ProfileType) => {
+    return {
+        type: 'PROFILE/UPDATE_PROFILE', data
+    } as const
+}
+export const updateProfileNameAC = (name: string) => {
+    return {
+        type: 'PROFILE/UPDATE_PROFILE_NAME', name
+    } as const
+}
 export const setIdProfileAC = (myId: string | null) => {
     return {
         type: 'PROFILE-SET_MY_ID', myId
@@ -80,7 +86,7 @@ export const setIdProfileAC = (myId: string | null) => {
 }
 
 
-///////////////////////////////////////////// Thunk ////////////////////////////////////////////
+///////////////////////////////////////////// Thunk creator////////////////////////////////////////////
 export const updateProfileTC = (name: string, avatar: any) => (dispatch: Dispatch) => {
     requestsApi.updateProfile(name, avatar)
         .then(res => {
@@ -90,6 +96,4 @@ export const updateProfileTC = (name: string, avatar: any) => (dispatch: Dispatc
         .catch(error => {
             dispatch(setAppErrorAC(error.response.data.error))
         })
-
-
 }

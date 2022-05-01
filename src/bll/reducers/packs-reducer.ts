@@ -4,15 +4,12 @@ import {Dispatch} from "redux";
 import {AppRootStateType} from "../store";
 import {getStatusAC, setAppErrorAC} from "./app-reducer";
 
+///////////////////////////////////////////// type ////////////////////////////////////////////
 type ThunkType = ThunkAction<void, AppRootStateType, Dispatch<ActionType>, ActionType>
-
 type InitialStateType = typeof initialState
-
-
 export type PackType = {
     cardsCount: number | null
     created: Date | null
-    // deckCover: string | null
     grade: number | null
     more_id: string | null
     name: string

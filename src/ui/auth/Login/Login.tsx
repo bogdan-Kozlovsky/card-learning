@@ -20,6 +20,8 @@ export const Login = memo(() => {
     const dispatch = useDispatch()
     const [disable, setDisable] = useState<boolean>(false)
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
+
+    //selector
     const isLogin = useAppSelector(selectSignInisLogin)
 
     // @ts-ignore
@@ -40,7 +42,7 @@ export const Login = memo(() => {
     })
 
     //open voice
-    const [isShownVoice, setIsShownVoice] = useState(false);
+    const [isShownVoice, setIsShownVoice] = useState<boolean>(false);
     const onHandlerShow = () => {
         handlerShowPassword()
         setIsShownVoice(!isShownVoice)
@@ -92,13 +94,13 @@ export const Login = memo(() => {
                     </label>
 
                     <div className={style.wrapperLink}>
-                        <NavLink to={'/recovery-password'} className={style.forgotLink}>
+                        <NavLink to={PATH.PASSWORD_RECOVERY} className={style.forgotLink}>
                             Forgot Password
                         </NavLink>
                     </div>
                     <button disabled={disable} className={`${style.btn} btnBlue`}>Login</button>
                     <div className='wrapperLinkCenter'>
-                        <NavLink to={'/register'} className={style.forgotLink}>
+                        <NavLink to={PATH.REGISTRATION} className={style.forgotLink}>
                             Sign Up
                         </NavLink>
                     </div>

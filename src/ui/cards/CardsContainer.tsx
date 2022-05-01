@@ -1,37 +1,23 @@
 import React, {ChangeEvent, memo, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {addCardsTC, getCardsTC, setCardsCurrentPageAC} from "../../bll/reducers/cards-reducer";
-import {NavLink, useParams} from "react-router-dom";
-import {Card} from "./card/Card";
-import redirectIcons from '../assets/images/icons/leftCards.svg'
-import style from './cards.module.css'
-import {Paginator} from "../common/Paginator/Paginator";
-import {SuperModal} from "../common/SuperModal/SuperModal";
-import {ErrorSnackbar} from "../error/Error";
+import {useParams} from "react-router-dom";
 import {
-    selectCardsCards,
     selectCardsCardsCardsTotalCount,
     selectCardsCardsParamsPageCount,
-    selectCardsCardsTotalCount,
-    selectProfileProfileId
+    selectCardsCardsTotalCount
 } from "../../bll/selectors";
 import {useAppSelector} from "../common/hook/hook";
-import {AddUpdateModal} from "../common/hook/AddUpdateModal";
 import {Cards} from "./Cards";
 
 export const CardsContainer = memo(() => {
-    const cardsTotalCount = useAppSelector(selectCardsCardsTotalCount)
-    const {pageCount} = useAppSelector(selectCardsCardsParamsPageCount)
-    const cardsTotalCountNum = useAppSelector(selectCardsCardsCardsTotalCount)
-
     const dispatch = useDispatch()
     const {packId} = useParams()
 
-
-    useEffect(() => {
-        dispatch(getCardsTC(packId))
-    }, [])
-
+    //selector
+    const cardsTotalCount = useAppSelector(selectCardsCardsTotalCount)
+    const {pageCount} = useAppSelector(selectCardsCardsParamsPageCount)
+    const cardsTotalCountNum = useAppSelector(selectCardsCardsCardsTotalCount)
 
     //pagination
     const totalPages = Math.ceil(cardsTotalCountNum / pageCount)
@@ -58,6 +44,10 @@ export const CardsContainer = memo(() => {
         dispatch(addCardsTC(packId, title))
         closeModal()
     }
+
+    useEffect(() => {
+        dispatch(getCardsTC(packId))
+    }, [])
 
     return (
         <>

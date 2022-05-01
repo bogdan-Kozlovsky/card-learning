@@ -13,24 +13,32 @@ type LearnAnswerPropsType = {
     name: string | undefined
     question: string | undefined
     answer: string | undefined
-    a: any
+    getCardHandler: any
 }
 
 export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
-    const dispatch = useDispatch()
-    const {learn_id, name, question, answer, closeAnswer} = props
 
+    const {
+        learn_id,
+        name,
+        question,
+        answer,
+        closeAnswer
+    } = props
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    //selector
     const isLogin = useAppSelector(selectSignInisLogin)
     const [valueInput, setValueInput] = useState<string>('')
 
     const nextCard = () => {
         dispatch(gradeTC(+valueInput, learn_id))
-        props.a()
+        props.getCardHandler()
         closeAnswer()
     }
 
-
-    const navigate = useNavigate()
     if (!isLogin) {
         navigate(`${PATH.LOGIN}`)
     }
@@ -62,7 +70,7 @@ export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
                     </div>
 
                     <div className={style.wrapperBtn}>
-                        <NavLink className={'grayBtn'} to={'/packs_list'}>Close</NavLink>
+                        <NavLink className={'grayBtn'} to={PATH.PACKS}>Close</NavLink>
                         <button className={style.btnBlue} onClick={nextCard}>Next</button>
                     </div>
                 </div>

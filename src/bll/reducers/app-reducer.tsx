@@ -1,8 +1,8 @@
-///////////////////////////////////////////// type ////////////////////////////////////////////
 import {Dispatch} from "redux";
 import {requestsApi} from "../../dal/api";
 import {isLoginAC} from "./sign_in-reducer";
 
+///////////////////////////////////////////// type ////////////////////////////////////////////
 export type RequestStatusType = 'loading' | 'succeeded'
 export type InitialStateType = {
     initialized: boolean

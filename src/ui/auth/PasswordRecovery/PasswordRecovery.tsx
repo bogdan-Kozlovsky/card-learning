@@ -11,11 +11,14 @@ import {useAppSelector} from "../../common/hook/hook";
 import {PATH} from "../../enums/paths";
 
 export const PasswordRecovery = memo(() => {
+    const dispatch = useDispatch()
+
+    //selector
     const forgotValue = useAppSelector(selectAuthForgotValue)
 
     const [email, setEmail] = useState<string>("maxcardbogdan@gmail.com")
 
-    const dispatch = useDispatch()
+    //send an email to reset your password
     const data = {
         email,
         from: 'test-front-admin <ai73a@yandex.by>',
@@ -25,7 +28,7 @@ export const PasswordRecovery = memo(() => {
         </div>`
     }
 
-
+//callback
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
     }
@@ -53,9 +56,6 @@ export const PasswordRecovery = memo(() => {
                 </p>
                 <SuperButton name={'Send Instructions'} onClick={onClickHandler} className={`btnBlue ${style.btn}`}/>
                 <div className='wrapperLinkCenter'>
-                    {/*<NavLink to={'/auth-email-password'} className={style.forgotLinkOpacity}>*/}
-                    {/*    Did you remember your password?*/}
-                    {/*</NavLink>*/}
                 </div>
                 <div className='wrapperLinkCenter'>
                     <NavLink to={PATH.LOGIN} className={style.forgotLink}>

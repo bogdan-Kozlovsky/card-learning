@@ -13,7 +13,6 @@ type UpdateProfilePropsTYpe = {
 export const SuperModal:FC<UpdateProfilePropsTYpe> = memo((props: UpdateProfilePropsTYpe) => {
     const {closeModal, titleName, children} = props
 
-
     return (
         <div onClick={closeModal}>
             <div className={style.wrapper}>
