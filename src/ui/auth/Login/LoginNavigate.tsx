@@ -1,13 +1,15 @@
-import {FC} from "react";
-import {Navigate} from "react-router-dom";
-import {useAppSelector} from "../../common/hook/hook";
-import {selectAppInitialized} from "../../../bll/selectors";
-import {PATH} from "../../enums/paths";
+import { FC } from 'react';
 
-export const LoginNavigate: FC = ({children}) => {
-    //selector
-    const initialized = useAppSelector(selectAppInitialized)
+import { Navigate } from 'react-router-dom';
 
-    if (!initialized) return <Navigate to={PATH.LOGIN}/>
-    return <>{children}</>
-}
+import { selectAppInitialized } from '../../../bll/selectors';
+import { useAppSelector } from '../../common/hook/hook';
+import { PATH } from '../../enums/paths';
+
+export const LoginNavigate: FC = ({ children }) => {
+  // selector
+  const initialized = useAppSelector(selectAppInitialized);
+
+  if (!initialized) return <Navigate to={PATH.LOGIN} />;
+  return <div>{children}</div>;
+};
