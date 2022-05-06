@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/card-learning/static/css/main.38f961e4.css",
-    "main.js": "/card-learning/static/js/main.0bceb52f.js",
+    "main.css": "/card-learning/static/css/main.85161ad0.css",
+    "main.js": "/card-learning/static/js/main.f58f2238.js",
     "static/media/Group 281.svg": "/card-learning/static/media/Group 281.bc3a4042aa92b59c4f9009cd85275c1f.svg",
     "static/media/logo.svg": "/card-learning/static/media/logo.5ecad2d2c0bd7b101018de34cd95beae.svg",
     "static/media/cards.svg": "/card-learning/static/media/cards.5a0e10ee90b54fc6cd22877e43a15e88.svg",
@@ -18,11 +18,11 @@
     "static/media/downArrow.svg": "/card-learning/static/media/downArrow.02c96013478185bda20cda74745557b7.svg",
     "static/media/search.svg": "/card-learning/static/media/search.b2ad604040d1d36289e57f61a861ec22.svg",
     "static/media/leftCards.svg": "/card-learning/static/media/leftCards.54207b2980736812c0f011c2eaf8478a.svg",
-    "main.38f961e4.css.map": "/card-learning/static/css/main.38f961e4.css.map",
-    "main.0bceb52f.js.map": "/card-learning/static/js/main.0bceb52f.js.map"
+    "main.85161ad0.css.map": "/card-learning/static/css/main.85161ad0.css.map",
+    "main.f58f2238.js.map": "/card-learning/static/js/main.f58f2238.js.map"
   },
   "entrypoints": [
-    "static/css/main.38f961e4.css",
-    "static/js/main.0bceb52f.js"
+    "static/css/main.85161ad0.css",
+    "static/js/main.f58f2238.js"
   ]
 }
