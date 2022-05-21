@@ -186,7 +186,7 @@ ul {
     right: 40px;
 }
 
-.grayBtn{
+.grayBtn {
     background: #D7D8EF;
     border-radius: 30px;
     padding: 9px 35px;
@@ -201,7 +201,7 @@ ul {
     right: 0px;
 }
 
-.logoutBtn{
+.logoutBtn {
     height: 60px;
     width: 173px;
     display: flex;
@@ -247,7 +247,7 @@ ul {
 
 /*//App*/
 
-.App{
+.App {
     height: 100vh;
 }
 
