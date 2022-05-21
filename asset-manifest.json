@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/card-learning/static/css/main.85161ad0.css",
-    "main.js": "/card-learning/static/js/main.f58f2238.js",
+    "main.css": "/card-learning/static/css/main.f49546da.css",
+    "main.js": "/card-learning/static/js/main.f442174f.js",
     "static/media/Group 281.svg": "/card-learning/static/media/Group 281.bc3a4042aa92b59c4f9009cd85275c1f.svg",
     "static/media/logo.svg": "/card-learning/static/media/logo.5ecad2d2c0bd7b101018de34cd95beae.svg",
     "static/media/cards.svg": "/card-learning/static/media/cards.5a0e10ee90b54fc6cd22877e43a15e88.svg",
@@ -11,6 +11,7 @@
     "static/media/learning.svg": "/card-learning/static/media/learning.d2aed4c0ccc7f41a079425b7d7761ca2.svg",
     "static/media/delete.svg": "/card-learning/static/media/delete.8a554a830c70c649c95df5ad1a1d5c01.svg",
     "static/media/openShow.svg": "/card-learning/static/media/openShow.5b868a138f840b91e6fb82dffb0d8f13.svg",
+    "static/media/preloader.svg": "/card-learning/static/media/preloader.372df10a60f07b43944ff6474924db20.svg",
     "static/media/profile.svg": "/card-learning/static/media/profile.b368f342579c89436990dfcddf8ec1ea.svg",
     "index.html": "/card-learning/index.html",
     "static/media/closeShow.svg": "/card-learning/static/media/closeShow.5330f7c33c2f5cff6973dd7997a5010c.svg",
@@ -18,11 +19,11 @@
     "static/media/downArrow.svg": "/card-learning/static/media/downArrow.02c96013478185bda20cda74745557b7.svg",
     "static/media/search.svg": "/card-learning/static/media/search.b2ad604040d1d36289e57f61a861ec22.svg",
     "static/media/leftCards.svg": "/card-learning/static/media/leftCards.54207b2980736812c0f011c2eaf8478a.svg",
-    "main.85161ad0.css.map": "/card-learning/static/css/main.85161ad0.css.map",
-    "main.f58f2238.js.map": "/card-learning/static/js/main.f58f2238.js.map"
+    "main.f49546da.css.map": "/card-learning/static/css/main.f49546da.css.map",
+    "main.f442174f.js.map": "/card-learning/static/js/main.f442174f.js.map"
   },
   "entrypoints": [
-    "static/css/main.85161ad0.css",
-    "static/js/main.f58f2238.js"
+    "static/css/main.f49546da.css",
+    "static/js/main.f442174f.js"
   ]
 }
