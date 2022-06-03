@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
-import { requestRegistrationTC } from '../../../bll/reducers/sign_up-reducer';
+import { requestRegistrationTC } from '../../../bll/middlewares/signUp/requestRegistrationTC';
 import { selectSignUpIsRegistration } from '../../../bll/selectors';
 import closeShow from '../../assets/images/closeShow.svg';
 import openShow from '../../assets/images/openShow.svg';

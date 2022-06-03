@@ -3,7 +3,8 @@ import React, { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 
-import { CardsType, getCardsTC } from '../../bll/reducers/cards-reducer';
+import { getCardsTC } from '../../bll/middlewares/cards/getCardsTC';
+import { CardsType } from '../../bll/reducers/cards/types';
 import {
   selectCardsCards,
   selectPacksCardsPacks,

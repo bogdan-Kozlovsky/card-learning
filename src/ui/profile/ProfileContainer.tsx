@@ -3,7 +3,7 @@ import React, { ChangeEvent, memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { updateProfileTC } from '../../bll/reducers/profile-reducer';
+import { updateProfileTC } from '../../bll/middlewares/profile/updateProfileTC';
 import { selectAuthForgotProfile, selectSignInisLogin } from '../../bll/selectors';
 import { useAppSelector } from '../common/hook/hook';
 import { PATH } from '../enums/paths';

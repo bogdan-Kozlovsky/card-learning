@@ -2,7 +2,8 @@ import React, { ChangeEvent, memo, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteCardTC, updateCardTC } from '../../../bll/reducers/cards-reducer';
+import { deleteCardTC } from '../../../bll/middlewares/cards/deleteCardTC';
+import { updateCardTC } from '../../../bll/middlewares/cards/updateCardTC';
 import deleteIcon from '../../assets/images/icons/delete.svg';
 import updatePack from '../../assets/images/icons/update.svg';
 import { AddUpdateModal } from '../../common/hook/AddUpdateModal';

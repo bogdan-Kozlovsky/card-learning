@@ -3,11 +3,9 @@ import React, { ChangeEvent, memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {
-  addCardsTC,
-  getCardsTC,
-  setCardsCurrentPageAC,
-} from '../../bll/reducers/cards-reducer';
+import { setCardsCurrentPageAC } from '../../bll/actionCreator/cards/actionCreator';
+import { addCardsTC } from '../../bll/middlewares/cards/addCardsTC';
+import { getCardsTC } from '../../bll/middlewares/cards/getCardsTC';
 import {
   selectCardsCardsCardsTotalCount,
   selectCardsCardsParamsPageCount,

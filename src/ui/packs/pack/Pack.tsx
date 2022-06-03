@@ -3,7 +3,8 @@ import React, { ChangeEvent, memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { deletePackTC, updatePackNameTC } from '../../../bll/reducers/packs-reducer';
+import { deletePackTC } from '../../../bll/middlewares/packs/deletePackTC';
+import { updatePackNameTC } from '../../../bll/middlewares/packs/updatePackNameTC';
 import deleteIcon from '../../assets/images/icons/delete.svg';
 import learning from '../../assets/images/icons/learning.svg';
 import updatePackName from '../../assets/images/icons/update.svg';

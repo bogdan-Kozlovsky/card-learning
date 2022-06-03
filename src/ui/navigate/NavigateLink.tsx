@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { logoutTC } from '../../bll/reducers/app-reducer';
+import { logoutTC } from '../../bll/middlewares/app/logoutTC';
 import { selectSignInisLogin } from '../../bll/selectors';
 import packIcon from '../assets/images/icons/cards.svg';
 import loginIcon from '../assets/images/icons/login.svg';
@@ -21,7 +21,6 @@ export const NavigateLink = memo(() => {
   const logout = () => {
     dispatch(logoutTC());
   };
-  console.log(isLogin);
   return (
     <ul className={style.navigateList}>
       {!isLogin && (

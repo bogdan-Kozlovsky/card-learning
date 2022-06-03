@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  addPacksTC,
   doubleRangeAC,
-  getPacksTC,
   getUserIdAC,
   setCurrentPageAC,
   setSearchAC,
   setSortPacksAC,
-} from '../../bll/reducers/packs-reducer';
+} from '../../bll/actionCreator/packs/actionCreator';
+import { addPacksTC } from '../../bll/middlewares/packs/addPacksTC';
+import { getPacksTC } from '../../bll/middlewares/packs/getPacksTC';
 import {
   selectPacksCardsPacksTotalCount,
   selectPacksParams,

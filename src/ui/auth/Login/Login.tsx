@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
-import { requestLoginTC } from '../../../bll/reducers/sign_in-reducer';
+import { requestLoginTC } from '../../../bll/middlewares/signIn/requestLoginTC';
 import { selectSignInisLogin } from '../../../bll/selectors';
 import closeShow from '../../assets/images/closeShow.svg';
 import openShow from '../../assets/images/openShow.svg';

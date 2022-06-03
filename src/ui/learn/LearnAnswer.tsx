@@ -3,7 +3,7 @@ import React, { ChangeEvent, memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { gradeTC } from '../../bll/reducers/cards-reducer';
+import { gradeTC } from '../../bll/middlewares/cards/gradeTC';
 import { selectSignInisLogin } from '../../bll/selectors';
 import { useAppSelector } from '../common/hook/hook';
 import { PATH } from '../enums/paths';

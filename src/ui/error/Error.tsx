@@ -4,7 +4,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { useDispatch } from 'react-redux';
 
-import { setAppErrorAC } from '../../bll/reducers/app-reducer';
+import { setAppErrorAC } from '../../bll/actionCreator/app/actionCreator';
 import { selectError } from '../../bll/selectors';
 import { useAppSelector } from '../common/hook/hook';
 

@@ -3,7 +3,7 @@ import React, { ChangeEvent, memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { newPasswordTC } from '../../../bll/reducers/auth-reducer';
+import { newPasswordTC } from '../../../bll/middlewares/auth/newPasswordTC';
 import { selectAuthNewPasswordValue } from '../../../bll/selectors';
 import { useAppSelector } from '../../common/hook/hook';
 import { SuperButton } from '../../common/SuperButton/SuperButton';

@@ -3,7 +3,7 @@ import React, { memo, useEffect } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useDispatch } from 'react-redux';
 
-import { authMeTC } from '../../../bll/reducers/auth-reducer';
+import { authMeTC } from '../../../bll/middlewares/auth/authMeTC';
 import { selectAppInitialized, selectAppStatus } from '../../../bll/selectors';
 import { useAppSelector } from '../../common/hook/hook';
 import useTheme from '../../common/hook/useTheme';
