@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { requestsApi } from '../../dal/api';
+import { packsApi } from '../../dal/packs';
 import { AppRootStateType } from '../store';
 
 import { getStatusAC, setAppErrorAC } from './app-reducer';
@@ -173,7 +173,7 @@ export const getPacksTC = (): ThunkType => (dispatch, getState) => {
   dispatch(getStatusAC('loading'));
   const state = getState().packs;
   const { packName, page, max, min, userId, pageCount, sortPacks } = state.params;
-  requestsApi
+  packsApi
     .getPacks(page, pageCount, userId, sortPacks, packName, min, max)
     .then(res => {
       dispatch(initializedPacksAC(res.data));
@@ -187,9 +187,9 @@ export const getPacksTC = (): ThunkType => (dispatch, getState) => {
 export const addPacksTC =
   (name: string): ThunkType =>
   (dispatch, getState) => {
-    requestsApi
+    packsApi
       .addNewPack(name)
-      .then(res => {
+      .then(() => {
         dispatch(getPacksTC());
       })
       .catch(error => {
@@ -199,9 +199,9 @@ export const addPacksTC =
 export const deletePackTC =
   (idPack: string): ThunkType =>
   (dispatch, getState) => {
-    requestsApi
+    packsApi
       .deletePack(idPack)
-      .then(res => {
+      .then(() => {
         dispatch(getPacksTC());
       })
       .catch(error => {
@@ -215,9 +215,9 @@ export const updatePackNameTC =
       _id: idPack,
       name,
     };
-    requestsApi
+    packsApi
       .updatePackNameTC(newPackName)
-      .then(res => {
+      .then(() => {
         dispatch(getPacksTC());
       })
       .catch(error => {
