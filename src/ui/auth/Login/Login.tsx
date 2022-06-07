@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
 import { requestLoginTC } from '../../../bll/middlewares/signIn/requestLoginTC';
-import { selectSignInisLogin } from '../../../bll/selectors';
+import { selectSignInisLogin } from '../../../bll/selectors/signIn';
 import closeShow from '../../assets/images/closeShow.svg';
 import openShow from '../../assets/images/openShow.svg';
 import { checkValidation } from '../../common/checkValidation';
@@ -20,14 +20,13 @@ import style from './login.module.css';
 
 export const Login = memo(() => {
   const dispatch = useDispatch();
+
   const [disable, setDisable] = useState<boolean>(false);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
-  // selector
   const isLogin = useAppSelector(selectSignInisLogin);
 
-  // @ts-ignore
-  const formik = useFormik({
+  const formik: any = useFormik({
     initialValues: {
       email: 'maxcardbogdan@gmail.com',
       password: 'Stupid23Stupid',

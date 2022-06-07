@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
 import { requestRegistrationTC } from '../../../bll/middlewares/signUp/requestRegistrationTC';
-import { selectSignUpIsRegistration } from '../../../bll/selectors';
+import { selectSignUpIsRegistration } from '../../../bll/selectors/signUp';
 import closeShow from '../../assets/images/closeShow.svg';
 import openShow from '../../assets/images/openShow.svg';
 import { checkValidation } from '../../common/checkValidation';
@@ -20,15 +20,13 @@ import style from './registration.module.css';
 export const Registration = memo(() => {
   const dispatch = useDispatch();
 
-  // selector
   const isRegistration = useAppSelector(selectSignUpIsRegistration);
 
   const [disable, setDisable] = useState<boolean>(false);
   const [isShownVoice, setIsShownVoice] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
-  // @ts-ignore
-  const formik = useFormik({
+  const formik: any = useFormik({
     initialValues: {
       email: 'maxcardbogdan@gmail.com',
       password: 'Stupid23Stupid',

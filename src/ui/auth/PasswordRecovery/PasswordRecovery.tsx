@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Navigate, NavLink } from 'react-router-dom';
 
 import { forgotPasswordTC } from '../../../bll/middlewares/auth/forgotPasswordTC';
-import { selectAuthForgotValue } from '../../../bll/selectors';
+import { selectAuthForgotValue } from '../../../bll/selectors/auth';
 import { useAppSelector } from '../../common/hook/hook';
 import { SuperButton } from '../../common/SuperButton/SuperButton';
 import { SuperInput } from '../../common/SuperInput/SuperInput';
@@ -16,12 +16,10 @@ import style from './passwordRecovery.module.css';
 export const PasswordRecovery = memo(() => {
   const dispatch = useDispatch();
 
-  // selector
   const forgotValue = useAppSelector(selectAuthForgotValue);
 
   const [email, setEmail] = useState<string>('maxcardbogdan@gmail.com');
 
-  // send an email to reset your password
   const data = {
     email,
     from: 'test-front-admin <ai73a@yandex.by>',

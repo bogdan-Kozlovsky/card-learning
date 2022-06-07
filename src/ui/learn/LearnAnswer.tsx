@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { gradeTC } from '../../bll/middlewares/cards/gradeTC';
-import { selectSignInisLogin } from '../../bll/selectors';
+import { selectSignInisLogin } from '../../bll/selectors/signIn';
 import { useAppSelector } from '../common/hook/hook';
 import { PATH } from '../enums/paths';
 
@@ -52,7 +52,6 @@ export const LearnAnswer = memo((props: LearnAnswerPropsType) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // selector
   const isLogin = useAppSelector(selectSignInisLogin);
   const [valueInput, setValueInput] = useState<string>('');
 

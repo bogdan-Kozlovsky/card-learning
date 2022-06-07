@@ -4,7 +4,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { updateProfileTC } from '../../bll/middlewares/profile/updateProfileTC';
-import { selectAuthForgotProfile, selectSignInisLogin } from '../../bll/selectors';
+import {
+  selectAuthForgotProfileAvatar,
+  selectAuthForgotProfileEmail,
+  selectAuthForgotProfileName,
+} from '../../bll/selectors/auth';
+import { selectSignInisLogin } from '../../bll/selectors/signIn';
 import { useAppSelector } from '../common/hook/hook';
 import { PATH } from '../enums/paths';
 
@@ -12,10 +17,12 @@ import { Profile } from './Profile';
 
 export const ProfileContainer = memo(() => {
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
-  // selector
-  const { name, avatar, email } = useAppSelector(selectAuthForgotProfile);
+  const name = useAppSelector(selectAuthForgotProfileName);
+  const avatar = useAppSelector(selectAuthForgotProfileAvatar);
+  const email = useAppSelector(selectAuthForgotProfileEmail);
   const isLogin = useAppSelector(selectSignInisLogin);
 
   const [isOverlay, setIsOverlay] = useState<boolean>(false);

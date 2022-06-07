@@ -4,9 +4,10 @@ import Slider from '@material-ui/core/Slider';
 
 import {
   selectPacksCardsPacks,
-  selectPacksParams,
-  selectProfileProfileId,
-} from '../../bll/selectors';
+  selectPacksParamsMax,
+  selectPacksParamsMin,
+} from '../../bll/selectors/packs';
+import { selectProfileProfileId } from '../../bll/selectors/profile';
 import arrowDown from '../assets/images/icons/downArrow.svg';
 import search from '../assets/images/icons/search.svg';
 import arrowUp from '../assets/images/icons/upArrow.svg';
@@ -62,8 +63,8 @@ export const Packs = memo((props: propsType) => {
     closeHandler,
   } = props;
 
-  // selector
-  const { min, max } = useAppSelector(selectPacksParams);
+  const min = useAppSelector(selectPacksParamsMin);
+  const max = useAppSelector(selectPacksParamsMax);
   const pack = useAppSelector(selectPacksCardsPacks);
   const myId = useAppSelector(selectProfileProfileId);
 

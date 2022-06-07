@@ -10,7 +10,7 @@ import {
   selectCardsCardsCardsTotalCount,
   selectCardsCardsParamsPageCount,
   selectCardsCardsTotalCount,
-} from '../../bll/selectors';
+} from '../../bll/selectors/cards';
 import { useAppSelector } from '../common/hook/hook';
 
 import { Cards } from './Cards';
@@ -19,7 +19,6 @@ export const CardsContainer = memo(() => {
   const dispatch = useDispatch();
   const { packId } = useParams();
 
-  // selector
   const cardsTotalCount = useAppSelector(selectCardsCardsTotalCount);
   const { pageCount } = useAppSelector(selectCardsCardsParamsPageCount);
   const cardsTotalCountNum = useAppSelector(selectCardsCardsCardsTotalCount);

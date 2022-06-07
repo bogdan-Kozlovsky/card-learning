@@ -5,7 +5,7 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { useDispatch } from 'react-redux';
 
 import { setAppErrorAC } from '../../bll/actionCreator/app/actionCreator';
-import { selectError } from '../../bll/selectors';
+import { selectError } from '../../bll/selectors/errorMessage';
 import { useAppSelector } from '../common/hook/hook';
 
 const Alert = (props: AlertProps) => (
@@ -13,9 +13,9 @@ const Alert = (props: AlertProps) => (
 );
 
 export const ErrorSnackbar = memo(() => {
+
   const dispatch = useDispatch();
 
-  /// /selector
   const error = useAppSelector(selectError);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {

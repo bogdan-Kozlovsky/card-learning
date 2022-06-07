@@ -4,7 +4,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { useDispatch } from 'react-redux';
 
 import { authMeTC } from '../../../bll/middlewares/auth/authMeTC';
-import { selectAppInitialized, selectAppStatus } from '../../../bll/selectors';
+import { selectAppInitialized, selectAppStatus } from '../../../bll/selectors/app';
 import { useAppSelector } from '../../common/hook/hook';
 import useTheme from '../../common/hook/useTheme';
 import { InitializingLoader } from '../../common/InitializingLoader/InitializingLoader';
@@ -15,10 +15,12 @@ import { Header } from '../Header/Header';
 import style from './App.module.css';
 
 export const App = memo(() => {
-  const status = useAppSelector(selectAppStatus);
-  const { theme, toggleTheme } = useTheme();
   const dispatch = useDispatch();
+
+  const status = useAppSelector(selectAppStatus);
   const initialized = useAppSelector(selectAppInitialized);
+
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (!initialized) {

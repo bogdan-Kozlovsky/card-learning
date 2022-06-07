@@ -5,11 +5,9 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom';
 
 import { getCardsTC } from '../../bll/middlewares/cards/getCardsTC';
 import { CardsType } from '../../bll/reducers/cards/types';
-import {
-  selectCardsCards,
-  selectPacksCardsPacks,
-  selectSignInisLogin,
-} from '../../bll/selectors';
+import { selectCardsCards } from '../../bll/selectors/cards';
+import { selectPacksCardsPacks } from '../../bll/selectors/packs';
+import { selectSignInisLogin } from '../../bll/selectors/signIn';
 import { useAppSelector } from '../common/hook/hook';
 import { PATH } from '../enums/paths';
 
@@ -24,7 +22,6 @@ export const Learn = memo(() => {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const [state, setState] = useState<CardsType | null>(null);
 
-  // selector
   const packs = useAppSelector(selectPacksCardsPacks);
   const cards = useAppSelector(selectCardsCards);
   const isLogin = useAppSelector(selectSignInisLogin);

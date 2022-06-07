@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { logoutTC } from '../../bll/middlewares/app/logoutTC';
-import { selectSignInisLogin } from '../../bll/selectors';
+import { selectSignInisLogin } from '../../bll/selectors/signIn';
 import packIcon from '../assets/images/icons/cards.svg';
 import loginIcon from '../assets/images/icons/login.svg';
 import logoutIcon from '../assets/images/icons/logout.svg';
@@ -15,12 +15,14 @@ import { PATH } from '../enums/paths';
 import style from './navigate.module.css';
 
 export const NavigateLink = memo(() => {
+  const dispatch = useDispatch();
+
   const isLogin = useAppSelector(selectSignInisLogin);
 
-  const dispatch = useDispatch();
   const logout = () => {
     dispatch(logoutTC());
   };
+
   return (
     <ul className={style.navigateList}>
       {!isLogin && (

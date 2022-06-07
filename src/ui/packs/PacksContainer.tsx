@@ -14,10 +14,16 @@ import { addPacksTC } from '../../bll/middlewares/packs/addPacksTC';
 import { getPacksTC } from '../../bll/middlewares/packs/getPacksTC';
 import {
   selectPacksCardsPacksTotalCount,
-  selectPacksParams,
-  selectProfileProfileId,
-  selectSignInisLogin,
-} from '../../bll/selectors';
+  selectPacksPageCount,
+  selectPacksParamsMax,
+  selectPacksParamsMin,
+  selectPacksParamsPackName,
+  selectPacksParamsPage,
+  selectPacksParamsSortPacks,
+  selectPacksParamsUserId,
+} from '../../bll/selectors/packs';
+import { selectProfileProfileId } from '../../bll/selectors/profile';
+import { selectSignInisLogin } from '../../bll/selectors/signIn';
 import useDebounce, { useAppSelector } from '../common/hook/hook';
 import { PATH } from '../enums/paths';
 
@@ -27,10 +33,14 @@ export const PacksContainer = memo(() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // selector
   const myId = useAppSelector(selectProfileProfileId);
-  const { page, sortPacks, userId, packName, min, max } =
-    useAppSelector(selectPacksParams);
+  const page = useAppSelector(selectPacksParamsPage);
+  const sortPacks = useAppSelector(selectPacksParamsSortPacks);
+  const userId = useAppSelector(selectPacksParamsUserId);
+  const packName = useAppSelector(selectPacksParamsPackName);
+  const min = useAppSelector(selectPacksParamsMin);
+  const max = useAppSelector(selectPacksParamsMax);
+
   const isLogin = useAppSelector(selectSignInisLogin);
 
   const [isOverlay, setIsOverlay] = useState<boolean>(false);
@@ -59,7 +69,7 @@ export const PacksContainer = memo(() => {
   }, [setSearch]);
 
   // pagination
-  const { pageCount } = useAppSelector(selectPacksParams);
+  const pageCount = useAppSelector(selectPacksPageCount);
   const cardPacksTotalCount = useAppSelector(selectPacksCardsPacksTotalCount);
   const totalPages = Math.ceil(cardPacksTotalCount / pageCount);
   const handlePageChange = (e: { selected: number }) => {

@@ -2,11 +2,8 @@ import React, { ChangeEvent, memo } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import {
-  selectCardsCards,
-  selectCardsPackUserId,
-  selectProfileProfileId,
-} from '../../bll/selectors';
+import { selectCardsCards, selectCardsPackUserId } from '../../bll/selectors/cards';
+import { selectProfileProfileId } from '../../bll/selectors/profile';
 import redirectIcons from '../assets/images/icons/leftCards.svg';
 import { AddUpdateModal } from '../common/hook/AddUpdateModal';
 import { useAppSelector } from '../common/hook/hook';
@@ -43,7 +40,6 @@ export const Cards = memo((props: propsType) => {
     handlePageChange,
   } = props;
 
-  // selector
   const cards = useAppSelector(selectCardsCards);
   const myUserId = useAppSelector(selectProfileProfileId);
   const packUserId = useAppSelector(selectCardsPackUserId);
